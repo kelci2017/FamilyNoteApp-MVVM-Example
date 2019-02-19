@@ -20,7 +20,7 @@ class AddFamilyMember: NSObject {
         }
         didSet {
             if arrFamilyMembers != nil {
-                arrFamilyMembers += UserDefaults.standard.array(forKey: Constants.UserDefaultsKey.FamilyMember_string.rawValue) as! Array<String>
+                arrFamilyMembers += UserDefaults.standard.array(forKey: Constants.UserDefaultsKey.FamilyMember_string.rawValue) as? Array<String> ?? []
                 UserDefaults.standard.set(arrFamilyMembers, forKey: Constants.UserDefaultsKey.FamilyMember_string.rawValue)
             }
         }

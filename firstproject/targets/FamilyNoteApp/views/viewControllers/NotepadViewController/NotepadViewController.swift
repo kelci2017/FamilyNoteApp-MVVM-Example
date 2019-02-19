@@ -20,7 +20,9 @@ class NotepadViewController: RootViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        noteSubmitVM = NoteSubmit(networkFascilities: networkFascilities!)
+        
         // Do any additional setup after loading the view.
         noteSubmitObservation = noteSubmitVM?.observe(\NoteSubmit.submitResult, options: [.old, .new]) { [weak self] object, change in
            
@@ -33,7 +35,7 @@ class NotepadViewController: RootViewController {
                         self?.noteBodyTextView?.text = ""
                     }
                     else {
-                        self?.showDialog(title: "Oops!", message: NoteSearch.shared.searchResult["resultDesc"] as? String ?? "resultDesc is nil")
+                        self?.showResultErrorAlert(resultCode: resultCode)
                     }
                     
                 }
@@ -47,16 +49,16 @@ class NotepadViewController: RootViewController {
             return
         }
         
-        var jsonNote: NSMutableDictionary? = NSMutableDictionary()
+        let jsonNote: NSMutableDictionary? = NSMutableDictionary()
         let date = Date()
         
         jsonNote?.setValue(senderName.text, forKey: Constants.NoteKey.sender.rawValue)
         jsonNote?.setValue(receiverName.text, forKey: Constants.NoteKey.receiver.rawValue)
         jsonNote?.setValue(noteBodyTextView.text, forKey: Constants.NoteKey.notebody.rawValue)
         jsonNote?.setValue(date, forKey: Constants.NoteKey.createDate.rawValue)
-        jsonNote?.setValue(User.shared.getUserid(), forKey: Constants.NoteKey.userID.rawValue)
+        jsonNote?.setValue(UserDefaults.standard.string(forKey: Constants.UserDefaultsKey.Userid_string.rawValue), forKey: Constants.NoteKey.userID.rawValue)
         
-        jsonNote = noteSubmitVM?.submittedNote
+        noteSubmitVM?.submittedNote = jsonNote
     }
 
 }

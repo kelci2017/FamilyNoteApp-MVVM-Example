@@ -15,6 +15,10 @@ class Constants: NSObject {
         case NoteDate_string = "NoteDate_string"
         case NoteSearch_string = "NoteSearch_string"
         case FamilyMember_string = "FamilyMember_string"
+        case UserName_string = "UserName_string"
+        case Sessionid_string = "Sessionid_string"
+        case Token_string = "Token_string"
+        case Userid_string = "Userid_string"
     }
     
     enum UserLoginCrendentialsKey : String {

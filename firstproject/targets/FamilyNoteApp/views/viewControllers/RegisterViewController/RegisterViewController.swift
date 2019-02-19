@@ -30,6 +30,8 @@ class RegisterViewController: RootViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        registerVM = Register(networkFascilities: networkFascilities!)
+        
         registerObservation = registerVM.observe(\Register.registerResult, options: [.old, .new]) { [weak self] object, change in
    
                 DispatchQueue.main.async { [weak self] in
@@ -54,12 +56,12 @@ class RegisterViewController: RootViewController {
         return
     }
     
-    var jsonRegister: NSMutableDictionary? = NSMutableDictionary()
+    let jsonRegister: NSMutableDictionary? = NSMutableDictionary()
     
     jsonRegister?.setValue(emailTextfield.text, forKey: Constants.UserLoginCrendentialsKey.userName.rawValue)
     jsonRegister?.setValue(enterPasswordTextfield.text, forKey: Constants.UserLoginCrendentialsKey.password.rawValue)
     
-    jsonRegister = registerVM.registerBody
+    registerVM.registerBody = jsonRegister
     
     }
 

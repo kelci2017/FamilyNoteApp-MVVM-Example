@@ -32,12 +32,12 @@ class NetworkUtil: NSObject {
         sessionOwnerState = .active
     }
     
-    class func newSessionId() -> String! {
+    class func newSessionId() -> String {
         let uuidString = NSUUID().uuidString
         return uuidString
     }
     
-    func dataTask(method: NetworkSessionMethod, sURL: String, headers dictHeaders: Dictionary<String, String>?, body dictBody: Dictionary<String, String>?, completion: @escaping (Dictionary<String, Any>?, URLResponse?, Error?) -> ()) {
+    func dataTask(method: NetworkSessionMethod, sURL: String, headers dictHeaders: Dictionary<String, String>?, body dictBody: Dictionary<String, String>?, completion: @escaping (Dictionary<String, Any>?, URLResponse?, Error?) -> ()) -> String {
         let url = URL(string: sURL)
         if url != nil {
             // URLSession.shared.dataTask(with: url!, completionHandler: completion).resume()
@@ -56,13 +56,14 @@ class NetworkUtil: NSObject {
                 request.httpBody = try! JSONSerialization.data(withJSONObject: dictBody!, options: [])
             }
             
+            let sSessionId = NetworkUtil.newSessionId()
+            
             DispatchQueue.main.async {
-                let sSessionId = NetworkUtil.newSessionId()
-                NetworkUtil.mainThread_sessionWillStart(byOwner: self.sessionOwner, withSessionId: sSessionId!)
+                NetworkUtil.mainThread_sessionWillStart(byOwner: self.sessionOwner, withSessionId: sSessionId)
                 _ = URLSession.shared.dataTask(with: request) { (data, urlResponse, error) in
                     DispatchQueue.main.asyncAfter(deadline: (.now() + .seconds(NetworkUtil.debug_resonse_delay)), execute: {
-                        let sessionOwner = NetworkUtil.dictSessions[sSessionId!]
-                        NetworkUtil.mainThread_sessionDidEnd(withSessionId: sSessionId!)
+                        let sessionOwner = NetworkUtil.dictSessions[sSessionId]
+                        NetworkUtil.mainThread_sessionDidEnd(withSessionId: sSessionId)
                         if (sessionOwner != nil) && (self.sessionOwnerState == .active) {
                             if let urlResponse = urlResponse,
                                 let data = data,
@@ -80,8 +81,9 @@ class NetworkUtil: NSObject {
                         }
                     })}.resume()
             }
-            
+            return sSessionId
         }
+        return ""
     }
     
     /**

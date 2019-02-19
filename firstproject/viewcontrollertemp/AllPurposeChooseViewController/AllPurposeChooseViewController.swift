@@ -90,9 +90,9 @@ class AllPurposeChooseViewController: RootViewController, UITableViewDataSource,
             title = arrOptions![indexPath.row]
         }
         cell!.textLabel?.text = title
-        if description != "" {
-            cell!.detailTextLabel?.text = description
-        }
+//        if description != "" {
+//            cell!.detailTextLabel?.text = description
+//        }
         
         return cell!
     }

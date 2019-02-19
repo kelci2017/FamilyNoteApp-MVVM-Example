@@ -26,13 +26,37 @@ class NoteSearch: NSObject {
                 let from = searchArray[0]
                 let to = searchArray[1]
                 let date = searchArray[2]
-                let sessionid = User.shared.getSessionid()
+                let sessionid = UserDefaults.standard.string(forKey: Constants.UserDefaultsKey.Sessionid_string.rawValue)
                 
-                let url = "http://192.168.2.126:4000/notes/search?fromWhom=\(from)&toWhom=\(to)&date=\(date)&sessionid=\(sessionid)"
+                let url = "http://192.168.2.126:4000/notes/search?fromWhom=\(from)&toWhom=\(to)&date=\(date)&sessionid=\(String(describing: sessionid))"
                 
                 networkFascilities?.dataTask(method: .GET, sURL: url, headers: nil, body: nil, completion: { (dictResponse, urlResponse, error) in
-
-                    self.searchResult = dictResponse ?? [:]
+                    if let response = dictResponse?["__RESPONSE__"] {
+                        self.searchResult = response as! Dictionary<String, Any>
+                    }
+                })
+            }
+        }
+    }
+    
+    var sCurrentSearch: String {
+        willSet {
+            if newValue != sCurrentSearch {
+                //
+            }
+        }
+        didSet {
+            if sCurrentSearch != oldValue {
+                
+                let sessionid = UserDefaults.standard.string(forKey: Constants.UserDefaultsKey.Sessionid_string.rawValue)
+                
+                let url = "http://192.168.2.126:4000/notes/globalSearch/\(sCurrentSearch)?sessionid=\(sessionid ?? "")"
+                
+                networkFascilities?.dataTask(method: .GET, sURL: url, headers: nil, body: nil, completion: { (dictResponse, urlResponse, error) in
+                    
+                    if let response = dictResponse?["__RESPONSE__"] {
+                        self.searchResult = response as! Dictionary<String, Any>
+                    }
                 })
             }
         }
@@ -45,19 +69,21 @@ class NoteSearch: NSObject {
     
     private override init () {
         
-        super.init()
-        
         self.networkFascilities = NetworkUtil()
         
-        test()
+        self.sCurrentSearch = ""
+        
+        super.init()
+        
+        //test()
         
     }
     
-    func test() {
-        var arrResultDesc: [Dictionary<String, Any>] = []
-        arrResultDesc.append(["_id": "ff80", "fromWhom": "Kelci", "toWhom": "Alisa", "noteBody": "test", "created":"today morning", "userID": "456a", "__v": 0])
-        arrResultDesc.append(["_id": "733f", "fromWhom": "Kelci", "toWhom": "Alisa", "noteBody": "test", "created":"today noon", "userID": "456a", "__v": 0])
-        searchResult["resultCode"] = 0
-        searchResult["resultDesc"] = arrResultDesc
-    }
+//    func test() {
+//        var arrResultDesc: [Dictionary<String, Any>] = []
+//        arrResultDesc.append(["_id": "ff80", "fromWhom": "Kelci", "toWhom": "Alisa", "noteBody": "test", "created":"today morning", "userID": "456a", "__v": 0])
+//        arrResultDesc.append(["_id": "733f", "fromWhom": "Kelci", "toWhom": "Alisa", "noteBody": "test", "created":"today noon", "userID": "456a", "__v": 0])
+//        searchResult["resultCode"] = 0
+//        searchResult["resultDesc"] = arrResultDesc
+//    }
 }

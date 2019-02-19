@@ -22,56 +22,56 @@ class AddMemberViewController: RootViewController {
     @IBOutlet weak var member9Name: UITextField!
    
     var addFamilyMemberObservation: NSKeyValueObservation?
-    var familyMembersArary : Array<String>?
-    var arrFamilyMembers : Array<String>?
+    var arrFamilyMembers : Array<String> = []
+    var arrSavedFamilyMembers : Array<String> = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         
+        // UserDefaults.standard.set(nil, forKey: Constants.UserDefaultsKey.FamilyMember_string.rawValue)
+        
+        arrSavedFamilyMembers = UserDefaults.standard.array(forKey: Constants.UserDefaultsKey.FamilyMember_string.rawValue) as? Array<String> ?? []
     }
     
     @IBAction func add() {
         
-        arrFamilyMembers = UserDefaults.standard.array(forKey: Constants.UserDefaultsKey.FamilyMember_string.rawValue) as! Array<String>
+        addFamilyMember(name: member1Name.text)
+        addFamilyMember(name: member2Name.text)
+        addFamilyMember(name: member3Name.text)
+        addFamilyMember(name: member4Name.text)
+        addFamilyMember(name: member5Name.text)
+        addFamilyMember(name: member6Name.text)
+        addFamilyMember(name: member7Name.text)
+        addFamilyMember(name: member8Name.text)
+        addFamilyMember(name: member9Name.text)
         
-        if member1Name!.text != nil && !(arrFamilyMembers?.contains(member1Name.text!))! {
-            familyMembersArary?.append(member1Name.text!)
-        }
-        if member2Name!.text != nil && !(arrFamilyMembers?.contains(member2Name.text!))!{
-            familyMembersArary?.append(member2Name.text!)
-        }
-        if member3Name!.text != nil && !(arrFamilyMembers?.contains(member3Name.text!))!{
-            familyMembersArary?.append(member3Name.text!)
-        }
-        if member4Name!.text != nil && !(arrFamilyMembers?.contains(member4Name.text!))!{
-            familyMembersArary?.append(member4Name.text!)
-        }
-        if member5Name!.text != nil && !(arrFamilyMembers?.contains(member5Name.text!))!{
-            familyMembersArary?.append(member5Name.text!)
-        }
-        if member6Name!.text != nil && !(arrFamilyMembers?.contains(member6Name.text!))!{
-            familyMembersArary?.append(member6Name.text!)
-        }
-        if member7Name!.text != nil && !(arrFamilyMembers?.contains(member7Name.text!))!{
-            familyMembersArary?.append(member7Name.text!)
-        }
-        if member8Name!.text != nil && !(arrFamilyMembers?.contains(member8Name.text!))!{
-            familyMembersArary?.append(member8Name.text!)
-        }
-        if member9Name!.text != nil && !(arrFamilyMembers?.contains(member9Name.text!))!{
-            familyMembersArary?.append(member9Name.text!)
+        if arrFamilyMembers.count > 0 {
+            AddFamilyMember.shared.arrFamilyMembers = arrFamilyMembers
         }
         
-        if familyMembersArary != nil {
-            AddFamilyMember.shared.arrFamilyMembers = familyMembersArary!
-            self.dismiss(animated: true, completion: {
-                //
-            })
-            
+        dismiss(animated: true, forceDismissForNavigationRoot: false) { (finished) in
+            //
         }
         
+    }
+    
+    func addFamilyMember(name: String?) {
+        guard name != nil else {
+            return
+        }
+        
+        let name = name!.trimmingCharacters(in: .whitespaces)
+        if name == "" {
+            return
+        }
+        
+        if arrSavedFamilyMembers.contains(name) {
+            return
+        }
+        
+        arrFamilyMembers.append(name)
     }
 
 

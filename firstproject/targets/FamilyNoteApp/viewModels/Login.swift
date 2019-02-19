@@ -29,9 +29,9 @@ class Login: NSObject {
                         self.loginResult = response as! Dictionary<String, Any>
                         if let resultCode = self.loginResult["resultCode"] as? Int {
                             if resultCode == 0 {
-                                User.shared.setToken(token: self.loginResult["token"] as? String)
-                                User.shared.setSessionid(sessionid: self.loginResult["sessionID"] as? String)
-                                User.shared.setUserid(userid: self.loginResult["userID"] as? String)
+                                 UserDefaults.standard.set(self.loginResult["token"] as? String, forKey: Constants.UserDefaultsKey.Token_string.rawValue)
+                                UserDefaults.standard.set(self.loginResult["sessionID"] as? String, forKey: Constants.UserDefaultsKey.Sessionid_string.rawValue)
+                                UserDefaults.standard.set(self.loginResult["userID"] as? String, forKey: Constants.UserDefaultsKey.Userid_string.rawValue)
                             }
                         }
                     }

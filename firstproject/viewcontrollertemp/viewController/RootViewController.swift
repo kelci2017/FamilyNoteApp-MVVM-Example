@@ -133,7 +133,7 @@ class RootViewController: UIViewController, AppL2DelegateProtocol {
     // MARK: - Common Fascilities
     
     func showDialog(title: String, message: String) {
-        CommonUtil.showDialog(title: "Oops!", message: NoteSearch.shared.searchResult["resultDesc"] as? String ?? "resultDesc is nil", viewController: self)
+        CommonUtil.showDialog(title: "Oops!", message: message, viewController: self)
     }
     
     func setNavigationTitleLabel(title: String?, textColor: UIColor?, fontSize: CGFloat) {

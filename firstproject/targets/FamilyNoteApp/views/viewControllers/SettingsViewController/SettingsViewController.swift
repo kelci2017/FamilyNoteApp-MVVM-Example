@@ -35,10 +35,14 @@ class SettingsViewController: RootViewController, UITableViewDataSource, UITable
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        logoutVM = Logout(networkFascilities: networkFascilities!)
         
-        arrSections.append((sectionTitle: "SETTINGS", arrEntries: [(tag: 0, entry: "Check notes from", detail: "", handler: #selector(changeSender)), (tag: 1, entry: "Check notes to", detail: "", handler: #selector(changeReceiver)),(tag: 2, entry: "Check notes date", detail: "", handler: #selector(changeDate)),(tag: 3, entry: "Add family members", detail: "", handler: #selector(addFamilyMembers)), (tag: 4, entry: "Logout", detail: "", handler: #selector(logout))]))
+        arrSections.append((sectionTitle: "SETTINGS", arrEntries: [(tag: 0, entry: "Check notes from", detail: "All", handler: #selector(changeSender)), (tag: 1, entry: "Check notes to", detail: "All", handler: #selector(changeReceiver)),(tag: 2, entry: "Check notes date", detail: "Today", handler: #selector(changeDate)),(tag: 3, entry: "Add family members", detail: "", handler: #selector(addFamilyMembers)), (tag: 4, entry: "Logout", detail: "", handler: #selector(logout))]))
         
         arrSections.append((sectionTitle: "ABOUT", arrEntries: [(tag: 100, entry: "Version", detail: "1.0", handler: #selector(showVersion))]))
+        
+        tableView.dataSource = self
+        tableView.delegate = self
        
         
         // MVVM KVO
@@ -83,6 +87,16 @@ class SettingsViewController: RootViewController, UITableViewDataSource, UITable
                 }
                 else {
                     self?.showResultErrorAlert(resultCode: resultCode)
+                }
+            }
+        }
+        
+        searchObservation = NoteSearch.shared.observe(\NoteSearch.searchArray, options: [.old, .new]) { [weak self] object, change in
+            DispatchQueue.main.async { [weak self] in
+                if (change.newValue != nil) && (change.newValue != change.oldValue) {
+                    DispatchQueue.main.async { [weak self] in
+                        self?.tableView.reloadData()
+                    }
                 }
             }
         }
@@ -155,27 +169,19 @@ class SettingsViewController: RootViewController, UITableViewDataSource, UITable
         if detail != "" {
             cell?.detailTextLabel?.text = detail
         }
-        
+
         if cell?.tag == 0 {
             cell?.detailTextLabel?.text = NoteSearch.shared.searchArray[0]
         }
-        
+
         if cell?.tag == 1 {
             cell?.detailTextLabel?.text = NoteSearch.shared.searchArray[1]
         }
-        
+
         if cell?.tag == 2 {
             cell?.detailTextLabel?.text = NoteSearch.shared.searchArray[2]
         }
-        
-        //
-    
-        
-        
-        //
-        
-        
-        
+                
         return cell!
     }
     

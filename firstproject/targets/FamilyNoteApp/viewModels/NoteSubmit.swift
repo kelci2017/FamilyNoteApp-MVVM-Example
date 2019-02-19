@@ -20,13 +20,19 @@ class NoteSubmit: NSObject {
         didSet {
             if submittedNote != nil {
                 
-                let sessionid = User.shared.getSessionid()
+                let sessionid = UserDefaults.standard.string(forKey: Constants.UserDefaultsKey.Sessionid_string.rawValue) ?? ""
+                
+                print("the sessionid is at the submite note: \(String(describing: sessionid))")
                 
                 let url = "http://192.168.2.126:4000/notes/create?sessionid=\(sessionid)"
                 
-                networkFascilities?.dataTask(method: .POST, sURL: url, headers: nil, body: submittedNote as! Dictionary<String, String>, completion: { (dictResponse, urlResponse, error) in
+                networkFascilities?.dataTask(method: .POST, sURL: url, headers: nil, body: submittedNote as? Dictionary<String, String>, completion: { (dictResponse, urlResponse, error) in
                     
-                    self.submitResult = dictResponse ?? [:]
+                    print("note submite webesrvice call is done")
+                  
+                    if let response = dictResponse?["__RESPONSE__"] {
+                        self.submitResult = response as! Dictionary<String, Any>
+                    }
                 })
             }
         }

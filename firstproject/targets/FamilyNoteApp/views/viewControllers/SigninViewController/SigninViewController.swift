@@ -37,6 +37,10 @@ class SigninViewController: RootViewController {
         // Do any additional setup after loading the view.
         loginVM = Login(networkFascilities: networkFascilities!)
         
+        if UserDefaults.standard.string(forKey: Constants.UserDefaultsKey.UserName_string.rawValue) != nil {
+            userTextField.text = UserDefaults.standard.string(forKey: Constants.UserDefaultsKey.UserName_string.rawValue)
+        }
+        
         loginButton.setBorder(borderWidth: 0, borderColor: .orange, cornerRadius: 5)
         
         loginObservation = loginVM?.observe(\Login.loginResult, options: [.old, .new]) { [weak self] object, change in
@@ -55,7 +59,7 @@ class SigninViewController: RootViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if User.shared.getSessionid() != nil {
+        if UserDefaults.standard.string(forKey: Constants.UserDefaultsKey.Sessionid_string.rawValue) != nil {
             self.dismiss(animated: false, completion: {
                 //
             })
@@ -73,7 +77,7 @@ class SigninViewController: RootViewController {
             return
         }
         
-        var jsonRegister: NSMutableDictionary? = NSMutableDictionary()
+        let jsonRegister: NSMutableDictionary? = NSMutableDictionary()
         
         jsonRegister?.setValue(userTextField.text, forKey: Constants.UserLoginCrendentialsKey.userName.rawValue)
         jsonRegister?.setValue(passwordTextField.text, forKey: Constants.UserLoginCrendentialsKey.password.rawValue)

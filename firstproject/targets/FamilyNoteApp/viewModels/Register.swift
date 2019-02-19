@@ -21,13 +21,19 @@ class Register: NSObject {
             if registerBody != nil {
                 let url = "http://192.168.2.126:4000/auth/register"
                 
-                networkFascilities?.dataTask(method: .POST, sURL: url, headers: nil, body: registerBody as! Dictionary<String, String>, completion: { (dictResponse, urlResponse, error) in
+                print("registerBody: \(String(describing: registerBody))")
+                
+                networkFascilities?.dataTask(method: .POST, sURL: url, headers: nil, body: registerBody as? Dictionary<String, String>, completion: { (dictResponse, urlResponse, error) in
                     
-                    self.registerResult = dictResponse ?? [:]
-                    if self.registerResult["resultCode"] as! Int == 0 {
-                        User.shared.setToken(token: self.registerResult["token"] as! String)
-                        User.shared.setSessionid(sessionid: self.registerResult["sessionID"] as! String)
-                        User.shared.setUserid(userid: self.registerResult["userID"] as! String)
+                    if let response = dictResponse?["__RESPONSE__"] {
+                        self.registerResult = response as! Dictionary<String, Any>
+                        if let resultCode = self.registerResult["resultCode"] as? Int {
+                            if resultCode == 0 {
+                                UserDefaults.standard.set(self.registerResult["token"] as? String, forKey: Constants.UserDefaultsKey.Token_string.rawValue)
+                                UserDefaults.standard.set(self.registerResult["sessionID"] as? String, forKey: Constants.UserDefaultsKey.Sessionid_string.rawValue)
+                                UserDefaults.standard.set(self.registerResult["userID"] as? String, forKey: Constants.UserDefaultsKey.Userid_string.rawValue)
+                            }
+                        }
                     }
                 })
             }

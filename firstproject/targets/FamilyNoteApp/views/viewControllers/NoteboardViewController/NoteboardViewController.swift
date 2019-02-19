@@ -23,6 +23,9 @@ class NoteboardViewController: RootViewController, UITableViewDataSource, UITabl
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        noteGlobalSearchVM = NoteGlobalSearch(networkFascilities: networkFascilities!)
+        
+        NoteSearch.shared.searchArray = ["", "", Date().toString(dateFormat: "yyyy-MM-dd")]
         // MVVM KVO
         setKVO()
     }
@@ -38,14 +41,6 @@ class NoteboardViewController: RootViewController, UITableViewDataSource, UITabl
                     self?.tableView.reloadData()
                 }
             }
-        }
-    }
-    
-    noteGlobalSearchObservation = noteGlobalSearchVM?.observe(\NoteGlobalSearch.globalSearchResult, options: [.old, .new]) { [weak self] object, change in
-        
-        DispatchQueue.main.async { [weak self] in
-            self?.tableView.reloadData()
-            
         }
     }
     }

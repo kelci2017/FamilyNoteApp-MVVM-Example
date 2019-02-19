@@ -40,6 +40,6 @@ class MainTabBarViewController: TabViewController {
         settingsViewController!.tabBarItem = UITabBarItem(title: "Settings", image: imageSetting, tag: 1)
         settingsNavigationViewController = NavigationViewController(rootViewController: settingsViewController!)
         
-        self.viewControllers = [noteboardNavigationViewController!, notepadNavigationViewController!, settingsNavigationViewController] as! [UIViewController]
+        self.viewControllers = [noteboardNavigationViewController!, notepadNavigationViewController!, settingsNavigationViewController] as? [UIViewController]
     }
 }
