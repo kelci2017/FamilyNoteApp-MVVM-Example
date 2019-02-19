@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NoteboardViewController" customModule="tempproject" customModuleProvider="target">
+            <connections>
+                <outlet property="baseView" destination="Krf-5Q-NYR" id="iBp-Le-LVB"/>
+                <outlet property="searchField" destination="bMg-0n-c8c" id="grL-ms-aZD"/>
+                <outlet property="searchImage" destination="gaI-7F-w1K" id="Q3V-xg-9Xf"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Krf-5Q-NYR">
+                    <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                    <subviews>
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0on-qw-57O">
+                            <rect key="frame" x="0.0" y="44" width="375" height="603"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </tableView>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AE0-x0-xKp">
+                            <rect key="frame" x="0.0" y="0.0" width="383" height="36"/>
+                            <subviews>
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bMg-0n-c8c">
+                                    <rect key="frame" x="16" y="3" width="310" height="33"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="310" id="TYq-Jw-Av4"/>
+                                    </constraints>
+                                    <nil key="textColor"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                </textField>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="search.png" translatesAutoresizingMaskIntoConstraints="NO" id="gaI-7F-w1K">
+                                    <rect key="frame" x="334" y="3" width="33" height="33"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="gaI-7F-w1K" secondAttribute="height" multiplier="1:1" id="HxU-zr-Osk"/>
+                                    </constraints>
+                                </imageView>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="bMg-0n-c8c" firstAttribute="leading" secondItem="AE0-x0-xKp" secondAttribute="leading" constant="16" id="19f-O3-pjV"/>
+                                <constraint firstAttribute="trailing" secondItem="gaI-7F-w1K" secondAttribute="trailing" constant="16" id="6ks-5f-OmE"/>
+                                <constraint firstAttribute="height" constant="36" id="L7J-br-kNj"/>
+                                <constraint firstAttribute="bottom" secondItem="gaI-7F-w1K" secondAttribute="bottom" id="QNE-2P-FJS"/>
+                                <constraint firstItem="gaI-7F-w1K" firstAttribute="top" secondItem="AE0-x0-xKp" secondAttribute="top" constant="3" id="UDh-Mz-0ns"/>
+                                <constraint firstAttribute="bottom" secondItem="bMg-0n-c8c" secondAttribute="bottom" id="b42-PU-qyU"/>
+                                <constraint firstItem="gaI-7F-w1K" firstAttribute="leading" secondItem="bMg-0n-c8c" secondAttribute="trailing" constant="8" id="b4W-or-u69"/>
+                                <constraint firstItem="bMg-0n-c8c" firstAttribute="top" secondItem="AE0-x0-xKp" secondAttribute="top" constant="3" id="mVs-aw-enA"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="0on-qw-57O" secondAttribute="trailing" id="5ir-l7-dkI"/>
+                        <constraint firstAttribute="bottom" secondItem="0on-qw-57O" secondAttribute="bottom" id="5jL-gs-YiE"/>
+                        <constraint firstItem="0on-qw-57O" firstAttribute="top" secondItem="AE0-x0-xKp" secondAttribute="bottom" constant="8" id="9hr-P0-9Pz"/>
+                        <constraint firstItem="0on-qw-57O" firstAttribute="leading" secondItem="Krf-5Q-NYR" secondAttribute="leading" id="9xa-Pd-Zyt"/>
+                        <constraint firstItem="0on-qw-57O" firstAttribute="width" secondItem="Krf-5Q-NYR" secondAttribute="width" id="WVF-9z-kpN"/>
+                        <constraint firstItem="AE0-x0-xKp" firstAttribute="top" secondItem="Krf-5Q-NYR" secondAttribute="top" id="di8-zJ-7Ci"/>
+                        <constraint firstItem="AE0-x0-xKp" firstAttribute="leading" secondItem="0on-qw-57O" secondAttribute="leading" id="trl-BA-dHu"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="Krf-5Q-NYR" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="0pn-PV-HhW"/>
+                <constraint firstItem="Krf-5Q-NYR" firstAttribute="width" secondItem="fnl-2z-Ty3" secondAttribute="width" id="AxD-4b-CgI"/>
+                <constraint firstItem="Krf-5Q-NYR" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="vms-wg-pbA"/>
+                <constraint firstItem="Krf-5Q-NYR" firstAttribute="height" secondItem="fnl-2z-Ty3" secondAttribute="height" id="yb2-jY-8xt"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="40.799999999999997" y="46.326836581709152"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="search.png" width="512" height="512"/>
+    </resources>
+</document>

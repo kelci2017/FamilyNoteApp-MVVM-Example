@@ -1,0 +1,24 @@
+PODS:
+  - Base64 (1.1.2)
+  - JWT (3.0.0-beta.7):
+    - Base64 (~> 1.1.2)
+  - ReachabilitySwift (4.3.0)
+
+DEPENDENCIES:
+  - JWT (= 3.0.0-beta.7)
+  - ReachabilitySwift
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Base64
+    - JWT
+    - ReachabilitySwift
+
+SPEC CHECKSUMS:
+  Base64: cecfb41a004124895a7bcee567a89bae5a89d49b
+  JWT: 8a0c3e95ee8d521a7eafb108b0496eac18a1bc2e
+  ReachabilitySwift: 408477d1b6ed9779dba301953171e017c31241f3
+
+PODFILE CHECKSUM: b2cb9885dcbc8c2166b5fcbb3d6815218424bed7
+
+COCOAPODS: 1.5.3

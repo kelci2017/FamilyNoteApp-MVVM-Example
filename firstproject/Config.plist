@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Target</key>
+	<dict>
+		<key>Index</key>
+		<integer>0</integer>
+		<key>Options</key>
+		<array>
+			<dict>
+				<key>Name</key>
+				<string>FamilyNoteApp</string>
+			</dict>
+			<dict>
+				<key>Name</key>
+				<string>testApp</string>
+			</dict>
+		</array>
+	</dict>
+</dict>
+</plist>
