@@ -250,8 +250,6 @@ class RootViewController: UIViewController, AppL2DelegateProtocol {
             self.showDialog(title: "Oops!", message: Constants.ResultCode.userHasRegistered.rawValue)
         case 15:
             self.showDialog(title: "Oops!", message: Constants.ResultCode.accessDenied.rawValue)
-        case 16:
-            self.showDialog(title: "Oops!", message: Constants.ResultCode.sessionTimeout.rawValue)
         case 17:
             self.showDialog(title: "Oops!", message: Constants.ResultCode.emailNotFound.rawValue)
         case 22:

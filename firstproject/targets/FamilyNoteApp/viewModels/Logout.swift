@@ -20,9 +20,9 @@ class Logout: NSObject {
         didSet {
             if loggedout == true {
                 
-                let sessionid = User.shared.getSessionid()
+                let sessionid = UserDefaults.standard.string(forKey: Constants.UserDefaultsKey.Sessionid_string.rawValue) ?? ""
                 
-                let url = "http://192.168.2.126:4000/auth/sign_out?sessionid=\(String(describing: sessionid))"
+                let url = "http://192.168.2.126:4000/auth/sign_out?sessionid=\(sessionid)"
                 
                 networkFascilities?.dataTask(method: .GET, sURL: url, headers: nil, body: nil, completion: { (dictResponse, urlResponse, error) in
                     

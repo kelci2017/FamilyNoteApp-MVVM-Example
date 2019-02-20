@@ -15,6 +15,7 @@
                 <outlet property="baseView" destination="Krf-5Q-NYR" id="iBp-Le-LVB"/>
                 <outlet property="searchField" destination="bMg-0n-c8c" id="grL-ms-aZD"/>
                 <outlet property="searchImage" destination="gaI-7F-w1K" id="Q3V-xg-9Xf"/>
+                <outlet property="tableView" destination="0on-qw-57O" id="0xT-bb-yok"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -29,6 +30,10 @@
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0on-qw-57O">
                             <rect key="frame" x="0.0" y="60" width="367" height="587"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <outlet property="dataSource" destination="-1" id="bwH-Gc-PeM"/>
+                                <outlet property="delegate" destination="-1" id="f9T-Ip-h1x"/>
+                            </connections>
                         </tableView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AE0-x0-xKp">
                             <rect key="frame" x="0.0" y="16" width="367" height="36"/>

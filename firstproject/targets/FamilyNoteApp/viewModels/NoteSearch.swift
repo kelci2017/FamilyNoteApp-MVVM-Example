@@ -21,21 +21,21 @@ class NoteSearch: NSObject {
         }
         didSet {
             //array compare??
-            if searchArray != oldValue {
+            //if searchArray != nil {
                 
                 let from = searchArray[0]
                 let to = searchArray[1]
                 let date = searchArray[2]
                 let sessionid = UserDefaults.standard.string(forKey: Constants.UserDefaultsKey.Sessionid_string.rawValue)
                 
-                let url = "http://192.168.2.126:4000/notes/search?fromWhom=\(from)&toWhom=\(to)&date=\(date)&sessionid=\(String(describing: sessionid))"
+                let url = "http://192.168.2.126:4000/notes/search?fromWhom=\(from)&toWhom=\(to)&date=\(date)&sessionid=\(sessionid ?? "")"
                 
                 networkFascilities?.dataTask(method: .GET, sURL: url, headers: nil, body: nil, completion: { (dictResponse, urlResponse, error) in
                     if let response = dictResponse?["__RESPONSE__"] {
                         self.searchResult = response as! Dictionary<String, Any>
                     }
                 })
-            }
+            
         }
     }
     
@@ -69,11 +69,12 @@ class NoteSearch: NSObject {
     
     private override init () {
         
-        self.networkFascilities = NetworkUtil()
-        
         self.sCurrentSearch = ""
         
         super.init()
+        
+        self.networkFascilities = NetworkUtil(sessionOwner: self)
+        
         
         //test()
         

@@ -10,7 +10,7 @@ import UIKit
 
 class TestAppScheduler: NSObject, SchedulerViewControllerDataSource {
     func upcomingViewController() -> UIViewController? {
-        var upcomingViewController: UIViewController? = nil
+        let upcomingViewController: UIViewController? = nil
         
         
         

@@ -25,9 +25,14 @@ class NoteboardViewController: RootViewController, UITableViewDataSource, UITabl
 
         noteGlobalSearchVM = NoteGlobalSearch(networkFascilities: networkFascilities!)
         
-        NoteSearch.shared.searchArray = ["", "", Date().toString(dateFormat: "yyyy-MM-dd")]
         // MVVM KVO
         setKVO()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        NoteSearch.shared.searchArray = ["All", "All", Date().toString(dateFormat: "yyyy-MM-dd")]
     }
 
     // MARK: KVO
@@ -39,7 +44,17 @@ class NoteboardViewController: RootViewController, UITableViewDataSource, UITabl
             if let resultCode = NoteSearch.shared.searchResult["resultCode"] as? Int {
                 if resultCode == 0 {
                     self?.tableView.reloadData()
+                } else {
+                    self?.showResultErrorAlert(resultCode: resultCode)
+                    if resultCode == 16 {
+                        UserDefaults.standard.set(nil, forKey: Constants.UserDefaultsKey.Token_string.rawValue)
+                        UserDefaults.standard.set(nil, forKey: Constants.UserDefaultsKey.Sessionid_string.rawValue)
+                        self?.tabBarController?.dismiss(animated: true, completion: {
+                            //
+                        })
+                    }
                 }
+                
             }
         }
     }

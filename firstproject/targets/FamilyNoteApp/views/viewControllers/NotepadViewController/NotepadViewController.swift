@@ -27,7 +27,9 @@ class NotepadViewController: RootViewController {
         noteSubmitObservation = noteSubmitVM?.observe(\NoteSubmit.submitResult, options: [.old, .new]) { [weak self] object, change in
            
                 DispatchQueue.main.async { [weak self] in
-                    let resultCode = NoteSearch.shared.searchResult["resultCode"] as! Int
+                    print(NoteSearch.shared.searchResult)
+
+                    let resultCode = self?.noteSubmitVM?.submitResult["resultCode"] as! Int
                     if resultCode == 0 {
                         CommonUtil.showDialog(title: "Submitted!", message: "Your note was submitted.", viewController: self!)
                         self?.senderName?.text = ""
@@ -36,6 +38,13 @@ class NotepadViewController: RootViewController {
                     }
                     else {
                         self?.showResultErrorAlert(resultCode: resultCode)
+                        if resultCode == 16 {
+                            UserDefaults.standard.set(nil, forKey: Constants.UserDefaultsKey.Token_string.rawValue)
+                            UserDefaults.standard.set(nil, forKey: Constants.UserDefaultsKey.Sessionid_string.rawValue)
+                            self?.tabBarController?.dismiss(animated: true, completion: {
+                                //
+                            })
+                        }
                     }
                     
                 }
@@ -50,7 +59,7 @@ class NotepadViewController: RootViewController {
         }
         
         let jsonNote: NSMutableDictionary? = NSMutableDictionary()
-        let date = Date()
+        let date = Date().toString(dateFormat: "yyyy-MM-dd")
         
         jsonNote?.setValue(senderName.text, forKey: Constants.NoteKey.sender.rawValue)
         jsonNote?.setValue(receiverName.text, forKey: Constants.NoteKey.receiver.rawValue)
@@ -59,6 +68,8 @@ class NotepadViewController: RootViewController {
         jsonNote?.setValue(UserDefaults.standard.string(forKey: Constants.UserDefaultsKey.Userid_string.rawValue), forKey: Constants.NoteKey.userID.rawValue)
         
         noteSubmitVM?.submittedNote = jsonNote
+        
+        print("submittedNote: \(String(describing: jsonNote))")
     }
 
 }

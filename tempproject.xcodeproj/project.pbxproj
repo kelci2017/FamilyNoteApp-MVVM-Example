@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		12D77422B703232606973E85 /* Pods_tempprojectUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FB13CEC72A3FD81CD814B6D /* Pods_tempprojectUITests.framework */; };
 		1F3EF5B365A2E684004B7F82 /* Pods_tempproject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4198E49C20F538A71C8C240F /* Pods_tempproject.framework */; };
+		410B735F221DFDAF00346B21 /* NoteboardNoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410B735D221DFDAF00346B21 /* NoteboardNoteTableViewCell.swift */; };
+		410B7360221DFDAF00346B21 /* NoteboardNoteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 410B735E221DFDAF00346B21 /* NoteboardNoteTableViewCell.xib */; };
 		4114FBDB2215D2C900EB8ED8 /* NoteSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4114FBDA2215D2C900EB8ED8 /* NoteSearch.swift */; };
 		4114FBDF221712BC00EB8ED8 /* NoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4114FBDD221712BC00EB8ED8 /* NoteTableViewCell.swift */; };
 		4114FBE0221712BC00EB8ED8 /* NoteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4114FBDE221712BC00EB8ED8 /* NoteTableViewCell.xib */; };
@@ -111,6 +113,8 @@
 		17743FA15AAE5A9A9397F5D5 /* Pods-tempproject-tempprojectTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tempproject-tempprojectTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-tempproject-tempprojectTests/Pods-tempproject-tempprojectTests.release.xcconfig"; sourceTree = "<group>"; };
 		2FB13CEC72A3FD81CD814B6D /* Pods_tempprojectUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_tempprojectUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3130A282AE889257C15813BC /* Pods-tempproject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tempproject.debug.xcconfig"; path = "Pods/Target Support Files/Pods-tempproject/Pods-tempproject.debug.xcconfig"; sourceTree = "<group>"; };
+		410B735D221DFDAF00346B21 /* NoteboardNoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteboardNoteTableViewCell.swift; sourceTree = "<group>"; };
+		410B735E221DFDAF00346B21 /* NoteboardNoteTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoteboardNoteTableViewCell.xib; sourceTree = "<group>"; };
 		4114FBDA2215D2C900EB8ED8 /* NoteSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteSearch.swift; sourceTree = "<group>"; };
 		4114FBDD221712BC00EB8ED8 /* NoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTableViewCell.swift; sourceTree = "<group>"; };
 		4114FBDE221712BC00EB8ED8 /* NoteTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoteTableViewCell.xib; sourceTree = "<group>"; };
@@ -247,6 +251,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		410B735B221DFD5900346B21 /* NoteboardNoteTableCell */ = {
+			isa = PBXGroup;
+			children = (
+				410B735D221DFDAF00346B21 /* NoteboardNoteTableViewCell.swift */,
+				410B735E221DFDAF00346B21 /* NoteboardNoteTableViewCell.xib */,
+			);
+			path = NoteboardNoteTableCell;
+			sourceTree = "<group>";
+		};
 		4114FBDC2217127900EB8ED8 /* NoteboardNotecell */ = {
 			isa = PBXGroup;
 			children = (
@@ -359,6 +372,7 @@
 		418E8E0B2208CD7100994124 /* NoteboardViewController */ = {
 			isa = PBXGroup;
 			children = (
+				410B735B221DFD5900346B21 /* NoteboardNoteTableCell */,
 				4114FBDC2217127900EB8ED8 /* NoteboardNotecell */,
 				418E8E1E220CC62C00994124 /* NoteboardViewController.swift */,
 				418E8E1F220CC62C00994124 /* NoteboardViewController.xib */,
@@ -823,6 +837,7 @@
 				416DDCD42211EE4600409B63 /* familyNote.jpg in Resources */,
 				E1546BD321C02316008590F6 /* Main.storyboard in Resources */,
 				E1E46BF821C9657F00585DC7 /* SettingViewController.xib in Resources */,
+				410B7360221DFDAF00346B21 /* NoteboardNoteTableViewCell.xib in Resources */,
 				E1E46C0621C9A41000585DC7 /* home.png in Resources */,
 				4158336321CD464B0052C36D /* Home2Page.xib in Resources */,
 				418E8DF121CD84C200994124 /* AutoLayoutDemoViewController.xib in Resources */,
@@ -964,6 +979,7 @@
 				416DDCED2213213300409B63 /* Constants.swift in Sources */,
 				E1E46BFB21C9659200585DC7 /* MeViewController.swift in Sources */,
 				E1E46C0321C9994000585DC7 /* CommonUtil.swift in Sources */,
+				410B735F221DFDAF00346B21 /* NoteboardNoteTableViewCell.swift in Sources */,
 				418E8E2F220CC94000994124 /* MainTabBarViewController.swift in Sources */,
 				4158335F21CC32230052C36D /* SchedulerClass.swift in Sources */,
 				E184855821C2E6890025C870 /* TableView.swift in Sources */,
