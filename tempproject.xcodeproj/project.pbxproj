@@ -11,6 +11,10 @@
 		1F3EF5B365A2E684004B7F82 /* Pods_tempproject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4198E49C20F538A71C8C240F /* Pods_tempproject.framework */; };
 		410B735F221DFDAF00346B21 /* NoteboardNoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410B735D221DFDAF00346B21 /* NoteboardNoteTableViewCell.swift */; };
 		410B7360221DFDAF00346B21 /* NoteboardNoteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 410B735E221DFDAF00346B21 /* NoteboardNoteTableViewCell.xib */; };
+		410B736F221F129E00346B21 /* notesBackgroundAnimal.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 410B736D221F129E00346B21 /* notesBackgroundAnimal.jpeg */; };
+		410B7370221F129E00346B21 /* notes.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 410B736E221F129E00346B21 /* notes.jpeg */; };
+		410B7372221F219700346B21 /* pencil.png in Resources */ = {isa = PBXBuildFile; fileRef = 410B7371221F219600346B21 /* pencil.png */; };
+		410B7374221F350A00346B21 /* imageNote.png in Resources */ = {isa = PBXBuildFile; fileRef = 410B7373221F350A00346B21 /* imageNote.png */; };
 		4114FBDB2215D2C900EB8ED8 /* NoteSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4114FBDA2215D2C900EB8ED8 /* NoteSearch.swift */; };
 		4114FBDF221712BC00EB8ED8 /* NoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4114FBDD221712BC00EB8ED8 /* NoteTableViewCell.swift */; };
 		4114FBE0221712BC00EB8ED8 /* NoteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4114FBDE221712BC00EB8ED8 /* NoteTableViewCell.xib */; };
@@ -40,6 +44,8 @@
 		416DDCEB2212043D00409B63 /* AddMemberViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 416DDCE92212043D00409B63 /* AddMemberViewController.xib */; };
 		416DDCED2213213300409B63 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416DDCEC2213213300409B63 /* Constants.swift */; };
 		416DDCEF2213269200409B63 /* AddFamilyMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416DDCEE2213269200409B63 /* AddFamilyMember.swift */; };
+		417B12CC221F500800F43C8A /* imageedit_11_8308389797.png in Resources */ = {isa = PBXBuildFile; fileRef = 417B12CA221F500600F43C8A /* imageedit_11_8308389797.png */; };
+		417B12CD221F500800F43C8A /* imageedit_13_3424083944.png in Resources */ = {isa = PBXBuildFile; fileRef = 417B12CB221F500700F43C8A /* imageedit_13_3424083944.png */; };
 		418E8DEA21CD4B6D00994124 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418E8DE821CD4B6D00994124 /* HomeViewController.swift */; };
 		418E8DEB21CD4B6D00994124 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 418E8DE921CD4B6D00994124 /* HomeViewController.xib */; };
 		418E8DED21CD5FF000994124 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418E8DEC21CD5FF000994124 /* Global.swift */; };
@@ -115,6 +121,10 @@
 		3130A282AE889257C15813BC /* Pods-tempproject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tempproject.debug.xcconfig"; path = "Pods/Target Support Files/Pods-tempproject/Pods-tempproject.debug.xcconfig"; sourceTree = "<group>"; };
 		410B735D221DFDAF00346B21 /* NoteboardNoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteboardNoteTableViewCell.swift; sourceTree = "<group>"; };
 		410B735E221DFDAF00346B21 /* NoteboardNoteTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoteboardNoteTableViewCell.xib; sourceTree = "<group>"; };
+		410B736D221F129E00346B21 /* notesBackgroundAnimal.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = notesBackgroundAnimal.jpeg; sourceTree = "<group>"; };
+		410B736E221F129E00346B21 /* notes.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = notes.jpeg; sourceTree = "<group>"; };
+		410B7371221F219600346B21 /* pencil.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pencil.png; sourceTree = "<group>"; };
+		410B7373221F350A00346B21 /* imageNote.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = imageNote.png; sourceTree = "<group>"; };
 		4114FBDA2215D2C900EB8ED8 /* NoteSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteSearch.swift; sourceTree = "<group>"; };
 		4114FBDD221712BC00EB8ED8 /* NoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTableViewCell.swift; sourceTree = "<group>"; };
 		4114FBDE221712BC00EB8ED8 /* NoteTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoteTableViewCell.xib; sourceTree = "<group>"; };
@@ -144,6 +154,8 @@
 		416DDCE92212043D00409B63 /* AddMemberViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddMemberViewController.xib; sourceTree = "<group>"; };
 		416DDCEC2213213300409B63 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		416DDCEE2213269200409B63 /* AddFamilyMember.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFamilyMember.swift; sourceTree = "<group>"; };
+		417B12CA221F500600F43C8A /* imageedit_11_8308389797.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = imageedit_11_8308389797.png; sourceTree = "<group>"; };
+		417B12CB221F500700F43C8A /* imageedit_13_3424083944.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = imageedit_13_3424083944.png; sourceTree = "<group>"; };
 		418E8DE821CD4B6D00994124 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		418E8DE921CD4B6D00994124 /* HomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
 		418E8DEC21CD5FF000994124 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
@@ -466,6 +478,12 @@
 		418E8E3B220CD69000994124 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				417B12CA221F500600F43C8A /* imageedit_11_8308389797.png */,
+				417B12CB221F500700F43C8A /* imageedit_13_3424083944.png */,
+				410B7373221F350A00346B21 /* imageNote.png */,
+				410B7371221F219600346B21 /* pencil.png */,
+				410B736E221F129E00346B21 /* notes.jpeg */,
+				410B736D221F129E00346B21 /* notesBackgroundAnimal.jpeg */,
 				416DDCD72211EF8500409B63 /* search.png */,
 				416DDCD12211EE4600409B63 /* familyNote.jpg */,
 				416DDCD22211EE4600409B63 /* noteboard.jpg */,
@@ -824,12 +842,17 @@
 				418E8E30220CC94000994124 /* MainTabBarViewController.xib in Resources */,
 				4114FBE52217137900EB8ED8 /* SettingsChooseDateTableViewCell.xib in Resources */,
 				E184855C21C2E6E80025C870 /* LoginViewController.xib in Resources */,
+				410B7374221F350A00346B21 /* imageNote.png in Resources */,
+				410B736F221F129E00346B21 /* notesBackgroundAnimal.jpeg in Resources */,
 				418E8E36220CD45A00994124 /* SigninViewController.xib in Resources */,
 				4114FBE0221712BC00EB8ED8 /* NoteTableViewCell.xib in Resources */,
 				418E8E25220CC67500994124 /* NotepadViewController.xib in Resources */,
+				410B7372221F219700346B21 /* pencil.png in Resources */,
 				E184856821C409430025C870 /* FirstPage.xib in Resources */,
 				416DDCEB2212043D00409B63 /* AddMemberViewController.xib in Resources */,
+				410B7370221F129E00346B21 /* notes.jpeg in Resources */,
 				E1546BD821C02325008590F6 /* LaunchScreen.storyboard in Resources */,
+				417B12CC221F500800F43C8A /* imageedit_11_8308389797.png in Resources */,
 				E184856B21C40C890025C870 /* user.png in Resources */,
 				416DDCE62212037A00409B63 /* AllPurposeChooseViewController.xib in Resources */,
 				418E8DEB21CD4B6D00994124 /* HomeViewController.xib in Resources */,
@@ -845,6 +868,7 @@
 				418E8E132208D71F00994124 /* Config.plist in Resources */,
 				416DDCD82211EF8500409B63 /* search.png in Resources */,
 				E1E46C0721C9A41000585DC7 /* setting.png in Resources */,
+				417B12CD221F500800F43C8A /* imageedit_13_3424083944.png in Resources */,
 				418E8E1D220CC5FE00994124 /* RegisterViewController.xib in Resources */,
 				416DDCD62211EE4600409B63 /* notepad.png in Resources */,
 				418E8E3A220CD46900994124 /* SettingsViewController.xib in Resources */,

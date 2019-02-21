@@ -14,6 +14,7 @@ class NoteboardViewController: RootViewController, UITableViewDataSource, UITabl
     @IBOutlet weak var baseView: UIView!
     @IBOutlet weak var searchField: UITextField!
     @IBOutlet weak var searchImage: UIImageView!
+    @IBOutlet weak var tableUIView: UIView!
     
     var noteSearchObservation : NSKeyValueObservation?
     var noteGlobalSearchObservation : NSKeyValueObservation?
@@ -23,7 +24,13 @@ class NoteboardViewController: RootViewController, UITableViewDataSource, UITabl
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        tableView.setBorder(borderWidth: 3, borderColor: .orange, cornerRadius: 10)
+        //searchField.setBorder(borderWidth: 1, borderColor: .orange, cornerRadius: 5)
+        
+        
         noteGlobalSearchVM = NoteGlobalSearch(networkFascilities: networkFascilities!)
+        
+        tableView.register(UINib(nibName: "NoteboardNoteTableViewCell", bundle: nil), forCellReuseIdentifier: "NoteboardNoteTableViewCell")
         
         // MVVM KVO
         setKVO()
@@ -71,7 +78,7 @@ class NoteboardViewController: RootViewController, UITableViewDataSource, UITabl
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "NoteTableViewCell") as! NoteTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "NoteboardNoteTableViewCell") as! NoteboardNoteTableViewCell
         
         if let arrContents: Array<Dictionary<String, Any>> = NoteSearch.shared.searchResult["resultDesc"] as? Array<Dictionary<String, Any>> {
             let content = arrContents[indexPath.row]
@@ -80,10 +87,15 @@ class NoteboardViewController: RootViewController, UITableViewDataSource, UITabl
             let created: String? = content["created"] as? String
             let noteBody: String? = content["noteBody"] as? String
             
-            cell.senderTextField.text = fromWhom
-            cell.receiverTextField.text = toWhom
-            cell.dateTextField.text = created
-            cell.noteBodyTextField.text = noteBody
+            //let dateFormatter = DateFormatter()
+            //dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+            //dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
+            //let date = dateFormatter.date(from:created ?? "")!
+            
+            cell.fromLabel.text = fromWhom
+            cell.toLabel.text = toWhom
+            cell.dateLabel.text = created
+            cell.noteBodyLabel.text = noteBody
         }
         else {
             print("*** resultCode: \(String(describing: NoteSearch.shared.searchResult["resultCode"])), resultDesc: \(String(describing: NoteSearch.shared.searchResult["resultDesc"]))")

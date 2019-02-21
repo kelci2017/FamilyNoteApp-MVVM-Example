@@ -127,35 +127,25 @@ extension UIColor {
 
 
 extension UIFont {
-    func bold() -> UIFont? {
-        var fontName = "\(self.fontName)"
-        
-        if fontName.hasSuffix("-Bold") {
-            return self
-        }
-        
-        if fontName.hasSuffix("-Regular") {
-            fontName = fontName.replacingOccurrences(of: "-Regular", with: "-Bold")
-        }
-        else {
-            fontName += "-Bold"
-        }
-        
-        return UIFont(name: fontName, size: self.pointSize)
-    }
+    var bold: UIFont {
+        return with(traits: .traitBold)
+    } // bold
     
-    func unbold() -> UIFont? {
-        var fontName = "\(self.fontName)"
-        
-        if fontName.hasSuffix("-Regular") {
+    var italic: UIFont {
+        return with(traits: .traitItalic)
+    } // italic
+    
+    var boldItalic: UIFont {
+        return with(traits: [.traitBold, .traitItalic])
+    } // boldItalic
+    
+    
+    func with(traits: UIFontDescriptorSymbolicTraits) -> UIFont {
+        guard let descriptor = self.fontDescriptor.withSymbolicTraits(traits) else {
             return self
-        }
+        } // guard
         
-        if fontName.hasSuffix("-Bold") {
-            fontName = String(fontName.dropLast(5))
-        }
-        
-        return UIFont(name: fontName, size: self.pointSize)
+        return UIFont(descriptor: descriptor, size: 0)
     }
 }
 

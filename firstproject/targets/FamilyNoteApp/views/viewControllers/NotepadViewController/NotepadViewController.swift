@@ -14,12 +14,28 @@ class NotepadViewController: RootViewController {
     @IBOutlet weak var submitButton: UIButton!
     @IBOutlet weak var senderName: UITextField!
     @IBOutlet weak var receiverName: UITextField!
+    @IBOutlet weak var baseView: UIView!
+    @IBOutlet weak var fromLable: UILabel!
+    @IBOutlet weak var toLable: UILabel!
     
     var noteSubmitObservation: NSKeyValueObservation?
     var noteSubmitVM : NoteSubmit?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        noteBodyTextView.setBorder(borderWidth: 1, borderColor: .orange, cornerRadius: 5)
+        senderName.setBorder(borderWidth: 1, borderColor: .orange, cornerRadius: 5)
+        receiverName.setBorder(borderWidth: 1, borderColor: .orange, cornerRadius: 5)
+        submitButton.setBorder(borderWidth: 0, borderColor: .orange, cornerRadius: 5)
+        
+        noteBodyTextView.font = noteBodyTextView.font?.boldItalic
+        receiverName.font = receiverName.font?.boldItalic
+        senderName.font = senderName.font?.boldItalic
+        fromLable.font = fromLable.font?.boldItalic
+        toLable.font = toLable.font?.boldItalic
+        
+        //self.noteBodyTextView.backgroundColor = UIColor(patternImage: UIImage(named: "notes.jpeg")!)
         
         noteSubmitVM = NoteSubmit(networkFascilities: networkFascilities!)
         

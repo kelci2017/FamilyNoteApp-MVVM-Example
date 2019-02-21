@@ -9,7 +9,12 @@
 import UIKit
 
 class NoteboardNoteTableViewCell: UITableViewCell {
-
+    
+    @IBOutlet weak var noteBodyLabel: UILabel!
+    @IBOutlet weak var fromLabel: UILabel!
+    @IBOutlet weak var toLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
