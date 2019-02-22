@@ -13,6 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NoteboardViewController" customModule="tempproject" customModuleProvider="target">
             <connections>
                 <outlet property="baseView" destination="Krf-5Q-NYR" id="iBp-Le-LVB"/>
+                <outlet property="boardFrameUIView" destination="cmc-KM-icc" id="V2L-XT-irg"/>
                 <outlet property="searchField" destination="bMg-0n-c8c" id="grL-ms-aZD"/>
                 <outlet property="searchImage" destination="gaI-7F-w1K" id="Q3V-xg-9Xf"/>
                 <outlet property="tableUIView" destination="FTL-VU-688" id="Iu1-mb-CB5"/>
@@ -31,30 +32,68 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FTL-VU-688">
                             <rect key="frame" x="8" y="52" width="359" height="587"/>
                             <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imageedit_11_8308389797.png" translatesAutoresizingMaskIntoConstraints="NO" id="dO9-eZ-fCM">
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cmc-KM-icc">
+                                    <rect key="frame" x="2" y="59" width="355" height="526"/>
+                                    <subviews>
+                                        <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0on-qw-57O">
+                                            <rect key="frame" x="0.0" y="3" width="355" height="520"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <connections>
+                                                <outlet property="dataSource" destination="-1" id="bwH-Gc-PeM"/>
+                                                <outlet property="delegate" destination="-1" id="f9T-Ip-h1x"/>
+                                            </connections>
+                                        </tableView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </view>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imageedit_13_3424083944.png" translatesAutoresizingMaskIntoConstraints="NO" id="dO9-eZ-fCM">
                                     <rect key="frame" x="137" y="-5" width="85" height="85"/>
                                     <constraints>
                                         <constraint firstAttribute="width" secondItem="dO9-eZ-fCM" secondAttribute="height" multiplier="1:1" id="PtE-5B-9nA"/>
                                         <constraint firstAttribute="height" constant="85" id="uqR-O4-R0u"/>
                                     </constraints>
                                 </imageView>
-                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0on-qw-57O">
-                                    <rect key="frame" x="2" y="65" width="355" height="520"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <connections>
-                                        <outlet property="dataSource" destination="-1" id="bwH-Gc-PeM"/>
-                                        <outlet property="delegate" destination="-1" id="f9T-Ip-h1x"/>
-                                    </connections>
-                                </tableView>
+                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tsD-1M-fB6">
+                                    <rect key="frame" x="308" y="16" width="51" height="30"/>
+                                    <color key="onTintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </switch>
+                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ulI-rc-ogh">
+                                    <rect key="frame" x="93" y="16" width="51" height="30"/>
+                                    <color key="onTintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </switch>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Global search" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V24-hi-sCK">
+                                    <rect key="frame" x="2" y="22" width="89" height="18"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Local search" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NTT-4m-UsR">
+                                    <rect key="frame" x="219" y="22" width="87" height="18"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
-                                <constraint firstAttribute="trailing" secondItem="0on-qw-57O" secondAttribute="trailing" constant="2" id="ACP-c6-hVF"/>
+                                <constraint firstItem="ulI-rc-ogh" firstAttribute="top" secondItem="FTL-VU-688" secondAttribute="top" constant="16" id="9a6-Ce-fIb"/>
                                 <constraint firstItem="dO9-eZ-fCM" firstAttribute="centerX" secondItem="FTL-VU-688" secondAttribute="centerX" id="DMm-x9-NQs"/>
-                                <constraint firstItem="0on-qw-57O" firstAttribute="leading" secondItem="FTL-VU-688" secondAttribute="leading" constant="2" id="IdX-us-zAi"/>
-                                <constraint firstAttribute="bottom" secondItem="0on-qw-57O" secondAttribute="bottom" constant="2" id="QLY-Vx-Sly"/>
+                                <constraint firstItem="tsD-1M-fB6" firstAttribute="leading" secondItem="NTT-4m-UsR" secondAttribute="trailing" constant="2" id="DnU-d3-F5c"/>
+                                <constraint firstItem="cmc-KM-icc" firstAttribute="leading" secondItem="FTL-VU-688" secondAttribute="leading" constant="2" id="Ex9-VP-Y6b"/>
+                                <constraint firstItem="cmc-KM-icc" firstAttribute="top" secondItem="FTL-VU-688" secondAttribute="top" constant="59" id="Hwy-N6-yb2"/>
+                                <constraint firstAttribute="bottom" secondItem="cmc-KM-icc" secondAttribute="bottom" constant="2" id="OZQ-zJ-pXS"/>
+                                <constraint firstAttribute="trailing" secondItem="cmc-KM-icc" secondAttribute="trailing" constant="2" id="PNo-rj-pzC"/>
                                 <constraint firstItem="dO9-eZ-fCM" firstAttribute="top" secondItem="FTL-VU-688" secondAttribute="top" constant="-5" id="Rcd-jC-XZt"/>
-                                <constraint firstItem="0on-qw-57O" firstAttribute="top" secondItem="FTL-VU-688" secondAttribute="top" constant="65" id="XXl-dk-lwc"/>
+                                <constraint firstItem="NTT-4m-UsR" firstAttribute="top" secondItem="V24-hi-sCK" secondAttribute="top" id="Tng-8e-pTf"/>
+                                <constraint firstItem="NTT-4m-UsR" firstAttribute="centerY" secondItem="ulI-rc-ogh" secondAttribute="centerY" id="Zgi-rM-DM6"/>
+                                <constraint firstItem="tsD-1M-fB6" firstAttribute="trailing" secondItem="cmc-KM-icc" secondAttribute="trailing" id="agz-ml-A9t"/>
+                                <constraint firstItem="NTT-4m-UsR" firstAttribute="baseline" secondItem="V24-hi-sCK" secondAttribute="baseline" id="ftL-CS-F4d"/>
+                                <constraint firstItem="ulI-rc-ogh" firstAttribute="leading" secondItem="V24-hi-sCK" secondAttribute="trailing" constant="2" id="l9o-Mv-Se1"/>
+                                <constraint firstItem="cmc-KM-icc" firstAttribute="top" secondItem="NTT-4m-UsR" secondAttribute="bottom" constant="19" id="mxU-tU-8Fh"/>
+                                <constraint firstItem="ulI-rc-ogh" firstAttribute="leading" secondItem="FTL-VU-688" secondAttribute="leading" constant="93" id="ruE-3F-2In"/>
+                                <constraint firstItem="NTT-4m-UsR" firstAttribute="centerY" secondItem="tsD-1M-fB6" secondAttribute="centerY" id="wge-BU-H2P"/>
+                                <constraint firstItem="cmc-KM-icc" firstAttribute="top" secondItem="tsD-1M-fB6" secondAttribute="bottom" constant="13" id="xYW-HR-94O"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AE0-x0-xKp">
@@ -110,7 +149,7 @@
         </view>
     </objects>
     <resources>
-        <image name="imageedit_11_8308389797.png" width="225" height="224"/>
+        <image name="imageedit_13_3424083944.png" width="225" height="225"/>
         <image name="search.png" width="512" height="512"/>
     </resources>
 </document>

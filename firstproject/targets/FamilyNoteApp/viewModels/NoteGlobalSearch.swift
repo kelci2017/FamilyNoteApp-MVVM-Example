@@ -20,12 +20,13 @@ class NoteGlobalSearch: NSObject {
             }
         }
         didSet {
-            if sCurrentSearch != oldValue {
+            if sCurrentSearch != "" {
                 UserDefaults.standard.set(sCurrentSearch, forKey: Constants.UserDefaultsKey.NoteSearch_string.rawValue)
                 
                 let sessionid = UserDefaults.standard.string(forKey: Constants.UserDefaultsKey.Sessionid_string.rawValue)
                 
-                let url = "http://192.168.2.126:4000/notes/globalSearch/\(sCurrentSearch)?sessionid=\(sessionid)"
+                let url = "http://192.168.2.126:4000/notes/globalSearch/\(sCurrentSearch)?sessionid=\(sessionid ?? "")"
+                print(url)
                 
                 networkFascilities?.dataTask(method: .GET, sURL: url, headers: nil, body: nil, completion: { (dictResponse, urlResponse, error) in
                     

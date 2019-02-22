@@ -15,6 +15,7 @@ class NoteboardViewController: RootViewController, UITableViewDataSource, UITabl
     @IBOutlet weak var searchField: UITextField!
     @IBOutlet weak var searchImage: UIImageView!
     @IBOutlet weak var tableUIView: UIView!
+    @IBOutlet weak var boardFrameUIView: UIView!
     
     var noteSearchObservation : NSKeyValueObservation?
     var noteGlobalSearchObservation : NSKeyValueObservation?
@@ -24,22 +25,26 @@ class NoteboardViewController: RootViewController, UITableViewDataSource, UITabl
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tableView.setBorder(borderWidth: 3, borderColor: .orange, cornerRadius: 10)
-        //searchField.setBorder(borderWidth: 1, borderColor: .orange, cornerRadius: 5)
+        boardFrameUIView.setBorder(borderWidth: 3, borderColor: .gray, cornerRadius: 10)
+        searchField.setBorder(borderWidth: 1, borderColor: .gray, cornerRadius: 5)
         
+        let searchImageViewTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(globalSearch))
+        searchImage.addGestureRecognizer(searchImageViewTapGestureRecognizer)
+        searchImage.isUserInteractionEnabled = true
         
         noteGlobalSearchVM = NoteGlobalSearch(networkFascilities: networkFascilities!)
         
         tableView.register(UINib(nibName: "NoteboardNoteTableViewCell", bundle: nil), forCellReuseIdentifier: "NoteboardNoteTableViewCell")
         
+        NoteSearch.shared.searchArray = ["All", "All", Date().toString(dateFormat: "yyyy-MM-dd")]
         // MVVM KVO
         setKVO()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        searchField.text = ""
         
-        NoteSearch.shared.searchArray = ["All", "All", Date().toString(dateFormat: "yyyy-MM-dd")]
     }
 
     // MARK: KVO
@@ -108,7 +113,7 @@ class NoteboardViewController: RootViewController, UITableViewDataSource, UITabl
     
     @IBAction func globalSearch() {
         if searchField.text != nil {
-            noteGlobalSearchVM?.sCurrentSearch = searchField.text!
+            NoteSearch.shared.sCurrentSearch = searchField.text!
         }
     }
     

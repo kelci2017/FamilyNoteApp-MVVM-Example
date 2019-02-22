@@ -18,6 +18,11 @@ class RootViewController: UIViewController, AppL2DelegateProtocol {
     var appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
     var networkFascilities: NetworkUtil?
     var wasActive: Bool?
+    var keyboardHeight: CGFloat = 0
+    var firstResponderView: UIView? = nil
+    let marginBetweenFirstResponderAndKeyboard: CGFloat = 4
+    var extraMarginBetweenFirstResponderAndKeyboard: CGFloat = 0
+    var viewLiftedHeightForKeyboard: CGFloat = 0
     
     // MARK: life cycle
     
@@ -56,19 +61,12 @@ class RootViewController: UIViewController, AppL2DelegateProtocol {
         // <Prevent the bottom of view from being behind tab bar>
         self.edgesForExtendedLayout = UIRectEdge()
         self.extendedLayoutIncludesOpaqueBars = false
-        // self.automaticallyAdjustsScrollViewInsets = false
-        // 'automaticallyAdjustsScrollViewInsets' is deprecated: first deprecated in iOS 11.0 - Use UIScrollView's contentInsetAdjustmentBehavior instead
-        // </Prevent the bottom of view from being behind tab bar>
+
         
         if self.navigationController != nil {
             if let backgroundColor = UIColor.color(withHexColorCode: CommonUtil.getNavigationBarBackgroundColorCode()) {
                 self.navigationController!.navigationBar.barTintColor = backgroundColor
             }
-            /*
-             if let foregroundColor = UIFascilities.color(withHexColorCode: AppFascilities.getNavigationBarForegroundColorCode()) {
-             self.navigationController!.navigationBar.tintColor = foregroundColor
-             }
-             */
             
             setNavigationTitleLabel(title: nil, textColor: nil, fontSize: 0)
         }
@@ -265,5 +263,93 @@ class RootViewController: UIViewController, AppL2DelegateProtocol {
         }
         
     }
+    
+    // MARK: - Keyboard observation
+    
+    @objc func keyboardDidShow(notification: NSNotification) {
+        let userInfo:NSDictionary = notification.userInfo! as NSDictionary
+        let keyboardFrame:NSValue = userInfo.value(forKey: UIResponder.UIKeyboardFrameEndUserInfoKey) as! NSValue
+        let keyboardRectangle = keyboardFrame.cgRectValue
+        keyboardHeight = keyboardRectangle.height
+        
+        if firstResponderView is UITextField {
+            liftViewForKeyboardIfNecessary()
+        }
+        else if firstResponderView is UITextView {
+            liftViewForKeyboardIfNecessary()
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        declineViewIfLifted()
+    }
+    
+    @objc func keyboardDidHide(notification: NSNotification) {
+        keyboardHeight = 0
+    }
+    
+    func liftViewForKeyboardIfNecessary() {
+        declineViewIfLifted()
+        
+        if let absolutePosition = firstResponderView?.absolutePosition(to: nil) {
+            let screenHeight = UIScreen.main.bounds.size.height
+            let liftup = absolutePosition.y + firstResponderView!.frame.height + marginBetweenFirstResponderAndKeyboard + extraMarginBetweenFirstResponderAndKeyboard + keyboardHeight - screenHeight
+            if liftup > 0.1 {
+                var frame = view.frame
+                frame.origin.y -= liftup
+                view.frame = frame
+                
+                viewLiftedHeightForKeyboard = liftup
+            }
+        }
+    }
+    
+    func declineViewIfLifted() {
+        if (viewLiftedHeightForKeyboard < 0.01) {
+            return
+        }
+        
+        var frame = view.frame
+        frame.origin.y += viewLiftedHeightForKeyboard
+        view.frame = frame
+        viewLiftedHeightForKeyboard = 0
+    }
+    
+    
+    // MARK: - Keyboard Toolbar
+    
+    func prepareKeyboardToolbar() -> UIToolbar {
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        let flexBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+        let doneBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done, target: self, action: #selector(keyboardToolbarDoneButtonAction))
+        toolbar.items = [flexBarButton, doneBarButton]
+        return toolbar
+    }
+    
+    func addKeyboardToolbar(for textField: UITextField) {
+        textField.inputAccessoryView = prepareKeyboardToolbar()
+    }
+    
+    func addKeyboardToolbar(for textView: UITextView) {
+        textView.inputAccessoryView = prepareKeyboardToolbar()
+    }
+    
+    @objc func keyboardToolbarDoneButtonAction() {
+        dismissKeyboard()
+    }
+    
+    func dismissKeyboard() {
+        if firstResponderView is UITextField {
+            let textField = firstResponderView as! UITextField
+            textField.resignFirstResponder()
+        }
+        else if firstResponderView is UITextView {
+            let textView = firstResponderView as! UITextView
+            textView.resignFirstResponder()
+        }
+        firstResponderView = nil
+    }
+    
 
 }

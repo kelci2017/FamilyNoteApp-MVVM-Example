@@ -27,9 +27,9 @@ class NoteSearch: NSObject {
                 let to = searchArray[1]
                 let date = searchArray[2]
                 let sessionid = UserDefaults.standard.string(forKey: Constants.UserDefaultsKey.Sessionid_string.rawValue)
-                
-                let url = "http://192.168.2.126:4000/notes/search?fromWhom=\(from)&toWhom=\(to)&date=\(date)&sessionid=\(sessionid ?? "")"
-                
+                print("from: \(String(from)) to: \(String(to)) date: \(String(date))")
+                let url = "http://192.168.2.126:4000/notes/search?from=\(from)&to=\(to)&date=\(date)&sessionid=\(sessionid ?? "")"
+                print(url)
                 networkFascilities?.dataTask(method: .GET, sURL: url, headers: nil, body: nil, completion: { (dictResponse, urlResponse, error) in
                     if let response = dictResponse?["__RESPONSE__"] {
                         self.searchResult = response as! Dictionary<String, Any>
@@ -46,7 +46,7 @@ class NoteSearch: NSObject {
             }
         }
         didSet {
-            if sCurrentSearch != oldValue {
+            if sCurrentSearch != "" {
                 
                 let sessionid = UserDefaults.standard.string(forKey: Constants.UserDefaultsKey.Sessionid_string.rawValue)
                 

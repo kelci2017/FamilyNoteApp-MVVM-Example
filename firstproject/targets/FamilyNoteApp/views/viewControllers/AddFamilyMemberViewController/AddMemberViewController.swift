@@ -31,6 +31,7 @@ class AddMemberViewController: RootViewController {
         // Do any additional setup after loading the view.
         
         // UserDefaults.standard.set(nil, forKey: Constants.UserDefaultsKey.FamilyMember_string.rawValue)
+        addButton.setBorder(borderWidth: 0, borderColor: .orange, cornerRadius: 5)
         
         arrSavedFamilyMembers = UserDefaults.standard.array(forKey: Constants.UserDefaultsKey.FamilyMember_string.rawValue) as? Array<String> ?? []
     }

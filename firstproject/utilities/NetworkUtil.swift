@@ -37,7 +37,7 @@ class NetworkUtil: NSObject {
         return uuidString
     }
     
-    func dataTask(method: NetworkSessionMethod, sURL: String, headers dictHeaders: Dictionary<String, String>?, body dictBody: Dictionary<String, String>?, completion: @escaping (Dictionary<String, Any>?, URLResponse?, Error?) -> ()) -> String {
+    func dataTask(method: NetworkSessionMethod, sURL: String, headers dictHeaders: Dictionary<String, String>?, body dictBody: Dictionary<String, String>?, completion: @escaping (Dictionary<String, Any>?, URLResponse?, Error?) -> ()) {
         let url = URL(string: sURL)
         if url != nil {
             // URLSession.shared.dataTask(with: url!, completionHandler: completion).resume()
@@ -81,9 +81,7 @@ class NetworkUtil: NSObject {
                         }
                     })}.resume()
             }
-            return sSessionId
         }
-        return ""
     }
     
     /**

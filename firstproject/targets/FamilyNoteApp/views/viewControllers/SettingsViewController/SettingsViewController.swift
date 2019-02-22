@@ -22,11 +22,12 @@ class SettingsViewController: RootViewController, UITableViewDataSource, UITable
     var familyMemberObservation: NSKeyValueObservation?
     var logoutObservation: NSKeyValueObservation?
     var searchObservation: NSKeyValueObservation?
+    var searchResultObservation: NSKeyValueObservation?
     
     var senderName = "All"
     var receiverName = "All"
     // date = Date().toString(dateFormat: "yyyy-MM-dd")
-    var selectedDate = ""
+    var selectedDate = Date().toString(dateFormat: "yyyy-MM-dd")
     var indexPathOpened: IndexPath? = nil
     
     var checkNotesDate: String = "Today"
@@ -53,6 +54,11 @@ class SettingsViewController: RootViewController, UITableViewDataSource, UITable
         // MVVM KVO
         setKVO()
         
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.baseView.isUserInteractionEnabled = true
     }
     
     // MARK: - KVO
@@ -84,8 +90,9 @@ class SettingsViewController: RootViewController, UITableViewDataSource, UITable
             
         }
         
-        searchObservation = NoteSearch.shared.observe(\NoteSearch.searchResult, options: [.old, .new]) { [weak self] object, change in
+        searchResultObservation = NoteSearch.shared.observe(\NoteSearch.searchResult, options: [.old, .new]) { [weak self] object, change in
             DispatchQueue.main.async { [weak self] in
+                self?.baseView.isUserInteractionEnabled = true
                 let resultCode = NoteSearch.shared.searchResult["resultCode"] as! Int
                 if resultCode != 0 {
                     self?.showResultErrorAlert(resultCode: resultCode)
@@ -120,6 +127,7 @@ class SettingsViewController: RootViewController, UITableViewDataSource, UITable
         allPurposeChooseViewController.sTitle = "Senders"
         allPurposeChooseViewController.arrOptions = AddFamilyMember.shared.arrFamilyMembers
         self.navigationController?.pushViewController(allPurposeChooseViewController, animated: true)
+        baseView.isUserInteractionEnabled = false
     }
     
     @IBAction func changeReceiver() {
@@ -130,6 +138,7 @@ class SettingsViewController: RootViewController, UITableViewDataSource, UITable
         allPurposeChooseViewController.sTitle = "Receivers"
         allPurposeChooseViewController.arrOptions = AddFamilyMember.shared.arrFamilyMembers
         self.navigationController?.pushViewController(allPurposeChooseViewController, animated: true)
+        baseView.isUserInteractionEnabled = false
     }
     
     @IBAction func changeDate() {
@@ -319,7 +328,7 @@ class SettingsViewController: RootViewController, UITableViewDataSource, UITable
                                 }
                             }
                             NoteSearch.shared.searchArray = [senderName, receiverName, selectedDate]
-                            
+                            baseView.isUserInteractionEnabled = false
                             indexPathOpened = nil
                             tableView.reloadData()
                         }

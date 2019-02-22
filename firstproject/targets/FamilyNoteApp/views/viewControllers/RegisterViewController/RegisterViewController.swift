@@ -31,6 +31,7 @@ class RegisterViewController: RootViewController {
 
         // Do any additional setup after loading the view.
         registerVM = Register(networkFascilities: networkFascilities!)
+        registerButton.setBorder(borderWidth: 0, borderColor: .orange, cornerRadius: 5)
         
         registerObservation = registerVM.observe(\Register.registerResult, options: [.old, .new]) { [weak self] object, change in
    
