@@ -2,8 +2,8 @@
 //  ELBibleChooseBookChapterTableViewCell.swift
 //  TemplateApp
 //
-//  Created by Zhengqian Kuang on 2018-12-01.
-//  Copyright © 2018 JandJ. All rights reserved.
+//  Created by kelci huang on 2018-12-01.
+//  Copyright © 2018 kelci huang. All rights reserved.
 //
 
 import UIKit

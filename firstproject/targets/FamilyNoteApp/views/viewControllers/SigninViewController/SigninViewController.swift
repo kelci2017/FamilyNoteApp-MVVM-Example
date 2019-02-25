@@ -2,7 +2,7 @@
 //  SigninViewController.swift
 //  tempproject
 //
-//  Created by Jaspreet Kaur on 2019-02-07.
+//  Created by kelci huang on 2019-02-07.
 //  Copyright © 2019 kelci huang. All rights reserved.
 //
 
@@ -45,6 +45,7 @@ class SigninViewController: RootViewController {
         
         loginObservation = loginVM?.observe(\Login.loginResult, options: [.old, .new]) { [weak self] object, change in
             //check the result is true or false
+            self?.baseView.isUserInteractionEnabled = true
             if let resultCode = self?.loginVM?.loginResult["resultCode"] as? Int {
                 if resultCode == 0 {
                     self?.dismiss(animated: true, completion: {
@@ -76,13 +77,17 @@ class SigninViewController: RootViewController {
             CommonUtil.showDialog(title: "Empty password!", message: "Please enter your password.", viewController: self)
             return
         }
-        
+        if !((userTextField.text?.isValidEmail())!) {
+            CommonUtil.showDialog(title: "Wrong email format!", message: "Please enter a valid email address.", viewController: self)
+            return
+        }
         let jsonRegister: NSMutableDictionary? = NSMutableDictionary()
         
-        jsonRegister?.setValue(userTextField.text, forKey: Constants.UserLoginCrendentialsKey.userName.rawValue)
-        jsonRegister?.setValue(passwordTextField.text, forKey: Constants.UserLoginCrendentialsKey.password.rawValue)
+        jsonRegister?.setValue(userTextField.text?.trimmingCharacters(in: .whitespaces), forKey: Constants.UserLoginCrendentialsKey.userName.rawValue)
+        jsonRegister?.setValue(passwordTextField.text?.trimmingCharacters(in: .whitespaces), forKey: Constants.UserLoginCrendentialsKey.password.rawValue)
         
         loginVM!.loginBody = jsonRegister
+        self.baseView.isUserInteractionEnabled = false
         
     }
     

@@ -2,8 +2,8 @@
 //  Extensions.swift
 //  TemplateApp
 //
-//  Created by John Kuang on 2018-11-20.
-//  Copyright © 2018 JandJ. All rights reserved.
+//  Created by kelci huang on 2018-11-20.
+//  Copyright © 2018 kelci huang. All rights reserved.
 //
 
 import UIKit
@@ -13,76 +13,19 @@ class Extensions: NSObject {
 
 }
 
-// https://medium.com/swift2go/swift-how-to-convert-html-using-nsattributedstring-8c6ffeb7046f
 extension String {
-    var html2Attributed: NSAttributedString? {
-        do {
-            guard let data = data(using: String.Encoding.utf8) else {
-                return nil
-            }
-            return try NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding: String.Encoding.utf8.rawValue], documentAttributes: nil)
-        } catch {
-            print("error: ", error)
-            return nil
-        }
+    
+    func isValidEmail() -> Bool {
+        // here, `try!` will always succeed because the pattern is valid
+        let regex = try! NSRegularExpression(pattern: "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$", options: .caseInsensitive)
+        return regex.firstMatch(in: self, options: [], range: NSRange(location: 0, length: count)) != nil
     }
     
-    var htmlAttributed: (NSAttributedString?, NSDictionary?) {
-        do {
-            guard let data = data(using: String.Encoding.utf8) else {
-                return (nil, nil)
-            }
-            
-            var dict:NSDictionary?
-            dict = NSMutableDictionary()
-            
-            return try (NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding: String.Encoding.utf8.rawValue], documentAttributes: &dict), dict)
-        } catch {
-            print("error: ", error)
-            return (nil, nil)
-        }
+    func contains(find: String) -> Bool{
+        return self.range(of: find) != nil
     }
-    
-    func htmlAttributed(using font: UIFont, color: UIColor) -> NSAttributedString? {
-        do {
-            let htmlCSSString = "<style>" +
-                "html *" +
-                "{" +
-                "font-size: \(font.pointSize)pt !important;" +
-                "color: #\(color.hexString!) !important;" +
-                "font-family: \(font.familyName), Helvetica !important;" +
-            "}</style> \(self)"
-            
-            guard let data = htmlCSSString.data(using: String.Encoding.utf8) else {
-                return nil
-            }
-            
-            return try NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding: String.Encoding.utf8.rawValue], documentAttributes: nil)
-        } catch {
-            print("error: ", error)
-            return nil
-        }
-    }
-    
-    func htmlAttributed(family: String?, size: CGFloat, color: UIColor) -> NSAttributedString? {
-        do {
-            let htmlCSSString = "<style>" +
-                "html *" +
-                "{" +
-                "font-size: \(size)pt !important;" +
-                "color: #\(color.hexString!) !important;" +
-                "font-family: \(family ?? "Helvetica"), Helvetica !important;" +
-            "}</style> \(self)"
-            
-            guard let data = htmlCSSString.data(using: String.Encoding.utf8) else {
-                return nil
-            }
-            
-            return try NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding: String.Encoding.utf8.rawValue], documentAttributes: nil)
-        } catch {
-            print("error: ", error)
-            return nil
-        }
+    func containsIgnoringCase(find: String) -> Bool{
+        return self.range(of: find, options: .caseInsensitive) != nil
     }
 }
 
@@ -203,34 +146,6 @@ extension UIImage {
         return image(from: view)
     }
     
-    func scale(to size: CGSize, backgroundColor: UIColor = UIColor.clear) -> UIImage? {
-        guard (size.width >= 1) && (size.height >= 1) else {
-            return nil
-        }
-        
-        let imageSize = self.size
-        guard (imageSize.width >= 1) && (imageSize.height >= 1) else {
-            return nil
-        }
-        
-        var scaleSize: CGSize = CGSize(width: size.width, height: size.height)
-        if size.width / size.height > imageSize.width / imageSize.height {
-            scaleSize.width = imageSize.width / imageSize.height * size.height
-        }
-        else {
-            scaleSize.height = imageSize.height / imageSize.width * size.width
-        }
-        
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: scaleSize.width, height: scaleSize.height))
-        view.backgroundColor = backgroundColor
-        let imageView = UIImageView(frame: view.frame)
-        view.addSubview(imageView)
-        imageView.contentMode = .scaleAspectFit
-        imageView.image = self
-        
-        return UIImage.image(from: view)
-    }
-    
 }
 
 
@@ -247,92 +162,7 @@ extension UIView {
         
         return absolutePosition
     }
-    
-    func removeActivityIndicator(unfreezeView: Bool) {
-        if unfreezeView {
-            self.isUserInteractionEnabled = true
-        }
-        
-        let activityIndicator = self.viewWithTag(UIFascilities.activityIndicatorTag) as? UIActivityIndicatorView
-        if activityIndicator != nil {
-            activityIndicator!.stopAnimating()
-            activityIndicator!.removeFromSuperview()
-        }
-    }
-    
-    func makeCaret(caretFrame: CGRect, cornerRadius: CGFloat) {
-        guard cornerRadius > -0.001 else {
-            return
-        }
-        
-        let bubbleSize = self.frame.size
-        var xLeftLine: CGFloat = 0
-        var yTopLine: CGFloat = 0
-        var xRightLine: CGFloat = bubbleSize.width
-        var yBottomeLine: CGFloat = bubbleSize.height
-        var caretPosition: UIFascilities.MessageBubbleCaretPosition = .undefined
-        if abs(caretFrame.origin.x) < 0.01 {
-            caretPosition = .left
-            xLeftLine += caretFrame.size.width
-        }
-        else if abs((caretFrame.origin.x + caretFrame.size.width) - bubbleSize.width) < 0.01 {
-            caretPosition = .right
-            xRightLine -= caretFrame.size.width
-        }
-        if abs(caretFrame.origin.y) < 0.01 {
-            caretPosition = .top
-            yTopLine += caretFrame.size.height
-        }
-        else if abs((caretFrame.origin.y + caretFrame.size.height) - bubbleSize.height) < 0.01 {
-            caretPosition = .bottom
-            yBottomeLine -= caretFrame.size.height
-        }
-        if caretPosition == .undefined {
-            print("Caret position unrecognized.")
-            return;
-        }
-        
-        let bubblePath: UIBezierPath = UIBezierPath()
-        bubblePath.move(to: CGPoint(x: xLeftLine + cornerRadius, y: yTopLine))
-        
-        if caretPosition == .top {
-            bubblePath.addLine(to: CGPoint(x: caretFrame.origin.x, y: yTopLine))
-            bubblePath.addLine(to: CGPoint(x: caretFrame.origin.x + (caretFrame.size.width / 2), y: 0))
-            bubblePath.addLine(to: CGPoint(x: caretFrame.origin.x + caretFrame.size.width, y: yTopLine))
-        }
-        bubblePath.addLine(to: CGPoint(x: xRightLine - cornerRadius, y: yTopLine))
-        bubblePath.addArc(withCenter: CGPoint(x: xRightLine - cornerRadius, y: yTopLine + cornerRadius), radius: cornerRadius, startAngle: .pi / 2, endAngle: 0, clockwise: true)
-        
-        if caretPosition == .right {
-            bubblePath.addLine(to: CGPoint(x: xRightLine, y: caretFrame.origin.y))
-            bubblePath.addLine(to: CGPoint(x: caretFrame.origin.x + caretFrame.size.width, y: caretFrame.origin.y + (caretFrame.size.height / 2)))
-            bubblePath.addLine(to: CGPoint(x: xRightLine, y: caretFrame.origin.y + caretFrame.size.height))
-        }
-        bubblePath.addLine(to: CGPoint(x: xRightLine, y: yBottomeLine - cornerRadius))
-        bubblePath.addArc(withCenter: CGPoint(x: xRightLine - cornerRadius, y: yBottomeLine - cornerRadius), radius: cornerRadius, startAngle: 0, endAngle: .pi / 2, clockwise: true)
-        
-        if caretPosition == .bottom {
-            bubblePath.addLine(to: CGPoint(x: caretFrame.origin.x + caretFrame.size.width, y: yBottomeLine))
-            bubblePath.addLine(to: CGPoint(x: caretFrame.origin.x + (caretFrame.size.width / 2), y: caretFrame.origin.y + caretFrame.size.height))
-            bubblePath.addLine(to: CGPoint(x: caretFrame.origin.x, y: yBottomeLine))
-        }
-        bubblePath.addLine(to: CGPoint(x: xLeftLine + cornerRadius, y: yBottomeLine))
-        bubblePath.addArc(withCenter: CGPoint(x: xLeftLine + cornerRadius, y: yBottomeLine - cornerRadius), radius: cornerRadius, startAngle: 3 * .pi / 2, endAngle: .pi, clockwise: true)
-        
-        if caretPosition == .left {
-            bubblePath.addLine(to: CGPoint(x: xLeftLine, y: caretFrame.origin.y + caretFrame.size.height))
-            bubblePath.addLine(to: CGPoint(x: 0, y: caretFrame.origin.y + (caretFrame.size.height / 2)))
-            bubblePath.addLine(to: CGPoint(x: xLeftLine, y: caretFrame.origin.y))
-        }
-        bubblePath.addLine(to: CGPoint(x: xLeftLine, y: yTopLine + cornerRadius))
-        bubblePath.addArc(withCenter: CGPoint(x: xLeftLine + cornerRadius, y: yTopLine + cornerRadius), radius: cornerRadius, startAngle: .pi, endAngle: .pi / 2, clockwise: true)
-        bubblePath.close()
-        
-        let bubbleMaskLayer = CAShapeLayer()
-        bubbleMaskLayer.path = bubblePath.cgPath
-        
-        self.layer.mask = bubbleMaskLayer
-    }
+
     
     func setBorder(borderWidth: CGFloat, borderColor: UIColor?, cornerRadius: CGFloat) {
         self.layer.borderWidth = borderWidth
@@ -350,28 +180,6 @@ extension UIView {
     func makeRound() {
         let radius = min(self.frame.size.width, self.frame.size.height) / 2
         self.makeRoundCorner(cornerRadius: radius)
-    }
-    
-}
-
-
-extension UIViewController {
-    
-    func alert(withTitle title: String?, message: String?, actions: [String], actionHandler: @escaping (String?) -> (), style: UIAlertController.Style) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: style)
-        for sAction in actions {
-            let alertAction = UIAlertAction(title: sAction, style: .default) { (alertAction) in
-                actionHandler(alertAction.title)
-            }
-            alertController.addAction(alertAction)
-        }
-        self.present(alertController, animated: true, completion: {
-            //
-        })
-    }
-    
-    func isOnTopOfNavigationStack() -> Bool {
-        return (self === self.navigationController?.viewControllers.last)
     }
     
 }

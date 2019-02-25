@@ -34,7 +34,6 @@ class LoginViewController: UIViewController {
         
         if sender as AnyObject === buttonLogin {
             print("the login in button was clicked")
-            CommonUtil.showToast(message : "Login in button was just clicked",viewController : self)
             isLoginSuccess = true;
             delegate?.loginDidSucceed()
             dismiss(animated: false) {

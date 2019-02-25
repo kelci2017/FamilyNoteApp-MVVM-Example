@@ -2,7 +2,7 @@
 //  Constants.swift
 //  tempproject
 //
-//  Created by Jaspreet Kaur on 2019-02-12.
+//  Created by kelci huang on 2019-02-12.
 //  Copyright © 2019 kelci huang. All rights reserved.
 //
 

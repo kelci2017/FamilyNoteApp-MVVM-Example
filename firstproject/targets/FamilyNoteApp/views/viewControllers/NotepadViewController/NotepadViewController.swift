@@ -2,13 +2,13 @@
 //  NotepadViewController.swift
 //  tempproject
 //
-//  Created by Jaspreet Kaur on 2019-02-07.
+//  Created by kelci huang on 2019-02-07.
 //  Copyright © 2019 kelci huang. All rights reserved.
 //
 
 import UIKit
 
-class NotepadViewController: RootViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
+class NotepadViewController: RootViewController, UIPickerViewDelegate, UIPickerViewDataSource {
 
     @IBOutlet weak var noteBodyTextView: UITextView!
     @IBOutlet weak var submitButton: UIButton!
@@ -19,9 +19,12 @@ class NotepadViewController: RootViewController, UIPickerViewDelegate, UIPickerV
     @IBOutlet weak var toLable: UILabel!
     
     var noteSubmitObservation: NSKeyValueObservation?
+    var familyMembersObservation: NSKeyValueObservation?
     var noteSubmitVM : NoteSubmit?
     var textFieldInOperation: UITextField?
     var pickerView: UIPickerView?
+    
+    let bodyNotePlaceholder = "Please enter a note here..."
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +36,10 @@ class NotepadViewController: RootViewController, UIPickerViewDelegate, UIPickerV
         
         senderName.delegate = self
         receiverName.delegate = self
+        noteBodyTextView.delegate = self
+        addKeyboardToolbar(for: noteBodyTextView)
+        arrTextViewForElevation.append(noteBodyTextView)
+        extraMarginBetweenFirstResponderAndKeyboard = 52
         
         //self.noteBodyTextView.backgroundColor = UIColor(patternImage: UIImage(named: "notes.jpeg")!)
         
@@ -44,12 +51,14 @@ class NotepadViewController: RootViewController, UIPickerViewDelegate, UIPickerV
             DispatchQueue.main.async { [weak self] in
                 print(NoteSearch.shared.searchResult)
                 
+                self?.baseView.isUserInteractionEnabled = true
+                
                 let resultCode = self?.noteSubmitVM?.submitResult["resultCode"] as! Int
                 if resultCode == 0 {
                     CommonUtil.showDialog(title: "Submitted!", message: "Your note was submitted.", viewController: self!)
                     self?.senderName?.text = ""
                     self?.receiverName?.text = ""
-                    self?.noteBodyTextView?.text = ""
+                    self?.noteBodyTextView?.text = self?.bodyNotePlaceholder
                 }
                 else {
                     self?.showResultErrorAlert(resultCode: resultCode)
@@ -64,6 +73,12 @@ class NotepadViewController: RootViewController, UIPickerViewDelegate, UIPickerV
                 
             }
             
+        }
+        
+        familyMembersObservation = AddFamilyMember.shared.observe(\AddFamilyMember.arrFamilyMembers, options: [.old, .new]) { [weak self] object, change in
+            DispatchQueue.main.async { [weak self] in
+            self?.familyMemberList = AddFamilyMember.shared.arrFamilyMembers
+            }
         }
         
     }
@@ -84,6 +99,8 @@ class NotepadViewController: RootViewController, UIPickerViewDelegate, UIPickerV
         jsonNote?.setValue(UserDefaults.standard.string(forKey: Constants.UserDefaultsKey.Userid_string.rawValue), forKey: Constants.NoteKey.userID.rawValue)
         
         noteSubmitVM?.submittedNote = jsonNote
+        noteBodyTextView.resignFirstResponder()
+        self.baseView.isUserInteractionEnabled = false
         
         print("submittedNote: \(String(describing: jsonNote))")
     }
@@ -117,13 +134,18 @@ class NotepadViewController: RootViewController, UIPickerViewDelegate, UIPickerV
         self.pickerView = nil
     }
     
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        if (textFieldInOperation != nil) && (textFieldInOperation != textField) {
-            pickerView?.removeFromSuperview()
-            pickerView = nil
+    override func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        let should = super.textFieldShouldBeginEditing(textField)
+        if should {
+            if (textFieldInOperation != nil) && (textFieldInOperation != textField) {
+                pickerView?.removeFromSuperview()
+                pickerView = nil
+            }
+            return true
         }
-        
-        return true
+        else {
+            return false
+        }
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -133,12 +155,17 @@ class NotepadViewController: RootViewController, UIPickerViewDelegate, UIPickerV
         textFieldInOperation = textField
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        pickerView?.removeFromSuperview()
-        pickerView = nil
-        textField.resignFirstResponder()
-        
-        return true
+    override func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        let should = super.textFieldShouldReturn(textField)
+        if should {
+            pickerView?.removeFromSuperview()
+            pickerView = nil
+            textField.resignFirstResponder()
+            return true
+        }
+        else {
+            return false
+        }
     }
     
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
@@ -178,6 +205,21 @@ class NotepadViewController: RootViewController, UIPickerViewDelegate, UIPickerV
         pickerView!.frame = frame
         
         baseView.addSubview(pickerView!)
+    }
+    
+    //MARK:- UITextViewDelegates
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.text == bodyNotePlaceholder {
+            textView.text = ""
+        }
+    }
+    
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text == "" {
+            textView.text = bodyNotePlaceholder
+        }
     }
 
 }

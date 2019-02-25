@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RootViewController: UIViewController, AppL2DelegateProtocol {
+class RootViewController: UIViewController, AppL2DelegateProtocol, UITextFieldDelegate, UITextViewDelegate {
     
     var sTitle: String?
     var navigationTitleLabel: UILabel?
@@ -18,6 +18,8 @@ class RootViewController: UIViewController, AppL2DelegateProtocol {
     var appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
     var networkFascilities: NetworkUtil?
     var wasActive: Bool?
+    
+    var arrTextViewForElevation: [UITextView] = []
     var keyboardHeight: CGFloat = 0
     var firstResponderView: UIView? = nil
     let marginBetweenFirstResponderAndKeyboard: CGFloat = 4
@@ -73,6 +75,10 @@ class RootViewController: UIViewController, AppL2DelegateProtocol {
         
         networkFascilities = NetworkUtil(sessionOwner: self)
         wasActive = (networkFascilities!.sessionOwnerState == NetworkUtil.NetworkSessionOwnerState.active)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow(notification:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide(notification:)), name: NSNotification.Name.UIKeyboardDidHide, object: nil)
     }
     
     override func willMove(toParentViewController parent: UIViewController?) {
@@ -263,12 +269,11 @@ class RootViewController: UIViewController, AppL2DelegateProtocol {
         }
         
     }
-    
     // MARK: - Keyboard observation
     
     @objc func keyboardDidShow(notification: NSNotification) {
         let userInfo:NSDictionary = notification.userInfo! as NSDictionary
-        let keyboardFrame:NSValue = userInfo.value(forKey: UIResponder.UIKeyboardFrameEndUserInfoKey) as! NSValue
+        let keyboardFrame:NSValue = userInfo.value(forKey: UIKeyboardFrameEndUserInfoKey) as! NSValue
         let keyboardRectangle = keyboardFrame.cgRectValue
         keyboardHeight = keyboardRectangle.height
         
@@ -291,15 +296,20 @@ class RootViewController: UIViewController, AppL2DelegateProtocol {
     func liftViewForKeyboardIfNecessary() {
         declineViewIfLifted()
         
-        if let absolutePosition = firstResponderView?.absolutePosition(to: nil) {
+        if (firstResponderView is UITextView) && (!(arrTextViewForElevation.contains(firstResponderView as! UITextView))) {
+            return
+        }
+        
+        if let absolutePosition = self.firstResponderView?.absolutePosition(to: nil) {
             let screenHeight = UIScreen.main.bounds.size.height
-            let liftup = absolutePosition.y + firstResponderView!.frame.height + marginBetweenFirstResponderAndKeyboard + extraMarginBetweenFirstResponderAndKeyboard + keyboardHeight - screenHeight
+            let liftup = absolutePosition.y + self.firstResponderView!.frame.height + self.marginBetweenFirstResponderAndKeyboard + self.extraMarginBetweenFirstResponderAndKeyboard + self.keyboardHeight - screenHeight
             if liftup > 0.1 {
-                var frame = view.frame
+                var frame = self.view.frame
                 frame.origin.y -= liftup
-                view.frame = frame
+                self.view.frame = frame
                 
-                viewLiftedHeightForKeyboard = liftup
+                self.viewLiftedHeightForKeyboard = liftup
+                UIFascilities.lockUpOrientation()
             }
         }
     }
@@ -309,10 +319,11 @@ class RootViewController: UIViewController, AppL2DelegateProtocol {
             return
         }
         
-        var frame = view.frame
-        frame.origin.y += viewLiftedHeightForKeyboard
-        view.frame = frame
-        viewLiftedHeightForKeyboard = 0
+        var frame = self.view.frame
+        frame.origin.y += self.viewLiftedHeightForKeyboard
+        self.view.frame = frame
+        self.viewLiftedHeightForKeyboard = 0
+        UIFascilities.unlockOrientation()
     }
     
     
@@ -351,5 +362,32 @@ class RootViewController: UIViewController, AppL2DelegateProtocol {
         firstResponderView = nil
     }
     
-
+    
+    // MARK: - UITextFieldDelegate
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        firstResponderView = textField
+        return true
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        dismissKeyboard()
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if let text = textField.text {
+            textField.text = text.trimmingCharacters(in: .whitespaces)
+        }
+    }
+    
+    
+    // MARK: - UITextViewDelegate
+    
+    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        firstResponderView = textView
+        return true
+    }
+    
+    
 }

@@ -2,7 +2,7 @@
 //  SettingsViewController.swift
 //  tempproject
 //
-//  Created by Jaspreet Kaur on 2019-02-07.
+//  Created by kelci huang on 2019-02-07.
 //  Copyright © 2019 kelci huang. All rights reserved.
 //
 
@@ -19,7 +19,6 @@ class SettingsViewController: RootViewController, UITableViewDataSource, UITable
     var senderObservation: NSKeyValueObservation? // MVVM KVO
     var receiverObservation: NSKeyValueObservation?
     var dateObservation: NSKeyValueObservation?
-    var familyMemberObservation: NSKeyValueObservation?
     var logoutObservation: NSKeyValueObservation?
     var searchObservation: NSKeyValueObservation?
     var searchResultObservation: NSKeyValueObservation?
@@ -64,15 +63,6 @@ class SettingsViewController: RootViewController, UITableViewDataSource, UITable
     // MARK: - KVO
     
     func setKVO() {
-        
-        familyMemberObservation = AddFamilyMember.shared.observe(\AddFamilyMember.arrFamilyMembers, options: [.old, .new]) { [weak self] object, change in
-            if (change.newValue != nil) && (change.newValue != change.oldValue) {
-                DispatchQueue.main.async { [weak self] in
-                    //the allpurposeview controller show be updated here
-                    //self?.tableView.reloadData()
-                }
-            }
-        }
         
         logoutObservation = logoutVM?.observe(\Logout.logoutResult, options: [.old, .new]) { [weak self] object, change in
             //check the logout result fail or success

@@ -18,6 +18,7 @@
                 <outlet property="ReEnterPasswordView" destination="hRV-0O-D7d" id="Acd-T4-HaD"/>
                 <outlet property="RegisterView" destination="Dge-Oi-DmZ" id="J4C-6D-2eA"/>
                 <outlet property="backButton" destination="mQ0-hS-xXj" id="EYW-Tt-oP6"/>
+                <outlet property="baseView" destination="DV6-v3-38K" id="7dS-IO-c11"/>
                 <outlet property="emailTextfield" destination="YnW-sw-PdJ" id="Cw2-AC-eXX"/>
                 <outlet property="enterPasswordTextfield" destination="Uj5-xK-dcC" id="SXd-nF-8tC"/>
                 <outlet property="reEnterPasswordTextField" destination="iIS-se-Ndp" id="aXW-Le-Sx5"/>
@@ -45,7 +46,7 @@
                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Uj5-xK-dcC">
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="At least 8 characters..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Uj5-xK-dcC">
                                     <rect key="frame" x="168" y="0.0" width="159" height="36"/>
                                     <nil key="textColor"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -65,7 +66,7 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dge-Oi-DmZ">
-                            <rect key="frame" x="16" y="297" width="343" height="36"/>
+                            <rect key="frame" x="16" y="305" width="343" height="36"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nNG-2l-KV1">
                                     <rect key="frame" x="16" y="3" width="311" height="30"/>
@@ -97,7 +98,7 @@
                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YnW-sw-PdJ">
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Pls enter email here..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YnW-sw-PdJ">
                                     <rect key="frame" x="168" y="0.0" width="159" height="36"/>
                                     <nil key="textColor"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -151,7 +152,7 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hRV-0O-D7d">
-                            <rect key="frame" x="16" y="237" width="343" height="36"/>
+                            <rect key="frame" x="16" y="245" width="343" height="36"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Re-Enter Password:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pyg-R1-2Tl">
                                     <rect key="frame" x="16" y="0.0" width="149" height="36"/>
@@ -192,7 +193,7 @@
                         <constraint firstItem="Dge-Oi-DmZ" firstAttribute="centerX" secondItem="DV6-v3-38K" secondAttribute="centerX" id="Xpn-eE-gbv"/>
                         <constraint firstItem="Dge-Oi-DmZ" firstAttribute="top" secondItem="hRV-0O-D7d" secondAttribute="bottom" constant="24" id="Y8m-xg-gcv"/>
                         <constraint firstItem="xIV-ev-gN2" firstAttribute="leading" secondItem="DV6-v3-38K" secondAttribute="leading" constant="8" id="YiH-7h-Q2i"/>
-                        <constraint firstItem="hRV-0O-D7d" firstAttribute="top" secondItem="UfU-EO-bJb" secondAttribute="bottom" constant="16" id="Zwi-T4-4Sq"/>
+                        <constraint firstItem="hRV-0O-D7d" firstAttribute="top" secondItem="UfU-EO-bJb" secondAttribute="bottom" constant="24" id="Zwi-T4-4Sq"/>
                         <constraint firstItem="UfU-EO-bJb" firstAttribute="top" secondItem="Ldr-Y3-hfe" secondAttribute="bottom" constant="24" id="a39-jc-Tcq"/>
                         <constraint firstItem="Dge-Oi-DmZ" firstAttribute="centerX" secondItem="DV6-v3-38K" secondAttribute="centerX" id="bJi-LT-vFX"/>
                         <constraint firstItem="UfU-EO-bJb" firstAttribute="leading" secondItem="DV6-v3-38K" secondAttribute="leading" constant="16" id="bNy-Cx-Pea"/>

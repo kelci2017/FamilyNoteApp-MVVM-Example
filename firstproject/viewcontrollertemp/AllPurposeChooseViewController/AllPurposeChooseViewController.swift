@@ -2,8 +2,8 @@
 //  AllPurposeChooseViewController.swift
 //  TemplateApp
 //
-//  Created by Zhengqian Kuang on 2018-11-12.
-//  Copyright © 2018 JandJ. All rights reserved.
+//  Created by kelci huang on 2018-11-12.
+//  Copyright © 2018 kelci huang. All rights reserved.
 //
 
 import UIKit
@@ -90,9 +90,7 @@ class AllPurposeChooseViewController: RootViewController, UITableViewDataSource,
             title = arrOptions![indexPath.row]
         }
         cell!.textLabel?.text = title
-//        if description != "" {
-//            cell!.detailTextLabel?.text = description
-//        }
+
         
         return cell!
     }

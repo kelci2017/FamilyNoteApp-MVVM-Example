@@ -2,7 +2,7 @@
 //  SchedulerClass.swift
 //  tempproject
 //
-//  Created by Jaspreet Kaur on 2018-12-20.
+//  Created by kelci huang on 2018-12-20.
 //  Copyright © 2018 kelci huang. All rights reserved.
 //
 
