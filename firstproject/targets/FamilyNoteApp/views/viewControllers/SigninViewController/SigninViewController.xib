@@ -40,8 +40,8 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C43-Se-Tbd">
                             <rect key="frame" x="8" y="8" width="359" height="280"/>
                             <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="familyNote.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="aYf-MC-pak">
-                                    <rect key="frame" x="0.5" y="28" width="358" height="224"/>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="familyNote-2.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="aYf-MC-pak">
+                                    <rect key="frame" x="0.5" y="42" width="358" height="224"/>
                                     <constraints>
                                         <constraint firstAttribute="width" secondItem="aYf-MC-pak" secondAttribute="height" multiplier="1.6:1" id="OUg-3A-Na2"/>
                                     </constraints>
@@ -51,7 +51,7 @@
                             <constraints>
                                 <constraint firstItem="aYf-MC-pak" firstAttribute="height" secondItem="C43-Se-Tbd" secondAttribute="height" multiplier="0.8" id="6k6-Em-el6"/>
                                 <constraint firstAttribute="height" constant="280" id="JIr-Qa-xa5"/>
-                                <constraint firstItem="aYf-MC-pak" firstAttribute="centerY" secondItem="C43-Se-Tbd" secondAttribute="centerY" id="JqT-fb-GbH"/>
+                                <constraint firstItem="aYf-MC-pak" firstAttribute="centerY" secondItem="C43-Se-Tbd" secondAttribute="centerY" multiplier="1.1" id="JqT-fb-GbH"/>
                                 <constraint firstItem="aYf-MC-pak" firstAttribute="centerX" secondItem="C43-Se-Tbd" secondAttribute="centerX" id="WJ7-5f-jyX"/>
                             </constraints>
                         </view>
@@ -197,7 +197,7 @@
         </view>
     </objects>
     <resources>
-        <image name="familyNote.jpg" width="1024" height="820"/>
+        <image name="familyNote-2.jpg" width="1024" height="820"/>
         <image name="lock.png" width="224" height="225"/>
         <image name="userIcon.png" width="240" height="240"/>
     </resources>

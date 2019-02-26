@@ -60,7 +60,7 @@ class NoteboardViewController: RootViewController, UITableViewDataSource {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        //searchField.text = ""
+        searchField.resignFirstResponder()
         
     }
     
@@ -104,8 +104,16 @@ class NoteboardViewController: RootViewController, UITableViewDataSource {
                         self?.tabBarController?.dismiss(animated: true, completion: {
                             //
                         })
+                    } else if resultCode == 21 {
+                        UserDefaults.standard.set(nil, forKey: Constants.UserDefaultsKey.Token_string.rawValue)
+                        NoteSearch.shared.searchArray = ["All", "All", Date().toString(dateFormat: "yyyy-MM-dd")]
+                        if let keyword = self?.searchField.text {
+                            NoteSearch.shared.sCurrentSearch = keyword
+                        }
+                        return
                     }
                 }
+                
                 self?.filterContents()
                 self?.tableView.reloadData()
             }

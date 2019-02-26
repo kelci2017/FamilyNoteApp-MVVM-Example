@@ -92,6 +92,9 @@ class SettingsViewController: RootViewController, UITableViewDataSource, UITable
                         self?.tabBarController?.dismiss(animated: true, completion: {
                             //
                         })
+                    } else if resultCode == 21 {
+                        UserDefaults.standard.set(nil, forKey: Constants.UserDefaultsKey.Token_string.rawValue)
+                        NoteSearch.shared.searchArray = [self?.senderName, self?.receiverName, self?.selectedDate] as! [String]
                     }
                 }
             }
@@ -168,47 +171,47 @@ class SettingsViewController: RootViewController, UITableViewDataSource, UITable
         let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsChooseDateTableViewCell") as! SettingsChooseDateTableViewCell
         
         cell.tag = arrSections[indexPath.section].arrEntries[indexPath.row].tag
-        cell.bookNameLabel.text = arrSections[indexPath.section].arrEntries[indexPath.row].entry
+        cell.dateLabel.text = arrSections[indexPath.section].arrEntries[indexPath.row].entry
         let detail = arrSections[indexPath.section].arrEntries[indexPath.row].detail
         if detail != "" {
-            cell.bookFullNameLabel.text = detail
+            cell.dateSubLabel.text = detail
         }
         if cell.tag != 2 {
-            cell.alChapterListTopPaddingViewHeight.constant = 0
-            cell.alChapterListViewHeight.constant = 0
+            cell.alDateListTopPaddingViewHeight.constant = 0
+            cell.alDateHeight.constant = 0
         }
         if cell.tag == 3 || cell.tag == 4 {
-            cell.bookFullNameLabel.text = ""
+            cell.dateSubLabel.text = ""
         }
         if cell.tag == 0 {
-            cell.bookFullNameLabel.text = NoteSearch.shared.searchArray[0]
+            cell.dateSubLabel.text = NoteSearch.shared.searchArray[0]
         }
         
         if cell.tag == 1 {
-            cell.bookFullNameLabel.text = NoteSearch.shared.searchArray[1]
+            cell.dateSubLabel.text = NoteSearch.shared.searchArray[1]
         }
         
         if cell.tag == 2 {
-            cell.bookFullNameLabel.text = checkNotesDate
+            cell.dateSubLabel.text = checkNotesDate
             
-            cell.bookNameLabel.gestureRecognizers?.removeAll()
-            cell.bookFullNameLabel.gestureRecognizers?.removeAll()
+            cell.dateLabel.gestureRecognizers?.removeAll()
+            cell.dateSubLabel.gestureRecognizers?.removeAll()
         
             let bookNameLabelTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didRecognizeGesture(gestureRecognizer:)))
-            cell.bookNameLabel.addGestureRecognizer(bookNameLabelTapGestureRecognizer)
-            cell.bookNameLabel.isUserInteractionEnabled = true
+            cell.dateLabel.addGestureRecognizer(bookNameLabelTapGestureRecognizer)
+            cell.dateLabel.isUserInteractionEnabled = true
             
             let bookFullNameLabelTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didRecognizeGesture(gestureRecognizer:)))
-            cell.bookFullNameLabel.addGestureRecognizer(bookFullNameLabelTapGestureRecognizer)
-            cell.bookFullNameLabel.isUserInteractionEnabled = true
+            cell.dateSubLabel.addGestureRecognizer(bookFullNameLabelTapGestureRecognizer)
+            cell.dateSubLabel.isUserInteractionEnabled = true
 
         
         
-        cell.chapterListView.subviews.forEach { (subview) in
+        cell.dateListView.subviews.forEach { (subview) in
             subview.removeFromSuperview()
         }
         
-        let chapterCount = CommonUtil.getCurrentMonthDays()
+        let daysCount = CommonUtil.getCurrentMonthDays()
         
         var bOpend = false
         if indexPathOpened != nil {
@@ -219,32 +222,32 @@ class SettingsViewController: RootViewController, UITableViewDataSource, UITable
         if bOpend {
             let labelWidth: CGFloat = 40
             let spaceBetween: CGFloat = 8
-            var chaptersPerRow: Int = Int(cell.chapterListView.frame.width / (labelWidth + spaceBetween))
-            var remainingWidth: CGFloat = cell.chapterListView.frame.width - (CGFloat(Float(chaptersPerRow)) * (labelWidth + spaceBetween))
+            var daysPerRow: Int = Int(cell.dateListView.frame.width / (labelWidth + spaceBetween))
+            var remainingWidth: CGFloat = cell.dateListView.frame.width - (CGFloat(Float(daysPerRow)) * (labelWidth + spaceBetween))
             if remainingWidth >= labelWidth {
-                chaptersPerRow += 1
+                daysPerRow += 1
             }
-            remainingWidth = cell.chapterListView.frame.width - (CGFloat(Float(chaptersPerRow)) * (labelWidth + spaceBetween))
-            var rowsOfChapter: Int = chapterCount / chaptersPerRow
-            if chapterCount % chaptersPerRow != 0 {
+            remainingWidth = cell.dateListView.frame.width - (CGFloat(Float(daysPerRow)) * (labelWidth + spaceBetween))
+            var rowsOfChapter: Int = daysCount / daysPerRow
+            if daysCount % daysPerRow != 0 {
                 rowsOfChapter += 1
             }
             
-            cell.alChapterListTopPaddingViewHeight.constant = 8
-            cell.alChapterListViewHeight.constant = CGFloat(Float(rowsOfChapter)) * labelWidth + CGFloat(Float((rowsOfChapter - 1))) * spaceBetween
+            cell.alDateListTopPaddingViewHeight.constant = 8
+            cell.alDateHeight.constant = CGFloat(Float(rowsOfChapter)) * labelWidth + CGFloat(Float((rowsOfChapter - 1))) * spaceBetween
             
-            for i in 1...chapterCount {
-                let subview = cell.chapterListView.viewWithTag(i)
+            for i in 1...daysCount {
+                let subview = cell.dateListView.viewWithTag(i)
                 if subview == nil {
-                    let myRow = (i - 1) / chaptersPerRow
-                    let myColumn = (i - 1) % chaptersPerRow
+                    let myRow = (i - 1) / daysPerRow
+                    let myColumn = (i - 1) % daysPerRow
                     let label = UILabel(frame: CGRect(x: CGFloat(Float(myColumn)) * (labelWidth + spaceBetween), y: CGFloat(Float(myRow)) * (labelWidth + spaceBetween), width: labelWidth, height: labelWidth))
                     label.tag = i
                     label.text = "\(i)"
                     let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didRecognizeGesture(gestureRecognizer:)))
                     label.addGestureRecognizer(tapGestureRecognizer)
                     label.isUserInteractionEnabled = true
-                    cell.chapterListView.addSubview(label)
+                    cell.dateListView.addSubview(label)
                 }
             }
             
@@ -255,10 +258,10 @@ class SettingsViewController: RootViewController, UITableViewDataSource, UITable
             }
         }
         else {
-            cell.alChapterListTopPaddingViewHeight.constant = 0
-            cell.alChapterListViewHeight.constant = 0
-            for i in 1...chapterCount {
-                if let subview = cell.chapterListView.viewWithTag(i) {
+            cell.alDateListTopPaddingViewHeight.constant = 0
+            cell.alDateHeight.constant = 0
+            for i in 1...daysCount {
+                if let subview = cell.dateListView.viewWithTag(i) {
                     subview.removeFromSuperview()
                 }
             }
@@ -301,7 +304,6 @@ class SettingsViewController: RootViewController, UITableViewDataSource, UITable
                             }
                             tableView.reloadData()
                         } else if (label.tag >= 1) && (label.tag <= date) {
-                            // print("*** chapter \(label.tag)")
                             let newDate = Date()
                             let calendar = Calendar.current
                             
@@ -310,10 +312,10 @@ class SettingsViewController: RootViewController, UITableViewDataSource, UITable
 
                             checkNotesDate = CommonUtil.generateDate(year: year, month: month, day:label.tag).toString(dateFormat: "yyyy-MM-dd")
                             selectedDate = checkNotesDate
-                            cell.alChapterListTopPaddingViewHeight.constant = 0
-                            cell.alChapterListViewHeight.constant = 0
+                            cell.alDateListTopPaddingViewHeight.constant = 0
+                            cell.alDateHeight.constant = 0
                             for i in 1...date {
-                                if let subview = cell.chapterListView.viewWithTag(i) {
+                                if let subview = cell.dateListView.viewWithTag(i) {
                                     subview.removeFromSuperview()
                                 }
                             }

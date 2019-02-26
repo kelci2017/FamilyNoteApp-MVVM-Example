@@ -40,50 +40,89 @@ class NetworkUtil: NSObject {
     func dataTask(method: NetworkSessionMethod, sURL: String, headers dictHeaders: Dictionary<String, String>?, body dictBody: Dictionary<String, String>?, completion: @escaping (Dictionary<String, Any>?, URLResponse?, Error?) -> ()) {
         let url = URL(string: sURL)
         if url != nil {
-            // URLSession.shared.dataTask(with: url!, completionHandler: completion).resume()
             
-            var request = URLRequest(url: url!)
-            request.httpMethod = method.rawValue
+            let sSessionId = NetworkUtil.newSessionId()
             var dictHeaders: [String:String] = dictHeaders ?? [:]
             let contentType = dictHeaders["content-type"]
             if contentType == nil {
-                dictHeaders["content-type"] = "application/json"
-            }
-            for (httpHeaderField, value) in dictHeaders {
-                request.addValue(value, forHTTPHeaderField: httpHeaderField)
-            }
-            if (dictBody != nil) && (dictBody!.count > 0) {
-                request.httpBody = try! JSONSerialization.data(withJSONObject: dictBody!, options: [])
+                nextTask(sSessionId: sSessionId, method: method, url: url!, headers: dictHeaders, body: dictBody, completion: completion)
+                return
             }
             
-            let sSessionId = NetworkUtil.newSessionId()
-            
-            DispatchQueue.main.async {
-                NetworkUtil.mainThread_sessionWillStart(byOwner: self.sessionOwner, withSessionId: sSessionId)
-                _ = URLSession.shared.dataTask(with: request) { (data, urlResponse, error) in
-                    DispatchQueue.main.asyncAfter(deadline: (.now() + .seconds(NetworkUtil.debug_resonse_delay)), execute: {
-                        let sessionOwner = NetworkUtil.dictSessions[sSessionId]
-                        NetworkUtil.mainThread_sessionDidEnd(withSessionId: sSessionId)
-                        if (sessionOwner != nil) && (self.sessionOwnerState == .active) {
-                            if let urlResponse = urlResponse,
-                                let data = data,
-                                let jsonData = try? JSONSerialization.jsonObject(with: data, options: .mutableContainers) {
-                                let dictResponse = ["__RESPONSE__":jsonData]
-                                completion(dictResponse, urlResponse, error)
-                            } else {
-                                let dictResponse = ["__FAILURE__":"Response abnormal. Discarded."]
+            if dictHeaders["authorization"] == nil {
+                let sessionid = UserDefaults.standard.string(forKey: Constants.UserDefaultsKey.Sessionid_string.rawValue) ?? ""
+                let getTokenUrl = "http://192.168.2.126:4000/auth/getToken?sessionid=\(sessionid)"
+                let tokenUrl = URL(string: getTokenUrl)
+                var request = URLRequest(url: tokenUrl!)
+                request.httpMethod = method.rawValue
+                DispatchQueue.main.async {
+                    NetworkUtil.mainThread_sessionWillStart(byOwner: self.sessionOwner, withSessionId: sSessionId)
+                    _ = URLSession.shared.dataTask(with: request) { (data, urlResponse, error) in
+                        DispatchQueue.main.asyncAfter(deadline: (.now() + .seconds(NetworkUtil.debug_resonse_delay)), execute: {
+                            let sessionOwner = NetworkUtil.dictSessions[sSessionId]
+                            NetworkUtil.mainThread_sessionDidEnd(withSessionId: sSessionId)
+                            if (sessionOwner != nil) && (self.sessionOwnerState == .active) {
+                                if let data = data,
+                                    let jsonData = try? JSONSerialization.jsonObject(with: data, options: .mutableContainers) {
+                                    let dictResponse = ["__RESPONSE__":jsonData]
+                                    let response = dictResponse["__RESPONSE__"] as! Dictionary<String, Any>
+                                    UserDefaults.standard.set(response["token"] as? String, forKey: Constants.UserDefaultsKey.Token_string.rawValue)
+                                    self.nextTask(sSessionId: sSessionId, method: method, url: url!, headers: dictHeaders, body: dictBody, completion: completion)
+                                } else {
+                                    let dictResponse = ["__FAILURE__":"Response abnormal. Discarded."]
+                                    completion(dictResponse, urlResponse, error)
+                                }
+                            }
+                            else {
+                                let dictResponse = ["__CANCELLED__":"Network session's owner is not active. Response discarded."]
                                 completion(dictResponse, urlResponse, error)
                             }
-                        }
-                        else {
-                            let dictResponse = ["__CANCELLED__":"Network session's owner is not active. Response discarded."]
-                            completion(dictResponse, urlResponse, error)
-                        }
-                    })}.resume()
+                        })}.resume()
+                }
+            } else {
+                nextTask(sSessionId: sSessionId, method: method, url: url!, headers: dictHeaders, body: dictBody, completion: completion)
             }
         }
     }
-    
+  
+    func nextTask(sSessionId: String, method: NetworkSessionMethod, url: URL, headers dictHeaders: Dictionary<String, String>?, body dictBody: Dictionary<String, String>?, completion: @escaping (Dictionary<String, Any>?, URLResponse?, Error?) -> ()) {
+        var request = URLRequest(url: url)
+        request.httpMethod = method.rawValue
+        var dictHeaders: [String:String] = dictHeaders ?? [:]
+        if dictHeaders["content-type"] == nil {
+            dictHeaders["content-type"] = "application/json"
+        }
+        for (httpHeaderField, value) in dictHeaders {
+            request.addValue(value, forHTTPHeaderField: httpHeaderField)
+        }
+        if (dictBody != nil) && (dictBody!.count > 0) {
+            request.httpBody = try! JSONSerialization.data(withJSONObject: dictBody!, options: [])
+        }
+
+        DispatchQueue.main.async {
+            NetworkUtil.mainThread_sessionWillStart(byOwner: self.sessionOwner, withSessionId: sSessionId)
+            _ = URLSession.shared.dataTask(with: request) { (data, urlResponse, error) in
+                DispatchQueue.main.asyncAfter(deadline: (.now() + .seconds(NetworkUtil.debug_resonse_delay)), execute: {
+                    let sessionOwner = NetworkUtil.dictSessions[sSessionId]
+                    NetworkUtil.mainThread_sessionDidEnd(withSessionId: sSessionId)
+                    if (sessionOwner != nil) && (self.sessionOwnerState == .active) {
+                        if let urlResponse = urlResponse,
+                            let data = data,
+                            let jsonData = try? JSONSerialization.jsonObject(with: data, options: .mutableContainers) {
+                            let dictResponse = ["__RESPONSE__":jsonData]
+                            completion(dictResponse, urlResponse, error)
+                        } else {
+                            let dictResponse = ["__FAILURE__":"Response abnormal. Discarded."]
+                            completion(dictResponse, urlResponse, error)
+                        }
+                    }
+                    else {
+                        let dictResponse = ["__CANCELLED__":"Network session's owner is not active. Response discarded."]
+                        completion(dictResponse, urlResponse, error)
+                    }
+                })}.resume()
+        }
+    }
     /**
      *  MUST be called within MAINTHREAD
      *  owner: if nil, will use appDelegate

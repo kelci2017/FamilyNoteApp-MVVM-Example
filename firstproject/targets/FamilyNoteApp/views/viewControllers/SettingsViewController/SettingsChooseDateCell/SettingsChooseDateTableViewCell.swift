@@ -10,13 +10,13 @@ import UIKit
 
 class SettingsChooseDateTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var bookNameLabel: UILabel!
-    @IBOutlet weak var bookFullNameLabel: UILabel!
-    @IBOutlet weak var chapterListTopPaddingView: UIView!
-    @IBOutlet weak var chapterListView: UIView!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var dateSubLabel: UILabel!
+    @IBOutlet weak var dateListTopPaddingView: UIView!
+    @IBOutlet weak var dateListView: UIView!
     
-    @IBOutlet weak var alChapterListTopPaddingViewHeight: NSLayoutConstraint!
-    @IBOutlet weak var alChapterListViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var alDateListTopPaddingViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var alDateHeight: NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()

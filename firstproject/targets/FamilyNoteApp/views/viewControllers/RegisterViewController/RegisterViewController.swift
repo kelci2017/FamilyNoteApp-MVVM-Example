@@ -66,6 +66,10 @@ class RegisterViewController: RootViewController {
         CommonUtil.showDialog(title: "Password too short!", message: "Please enter a password at least 8 characters.", viewController: self)
         return
     }
+    if CommonUtil.hasSpecialCharacters(string: self.enterPasswordTextfield.text?.trimmingCharacters(in: .whitespaces) ?? "") {
+        CommonUtil.showDialog(title: "No special characters!", message: "Please do not include special characters in the password.", viewController: self)
+        return
+    }
     
     let jsonRegister: NSMutableDictionary? = NSMutableDictionary()
     

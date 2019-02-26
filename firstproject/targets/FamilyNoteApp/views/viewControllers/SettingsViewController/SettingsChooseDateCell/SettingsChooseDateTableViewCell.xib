@@ -64,12 +64,12 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="alChapterListTopPaddingViewHeight" destination="bRT-ga-KQ9" id="2KJ-KD-G14"/>
-                <outlet property="alChapterListViewHeight" destination="0gK-ZK-qjP" id="Chw-d7-fR9"/>
-                <outlet property="bookFullNameLabel" destination="r3u-0V-7Ik" id="z3j-nA-2ca"/>
-                <outlet property="bookNameLabel" destination="ukb-cs-Ar7" id="5ON-nM-GNm"/>
-                <outlet property="chapterListTopPaddingView" destination="zwC-J4-MVK" id="u3M-xC-ZFY"/>
-                <outlet property="chapterListView" destination="Sup-09-a6j" id="aC4-cs-yka"/>
+                <outlet property="alDateHeight" destination="0gK-ZK-qjP" id="QIp-gx-4sc"/>
+                <outlet property="alDateListTopPaddingViewHeight" destination="bRT-ga-KQ9" id="oGE-ca-MKT"/>
+                <outlet property="dateLabel" destination="ukb-cs-Ar7" id="oLL-72-401"/>
+                <outlet property="dateListTopPaddingView" destination="zwC-J4-MVK" id="dd7-Kd-IBV"/>
+                <outlet property="dateListView" destination="Sup-09-a6j" id="qyT-vV-6Xl"/>
+                <outlet property="dateSubLabel" destination="r3u-0V-7Ik" id="R6L-8A-g3N"/>
             </connections>
             <point key="canvasLocation" x="52.799999999999997" y="116.94152923538232"/>
         </tableViewCell>

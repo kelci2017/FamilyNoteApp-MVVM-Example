@@ -26,7 +26,6 @@
 		416DDCCC2211EC5E00409B63 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416DDCCB2211EC5E00409B63 /* Login.swift */; };
 		416DDCCE2211EC6C00409B63 /* Logout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416DDCCD2211EC6C00409B63 /* Logout.swift */; };
 		416DDCD02211EC7C00409B63 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416DDCCF2211EC7C00409B63 /* User.swift */; };
-		416DDCD42211EE4600409B63 /* familyNote.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 416DDCD12211EE4600409B63 /* familyNote.jpg */; };
 		416DDCD52211EE4600409B63 /* noteboard.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 416DDCD22211EE4600409B63 /* noteboard.jpg */; };
 		416DDCD62211EE4600409B63 /* notepad.png in Resources */ = {isa = PBXBuildFile; fileRef = 416DDCD32211EE4600409B63 /* notepad.png */; };
 		416DDCD82211EF8500409B63 /* search.png in Resources */ = {isa = PBXBuildFile; fileRef = 416DDCD72211EF8500409B63 /* search.png */; };
@@ -63,6 +62,8 @@
 		418E8E3A220CD46900994124 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 418E8E38220CD46900994124 /* SettingsViewController.xib */; };
 		418E8E3D220E263600994124 /* UIUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418E8E3C220E263600994124 /* UIUtil.swift */; };
 		41D7E5EF2224907F002E4E3A /* pin.png in Resources */ = {isa = PBXBuildFile; fileRef = 41D7E5EE2224907E002E4E3A /* pin.png */; };
+		41D7E6142225A110002E4E3A /* FamilyNoteLogin.png in Resources */ = {isa = PBXBuildFile; fileRef = 41D7E6132225A110002E4E3A /* FamilyNoteLogin.png */; };
+		41D7E6182225D504002E4E3A /* familyNote-2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 41D7E6172225D504002E4E3A /* familyNote-2.jpg */; };
 		56962FA810735989C2ABC2CF /* Pods_tempproject_tempprojectUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADAD086428D1864EF935AB6F /* Pods_tempproject_tempprojectUITests.framework */; };
 		D7779F7A85DABEBD82B87CC6 /* Pods_tempproject_tempprojectTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B60EC02A371EC3D683041DE /* Pods_tempproject_tempprojectTests.framework */; };
 		E1546BCE21C02316008590F6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1546BCD21C02316008590F6 /* AppDelegate.swift */; };
@@ -131,7 +132,6 @@
 		416DDCCB2211EC5E00409B63 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		416DDCCD2211EC6C00409B63 /* Logout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logout.swift; sourceTree = "<group>"; };
 		416DDCCF2211EC7C00409B63 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		416DDCD12211EE4600409B63 /* familyNote.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = familyNote.jpg; sourceTree = "<group>"; };
 		416DDCD22211EE4600409B63 /* noteboard.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = noteboard.jpg; sourceTree = "<group>"; };
 		416DDCD32211EE4600409B63 /* notepad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = notepad.png; sourceTree = "<group>"; };
 		416DDCD72211EF8500409B63 /* search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search.png; sourceTree = "<group>"; };
@@ -169,6 +169,8 @@
 		418E8E3C220E263600994124 /* UIUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIUtil.swift; sourceTree = "<group>"; };
 		4198E49C20F538A71C8C240F /* Pods_tempproject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_tempproject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		41D7E5EE2224907E002E4E3A /* pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin.png; sourceTree = "<group>"; };
+		41D7E6132225A110002E4E3A /* FamilyNoteLogin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FamilyNoteLogin.png; sourceTree = "<group>"; };
+		41D7E6172225D504002E4E3A /* familyNote-2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "familyNote-2.jpg"; sourceTree = "<group>"; };
 		8B60EC02A371EC3D683041DE /* Pods_tempproject_tempprojectTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_tempproject_tempprojectTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C0136C711AE33332AF5DA96 /* Pods-tempproject-tempprojectUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tempproject-tempprojectUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-tempproject-tempprojectUITests/Pods-tempproject-tempprojectUITests.release.xcconfig"; sourceTree = "<group>"; };
 		A3FDA4F2FB47F01B49D5CC0F /* Pods-tempprojectTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tempprojectTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-tempprojectTests/Pods-tempprojectTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -455,6 +457,8 @@
 		418E8E3B220CD69000994124 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				41D7E6172225D504002E4E3A /* familyNote-2.jpg */,
+				41D7E6132225A110002E4E3A /* FamilyNoteLogin.png */,
 				417B12D22220966A00F43C8A /* return.png */,
 				41D7E5EE2224907E002E4E3A /* pin.png */,
 				417B12CE222095AB00F43C8A /* userIcon.png */,
@@ -462,7 +466,6 @@
 				410B7373221F350A00346B21 /* imageNote.png */,
 				410B7371221F219600346B21 /* pencil.png */,
 				416DDCD72211EF8500409B63 /* search.png */,
-				416DDCD12211EE4600409B63 /* familyNote.jpg */,
 				416DDCD22211EE4600409B63 /* noteboard.jpg */,
 				416DDCD32211EE4600409B63 /* notepad.png */,
 			);
@@ -832,10 +835,10 @@
 				416DDCE62212037A00409B63 /* AllPurposeChooseViewController.xib in Resources */,
 				418E8DEB21CD4B6D00994124 /* HomeViewController.xib in Resources */,
 				E1546BD521C02325008590F6 /* Assets.xcassets in Resources */,
-				416DDCD42211EE4600409B63 /* familyNote.jpg in Resources */,
 				417B12D1222095B800F43C8A /* lock.png in Resources */,
 				E1546BD321C02316008590F6 /* Main.storyboard in Resources */,
 				E1E46BF821C9657F00585DC7 /* SettingViewController.xib in Resources */,
+				41D7E6142225A110002E4E3A /* FamilyNoteLogin.png in Resources */,
 				410B7360221DFDAF00346B21 /* NoteboardNoteTableViewCell.xib in Resources */,
 				E1E46C0621C9A41000585DC7 /* home.png in Resources */,
 				4158336321CD464B0052C36D /* Home2Page.xib in Resources */,
@@ -845,6 +848,7 @@
 				416DDCD82211EF8500409B63 /* search.png in Resources */,
 				417B12CF222095AB00F43C8A /* userIcon.png in Resources */,
 				E1E46C0721C9A41000585DC7 /* setting.png in Resources */,
+				41D7E6182225D504002E4E3A /* familyNote-2.jpg in Resources */,
 				418E8E1D220CC5FE00994124 /* RegisterViewController.xib in Resources */,
 				416DDCD62211EE4600409B63 /* notepad.png in Resources */,
 				418E8E3A220CD46900994124 /* SettingsViewController.xib in Resources */,
@@ -1181,14 +1185,14 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3130A282AE889257C15813BC /* Pods-tempproject.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = FamilyNote;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = firstproject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = kelci.firstproject;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kelci.FamilyNote;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1199,14 +1203,14 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C078734B906541D82ECBB6D9 /* Pods-tempproject.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = FamilyNote;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = firstproject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = kelci.firstproject;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kelci.FamilyNote;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

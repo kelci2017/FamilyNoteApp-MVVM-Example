@@ -293,4 +293,20 @@ class CommonUtil: NSObject {
         
         return date
     }
+    
+    class func hasSpecialCharacters(string: String) -> Bool {
+        
+        do {
+            let regex = try NSRegularExpression(pattern: ".*[^A-Za-z0-9].*", options: .caseInsensitive)
+            if regex.firstMatch(in: string, options: NSRegularExpression.MatchingOptions.reportCompletion, range: NSMakeRange(0, string.count)) != nil {
+                return true
+            }
+            
+        } catch {
+            debugPrint(error.localizedDescription)
+            return false
+        }
+        
+        return false
+    }
 }

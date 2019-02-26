@@ -25,6 +25,7 @@ class NotepadViewController: RootViewController, UIPickerViewDelegate, UIPickerV
     var pickerView: UIPickerView?
     
     let bodyNotePlaceholder = "Please enter a note here..."
+    var jsonNoteCopy: NSMutableDictionary? = NSMutableDictionary()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,8 +47,39 @@ class NotepadViewController: RootViewController, UIPickerViewDelegate, UIPickerV
         noteSubmitVM = NoteSubmit(networkFascilities: networkFascilities!)
         
         // Do any additional setup after loading the view.
+        setKVO()
+        
+    }
+
+    @IBAction func submit() {
+        if noteBodyTextView.text == nil {
+            CommonUtil.showDialog(title: "The note is empty!", message: "Please enter your note.", viewController: self)
+            return
+        }
+        
+        let jsonNote: NSMutableDictionary? = NSMutableDictionary()
+        let date = Date().toString(dateFormat: "yyyy-MM-dd")
+        
+        jsonNote?.setValue(senderName.text, forKey: Constants.NoteKey.sender.rawValue)
+        jsonNote?.setValue(receiverName.text, forKey: Constants.NoteKey.receiver.rawValue)
+        jsonNote?.setValue(noteBodyTextView.text, forKey: Constants.NoteKey.notebody.rawValue)
+        jsonNote?.setValue(date, forKey: Constants.NoteKey.createDate.rawValue)
+        jsonNote?.setValue(UserDefaults.standard.string(forKey: Constants.UserDefaultsKey.Userid_string.rawValue), forKey: Constants.NoteKey.userID.rawValue)
+        
+        noteSubmitVM?.submittedNote = jsonNote
+        jsonNoteCopy = jsonNote
+        
+        noteBodyTextView.resignFirstResponder()
+        self.baseView.isUserInteractionEnabled = false
+        
+        print("submittedNote: \(String(describing: jsonNote))")
+    }
+    
+    // MARK: - KVO
+    
+    func setKVO() {
         noteSubmitObservation = noteSubmitVM?.observe(\NoteSubmit.submitResult, options: [.old, .new]) { [weak self] object, change in
-           
+            
             DispatchQueue.main.async { [weak self] in
                 print(NoteSearch.shared.searchResult)
                 
@@ -68,6 +100,9 @@ class NotepadViewController: RootViewController, UIPickerViewDelegate, UIPickerV
                         self?.tabBarController?.dismiss(animated: true, completion: {
                             //
                         })
+                    } else if resultCode == 21 {
+                        UserDefaults.standard.set(nil, forKey: Constants.UserDefaultsKey.Token_string.rawValue)
+                        self?.noteSubmitVM?.submittedNote = self?.jsonNoteCopy
                     }
                 }
                 
@@ -77,32 +112,9 @@ class NotepadViewController: RootViewController, UIPickerViewDelegate, UIPickerV
         
         familyMembersObservation = AddFamilyMember.shared.observe(\AddFamilyMember.arrFamilyMembers, options: [.old, .new]) { [weak self] object, change in
             DispatchQueue.main.async { [weak self] in
-            self?.familyMemberList = AddFamilyMember.shared.arrFamilyMembers
+                self?.familyMemberList = AddFamilyMember.shared.arrFamilyMembers
             }
         }
-        
-    }
-
-    @IBAction func submit() {
-        if noteBodyTextView.text == nil {
-            CommonUtil.showDialog(title: "The note is empty!", message: "Please enter your note.", viewController: self)
-            return
-        }
-        
-        let jsonNote: NSMutableDictionary? = NSMutableDictionary()
-        let date = Date().toString(dateFormat: "yyyy-MM-dd")
-        
-        jsonNote?.setValue(senderName.text, forKey: Constants.NoteKey.sender.rawValue)
-        jsonNote?.setValue(receiverName.text, forKey: Constants.NoteKey.receiver.rawValue)
-        jsonNote?.setValue(noteBodyTextView.text, forKey: Constants.NoteKey.notebody.rawValue)
-        jsonNote?.setValue(date, forKey: Constants.NoteKey.createDate.rawValue)
-        jsonNote?.setValue(UserDefaults.standard.string(forKey: Constants.UserDefaultsKey.Userid_string.rawValue), forKey: Constants.NoteKey.userID.rawValue)
-        
-        noteSubmitVM?.submittedNote = jsonNote
-        noteBodyTextView.resignFirstResponder()
-        self.baseView.isUserInteractionEnabled = false
-        
-        print("submittedNote: \(String(describing: jsonNote))")
     }
     
     // MARK: - PickerView delegate
