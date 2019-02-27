@@ -74,6 +74,15 @@ class SettingsViewController: RootViewController, UITableViewDataSource, UITable
                         })
                     }
                     else {
+                        if resultCode == 16 {
+                            self?.clearSessionToken(clearSession : true, clearToken : true)
+                            self?.tabBarController?.dismiss(animated: true, completion: {
+                                //
+                            })
+                        } else if resultCode == 21 {
+                            self?.clearSessionToken(clearSession : false, clearToken : true)
+                            self?.logoutVM?.loggedout = true
+                        }
                         self?.showResultErrorAlert(resultCode: resultCode)
                     }
                 }
@@ -87,13 +96,12 @@ class SettingsViewController: RootViewController, UITableViewDataSource, UITable
                 if resultCode != 0 {
                     self?.showResultErrorAlert(resultCode: resultCode)
                     if resultCode == 16 {
-                        UserDefaults.standard.set(nil, forKey: Constants.UserDefaultsKey.Token_string.rawValue)
-                        UserDefaults.standard.set(nil, forKey: Constants.UserDefaultsKey.Sessionid_string.rawValue)
+                        self?.clearSessionToken(clearSession : true, clearToken : true)
                         self?.tabBarController?.dismiss(animated: true, completion: {
                             //
                         })
                     } else if resultCode == 21 {
-                        UserDefaults.standard.set(nil, forKey: Constants.UserDefaultsKey.Token_string.rawValue)
+                        self?.clearSessionToken(clearSession : false, clearToken : true)
                         NoteSearch.shared.searchArray = [self?.senderName, self?.receiverName, self?.selectedDate] as! [String]
                     }
                 }
@@ -118,7 +126,7 @@ class SettingsViewController: RootViewController, UITableViewDataSource, UITable
         allPurposeChooseViewController.dataSource = self
         allPurposeChooseViewController.context = "sender"
         allPurposeChooseViewController.sTitle = "Senders"
-        allPurposeChooseViewController.arrOptions = AddFamilyMember.shared.arrFamilyMembers
+        allPurposeChooseViewController.arrOptions = FamilyMemberManager.shared.arrFamilyMembers
         self.navigationController?.pushViewController(allPurposeChooseViewController, animated: true)
         baseView.isUserInteractionEnabled = false
     }
@@ -129,7 +137,7 @@ class SettingsViewController: RootViewController, UITableViewDataSource, UITable
         allPurposeChooseViewController.dataSource = self
         allPurposeChooseViewController.context = "receiver"
         allPurposeChooseViewController.sTitle = "Receivers"
-        allPurposeChooseViewController.arrOptions = AddFamilyMember.shared.arrFamilyMembers
+        allPurposeChooseViewController.arrOptions = FamilyMemberManager.shared.arrFamilyMembers
         self.navigationController?.pushViewController(allPurposeChooseViewController, animated: true)
         baseView.isUserInteractionEnabled = false
     }

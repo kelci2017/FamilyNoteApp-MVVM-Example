@@ -22,8 +22,6 @@ class NoteboardViewController: RootViewController, UITableViewDataSource {
     var noteSearchObservation : NSKeyValueObservation?
     var noteGlobalSearchObservation : NSKeyValueObservation?
     
-    var noteGlobalSearchVM : NoteGlobalSearch?
-    
     var localSwitchValue = false
     var globalSwitchValue = false
     
@@ -39,8 +37,6 @@ class NoteboardViewController: RootViewController, UITableViewDataSource {
         let searchImageViewTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(globalSearch))
         searchImage.addGestureRecognizer(searchImageViewTapGestureRecognizer)
         searchImage.isUserInteractionEnabled = true
-        
-        noteGlobalSearchVM = NoteGlobalSearch(networkFascilities: networkFascilities!)
         
         tableView.register(UINib(nibName: "NoteboardNoteTableViewCell", bundle: nil), forCellReuseIdentifier: "NoteboardNoteTableViewCell")
         
@@ -99,14 +95,13 @@ class NoteboardViewController: RootViewController, UITableViewDataSource {
                 if resultCode != 0 {
                     self?.showResultErrorAlert(resultCode: resultCode)
                     if resultCode == 16 {
-                        UserDefaults.standard.set(nil, forKey: Constants.UserDefaultsKey.Token_string.rawValue)
-                        UserDefaults.standard.set(nil, forKey: Constants.UserDefaultsKey.Sessionid_string.rawValue)
+                        self?.clearSessionToken(clearSession : true, clearToken : true)
                         self?.tabBarController?.dismiss(animated: true, completion: {
                             //
                         })
                     } else if resultCode == 21 {
-                        UserDefaults.standard.set(nil, forKey: Constants.UserDefaultsKey.Token_string.rawValue)
-                        NoteSearch.shared.searchArray = ["All", "All", Date().toString(dateFormat: "yyyy-MM-dd")]
+                        self?.clearSessionToken(clearSession : false, clearToken : true)
+                        //NoteSearch.shared.searchArray = ["All", "All", Date().toString(dateFormat: "yyyy-MM-dd")]
                         if let keyword = self?.searchField.text {
                             NoteSearch.shared.sCurrentSearch = keyword
                         }

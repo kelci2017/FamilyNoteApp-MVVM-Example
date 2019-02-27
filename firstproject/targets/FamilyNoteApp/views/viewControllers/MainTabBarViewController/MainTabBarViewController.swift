@@ -26,7 +26,7 @@ class MainTabBarViewController: TabViewController {
     override func createTabs() {
         
         noteboardViewController = NoteboardViewController()
-        imageNoteboard = CommonUtil.scale(image: UIImage(named: "noteboard.jpg"), to: CGSize(width: 20, height: 20))
+        imageNoteboard = CommonUtil.scale(image: UIImage(named: "boardnote.jpg"), to: CGSize(width: 20, height: 20))
         noteboardViewController!.tabBarItem = UITabBarItem(title: "Noteboard", image: imageNoteboard, tag: 0)
         noteboardNavigationViewController = NavigationViewController(rootViewController: noteboardViewController!)
         

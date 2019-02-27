@@ -25,13 +25,8 @@ class NoteSubmit: NSObject {
                 print("the sessionid is at the submite note: \(String(describing: sessionid))")
                 
                 let url = "http://192.168.2.126:4000/notes/create?sessionid=\(sessionid)"
-                let token = UserDefaults.standard.string(forKey: Constants.UserDefaultsKey.Token_string.rawValue) ?? ""
-                var dictHeaders: [String:String] = [:]
-               
-                dictHeaders["authorization"] = "Bearer \(token)"
-                dictHeaders["content-type"] = "application/json"
                 
-                networkFascilities?.dataTask(method: .POST, sURL: url, headers: dictHeaders, body: submittedNote as? Dictionary<String, String>, completion: { (dictResponse, urlResponse, error) in
+                networkFascilities?.dataTask(method: .POST, sURL: url, headers: networkFascilities?.setHeaders(), body: submittedNote as? Dictionary<String, String>, completion: { (dictResponse, urlResponse, error) in
                     
                     print("note submite webesrvice call is done")
                   

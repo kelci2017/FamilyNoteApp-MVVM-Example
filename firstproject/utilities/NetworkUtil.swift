@@ -37,7 +37,7 @@ class NetworkUtil: NSObject {
         return uuidString
     }
     
-    func dataTask(method: NetworkSessionMethod, sURL: String, headers dictHeaders: Dictionary<String, String>?, body dictBody: Dictionary<String, String>?, completion: @escaping (Dictionary<String, Any>?, URLResponse?, Error?) -> ()) {
+    func dataTask(method: NetworkSessionMethod, sURL: String, headers dictHeaders: Dictionary<String, String>?, body dictBody: Dictionary<String, Any>?, completion: @escaping (Dictionary<String, Any>?, URLResponse?, Error?) -> ()) {
         let url = URL(string: sURL)
         if url != nil {
             
@@ -85,7 +85,7 @@ class NetworkUtil: NSObject {
         }
     }
   
-    func nextTask(sSessionId: String, method: NetworkSessionMethod, url: URL, headers dictHeaders: Dictionary<String, String>?, body dictBody: Dictionary<String, String>?, completion: @escaping (Dictionary<String, Any>?, URLResponse?, Error?) -> ()) {
+    func nextTask(sSessionId: String, method: NetworkSessionMethod, url: URL, headers dictHeaders: Dictionary<String, String>?, body dictBody: Dictionary<String, Any>?, completion: @escaping (Dictionary<String, Any>?, URLResponse?, Error?) -> ()) {
         var request = URLRequest(url: url)
         request.httpMethod = method.rawValue
         var dictHeaders: [String:String] = dictHeaders ?? [:]
@@ -176,5 +176,14 @@ class NetworkUtil: NSObject {
         }
     }
 
-
+    func setHeaders() -> Dictionary<String, String> {
+        let token = UserDefaults.standard.string(forKey: Constants.UserDefaultsKey.Token_string.rawValue)
+        var dictHeaders: [String:String] = [:]
+        
+        if token != nil {
+            dictHeaders["authorization"] = "Bearer \(token!)"
+        }
+        dictHeaders["content-type"] = "application/json"
+        return dictHeaders
+    }
 }

@@ -49,7 +49,7 @@
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imageedit_13_3424083944.png" translatesAutoresizingMaskIntoConstraints="NO" id="dO9-eZ-fCM">
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hellokittypin.png" translatesAutoresizingMaskIntoConstraints="NO" id="dO9-eZ-fCM">
                                     <rect key="frame" x="137" y="-5" width="85" height="85"/>
                                     <constraints>
                                         <constraint firstAttribute="width" secondItem="dO9-eZ-fCM" secondAttribute="height" multiplier="1:1" id="PtE-5B-9nA"/>
@@ -157,7 +157,7 @@
         </view>
     </objects>
     <resources>
-        <image name="imageedit_13_3424083944.png" width="225" height="225"/>
+        <image name="hellokittypin.png" width="227" height="216"/>
         <image name="search.png" width="512" height="512"/>
     </resources>
 </document>

@@ -162,8 +162,6 @@ class RootViewController: UIViewController, AppL2DelegateProtocol, UITextFieldDe
         self.navigationItem.titleView = navigationTitleView
     }
     
-    
-    // forceDismissForNavigationRoot: If self is the root viewController of a naviagtionController, forceDismissForNavigationRoot will decide whether to dismiss the naviagtionController or not
     func dismiss(animated: Bool, forceDismissForNavigationRoot: Bool, completion: @escaping (_ success: Bool) -> Void) {
         if self.navigationController != nil {
             var popToViewController: UIViewController? = navigationBackViewController
@@ -197,6 +195,16 @@ class RootViewController: UIViewController, AppL2DelegateProtocol, UITextFieldDe
         }
     }
     
+    func clearSessionToken(clearSession : Bool, clearToken : Bool) {
+        if clearToken && clearSession {
+            UserDefaults.standard.set(nil, forKey: Constants.UserDefaultsKey.Token_string.rawValue)
+            UserDefaults.standard.set(nil, forKey: Constants.UserDefaultsKey.Sessionid_string.rawValue)
+            return
+        }
+        if clearToken {
+            UserDefaults.standard.set(nil, forKey: Constants.UserDefaultsKey.Token_string.rawValue)
+        }
+    }
     
     // MARK: - Actions
     

@@ -95,13 +95,12 @@ class NotepadViewController: RootViewController, UIPickerViewDelegate, UIPickerV
                 else {
                     self?.showResultErrorAlert(resultCode: resultCode)
                     if resultCode == 16 {
-                        UserDefaults.standard.set(nil, forKey: Constants.UserDefaultsKey.Token_string.rawValue)
-                        UserDefaults.standard.set(nil, forKey: Constants.UserDefaultsKey.Sessionid_string.rawValue)
+                        self?.clearSessionToken(clearSession : true, clearToken : true)
                         self?.tabBarController?.dismiss(animated: true, completion: {
                             //
                         })
                     } else if resultCode == 21 {
-                        UserDefaults.standard.set(nil, forKey: Constants.UserDefaultsKey.Token_string.rawValue)
+                        self?.clearSessionToken(clearSession : false, clearToken : true)
                         self?.noteSubmitVM?.submittedNote = self?.jsonNoteCopy
                     }
                 }
@@ -110,16 +109,16 @@ class NotepadViewController: RootViewController, UIPickerViewDelegate, UIPickerV
             
         }
         
-        familyMembersObservation = AddFamilyMember.shared.observe(\AddFamilyMember.arrFamilyMembers, options: [.old, .new]) { [weak self] object, change in
+        familyMembersObservation = FamilyMemberManager.shared.observe(\FamilyMemberManager.arrFamilyMembers, options: [.old, .new]) { [weak self] object, change in
             DispatchQueue.main.async { [weak self] in
-                self?.familyMemberList = AddFamilyMember.shared.arrFamilyMembers
+                self?.familyMemberList = FamilyMemberManager.shared.arrFamilyMembers
             }
         }
     }
     
     // MARK: - PickerView delegate
     
-    var familyMemberList = AddFamilyMember.shared.arrFamilyMembers
+    var familyMemberList = FamilyMemberManager.shared.arrFamilyMembers
     
     public func numberOfComponents(in pickerView: UIPickerView) -> Int{
         return 1
@@ -127,7 +126,7 @@ class NotepadViewController: RootViewController, UIPickerViewDelegate, UIPickerV
     
     public func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int{
         
-        return familyMemberList?.count ?? 0
+        return familyMemberList.count
     }
     
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
@@ -137,11 +136,11 @@ class NotepadViewController: RootViewController, UIPickerViewDelegate, UIPickerV
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         
         self.view.endEditing(true)
-        return familyMemberList?[row]
+        return familyMemberList[row]
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        textFieldInOperation?.text = familyMemberList?[row]
+        textFieldInOperation?.text = familyMemberList[row]
         pickerView.removeFromSuperview()
         self.pickerView = nil
     }
@@ -192,12 +191,12 @@ class NotepadViewController: RootViewController, UIPickerViewDelegate, UIPickerV
     }
     
     func createPickerView(for textField: UITextField) {
-        var listLength = familyMemberList?.count ?? 0
+        var listLength = familyMemberList.count 
         guard listLength > 0 else {
             return
         }
-        if listLength > 10 {
-            listLength = 10
+        if listLength > 3 {
+            listLength = 3
         }
         
         pickerView?.removeFromSuperview()

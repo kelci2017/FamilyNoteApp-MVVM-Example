@@ -17,7 +17,7 @@ class FamilyNoteScheduler: NSObject, SchedulerViewControllerDataSource {
         
         upcomingViewController = signInViewController
         
-        if UserDefaults.standard.string(forKey: Constants.UserDefaultsKey.Sessionid_string.rawValue) != nil {
+        if UserDefaults.standard.string(forKey: Constants.UserDefaultsKey.Sessionid_string.rawValue) != nil &&  UserDefaults.standard.string(forKey: Constants.UserDefaultsKey.Sessionid_string.rawValue) != ""{
             if mainTabBarViewController == nil {
                 mainTabBarViewController = MainTabBarViewController()
             }

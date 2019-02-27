@@ -17,9 +17,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var arrAppL2ViewControllerDelegates: Array<RootViewController> = []
     var mainTabBarViewController: TabViewController? = nil
     var reachability = Reachability()!
+    var networkFacilities : NetworkUtil?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        loadFamilyMembers()
         return true
     }
 
@@ -69,7 +71,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return UIFascilities.lockedOrientation
     }
     
-    
+    func loadFamilyMembers() {
+        let sessionid = UserDefaults.standard.string(forKey: Constants.UserDefaultsKey.Sessionid_string.rawValue)
+        
+        let url = "http://192.168.2.126:4000/auth/familyMembers?sessionid=\(sessionid ?? "")"
+        networkFacilities = NetworkUtil()
+        networkFacilities?.dataTask(method: .GET, sURL: url, headers: networkFacilities?.setHeaders(), body: nil, completion: { (dictResponse, urlResponse, error) in
+            if let response = dictResponse?["__RESPONSE__"] {
+                var responseCopy = response as! Dictionary<String, Any>
+                if let resultCode = responseCopy["resultCode"] as? Int {
+                    if resultCode != 0 {
+                        if resultCode == 16 {
+                            UserDefaults.standard.set(nil, forKey: Constants.UserDefaultsKey.Token_string.rawValue)
+                            UserDefaults.standard.set(nil, forKey: Constants.UserDefaultsKey.Sessionid_string.rawValue)
+                        } else if resultCode == 21 {
+                            UserDefaults.standard.set(nil, forKey: Constants.UserDefaultsKey.Token_string.rawValue)
+                        }
+                    } else {
+                        let arrFamilyMembers = responseCopy["resultDesc"]
+                        if arrFamilyMembers is Array<String> {
+                            UserDefaults.standard.set(arrFamilyMembers, forKey: Constants.UserDefaultsKey.FamilyMember_string.rawValue)
+                        }
+                    }
+                }
+            }
+        })
+    }
     // MARK: - Reachability
     
     func initReachability() {

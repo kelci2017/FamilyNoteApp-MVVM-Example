@@ -29,12 +29,8 @@ class NoteSearch: NSObject {
             let sessionid = UserDefaults.standard.string(forKey: Constants.UserDefaultsKey.Sessionid_string.rawValue)
 
             let url = "http://192.168.2.126:4000/notes/search?from=\(from)&to=\(to)&date=\(date)&sessionid=\(sessionid ?? "")"
-            let token = UserDefaults.standard.string(forKey: Constants.UserDefaultsKey.Token_string.rawValue) ?? ""
-            var dictHeaders: [String:String] = [:]
             
-            dictHeaders["authorization"] = "Bearer \(token)"
-            dictHeaders["content-type"] = "application/json"
-                networkFascilities?.dataTask(method: .GET, sURL: url, headers: dictHeaders, body: nil, completion: { (dictResponse, urlResponse, error) in
+                networkFascilities?.dataTask(method: .GET, sURL: url, headers: networkFascilities?.setHeaders(), body: nil, completion: { (dictResponse, urlResponse, error) in
                     if let response = dictResponse?["__RESPONSE__"] {
                         self.searchResult = response as! Dictionary<String, Any>
                     }
@@ -55,13 +51,8 @@ class NoteSearch: NSObject {
                 let sessionid = UserDefaults.standard.string(forKey: Constants.UserDefaultsKey.Sessionid_string.rawValue)
                 
                 let url = "http://192.168.2.126:4000/notes/globalSearch/\(sCurrentSearch)?sessionid=\(sessionid ?? "")"
-                let token = UserDefaults.standard.string(forKey: Constants.UserDefaultsKey.Token_string.rawValue) ?? ""
-                var dictHeaders: [String:String] = [:]
                 
-                dictHeaders["authorization"] = "Bearer \(token)"
-                dictHeaders["content-type"] = "application/json"
-                
-                networkFascilities?.dataTask(method: .GET, sURL: url, headers: dictHeaders, body: nil, completion: { (dictResponse, urlResponse, error) in
+                networkFascilities?.dataTask(method: .GET, sURL: url, headers: networkFascilities?.setHeaders(), body: nil, completion: { (dictResponse, urlResponse, error) in
                     
                     if let response = dictResponse?["__RESPONSE__"] {
                         self.searchResult = response as! Dictionary<String, Any>
