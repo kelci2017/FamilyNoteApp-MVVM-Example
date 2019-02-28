@@ -26,6 +26,7 @@ class NotepadViewController: RootViewController, UIPickerViewDelegate, UIPickerV
     
     let bodyNotePlaceholder = "Please enter a note here..."
     var jsonNoteCopy: NSMutableDictionary? = NSMutableDictionary()
+    var familyMemberList : Array<String> = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,9 +43,9 @@ class NotepadViewController: RootViewController, UIPickerViewDelegate, UIPickerV
         arrTextViewForElevation.append(noteBodyTextView)
         extraMarginBetweenFirstResponderAndKeyboard = 52
         
-        //self.noteBodyTextView.backgroundColor = UIColor(patternImage: UIImage(named: "notes.jpeg")!)
+        noteSubmitVM = NoteSubmit()
         
-        noteSubmitVM = NoteSubmit(networkFascilities: networkFascilities!)
+        familyMemberList = FamilyMemberManager.shared.arrFamilyMembers
         
         // Do any additional setup after loading the view.
         setKVO()
@@ -88,6 +89,18 @@ class NotepadViewController: RootViewController, UIPickerViewDelegate, UIPickerV
                 let resultCode = self?.noteSubmitVM?.submitResult["resultCode"] as! Int
                 if resultCode == 0 {
                     CommonUtil.showDialog(title: "Submitted!", message: "Your note was submitted.", viewController: self!)
+                    
+                    if (self?.senderName?.text == NoteSearch.shared.searchArray[0] || NoteSearch.shared.searchArray[0] == "All") && (self?.receiverName?.text == NoteSearch.shared.searchArray[1] || NoteSearch.shared.searchArray[1] == "All") && (Date().toString(dateFormat: "yyyy-MM-dd") == NoteSearch.shared.searchArray[2] || NoteSearch.shared.searchArray[2] == "Today") {
+                        var senderName = "All"
+                        var receiverName = "All"
+                        if self?.senderName?.text == NoteSearch.shared.searchArray[0]{
+                            senderName = NoteSearch.shared.searchArray[0]
+                        }
+                        if self?.receiverName?.text == NoteSearch.shared.searchArray[1] {
+                            receiverName = NoteSearch.shared.searchArray[1]
+                        }
+                        NoteSearch.shared.searchArray = [senderName, receiverName, Date().toString(dateFormat: "yyyy-MM-dd")]
+                    }
                     self?.senderName?.text = ""
                     self?.receiverName?.text = ""
                     self?.noteBodyTextView?.text = self?.bodyNotePlaceholder
@@ -118,7 +131,6 @@ class NotepadViewController: RootViewController, UIPickerViewDelegate, UIPickerV
     
     // MARK: - PickerView delegate
     
-    var familyMemberList = FamilyMemberManager.shared.arrFamilyMembers
     
     public func numberOfComponents(in pickerView: UIPickerView) -> Int{
         return 1

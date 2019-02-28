@@ -40,9 +40,10 @@ class NoteSubmit: NSObject {
     
     @objc dynamic var submitResult : Dictionary<String, Any> = [:]
     
-    convenience init(networkFascilities: NetworkUtil) {
-        self.init()
+    override init() {
         
-        self.networkFascilities = networkFascilities
+        self.networkFascilities = NetworkUtil()
+        
     }
+    
 }

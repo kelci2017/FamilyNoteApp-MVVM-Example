@@ -271,11 +271,9 @@ class CommonUtil: NSObject {
     class func getCurrentMonthDays() -> Int {
         let calendar = Calendar.current
         let date = Date()
+
+        let interval = calendar.dateInterval(of: .month, for: date)!
         
-        // Calculate start and end of the current year (or month with `.month`):
-        let interval = calendar.dateInterval(of: .month, for: date)! //change year it will no of days in a year , change it to month it will give no of days in a current month
-        
-        // Compute difference in days:
         let days = calendar.dateComponents([.day], from: interval.start, to: interval.end).day!
         return days
 

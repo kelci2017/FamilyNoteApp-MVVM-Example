@@ -35,7 +35,7 @@ class SigninViewController: RootViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        loginVM = Login(networkFascilities: networkFascilities!)
+        loginVM = Login()
         
         if UserDefaults.standard.string(forKey: Constants.UserDefaultsKey.UserName_string.rawValue) != nil {
             userTextField.text = UserDefaults.standard.string(forKey: Constants.UserDefaultsKey.UserName_string.rawValue)

@@ -44,9 +44,9 @@ class Logout: NSObject {
     
     @objc dynamic var logoutResult : Dictionary<String, Any> = [:]
     
-    convenience init(networkFascilities: NetworkUtil) {
-        self.init()
+    override init() {
         
-        self.networkFascilities = networkFascilities
+        self.networkFascilities = NetworkUtil()
+        
     }
 }

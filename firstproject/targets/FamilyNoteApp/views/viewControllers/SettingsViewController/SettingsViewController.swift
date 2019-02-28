@@ -25,7 +25,6 @@ class SettingsViewController: RootViewController, UITableViewDataSource, UITable
     
     var senderName = "All"
     var receiverName = "All"
-    // date = Date().toString(dateFormat: "yyyy-MM-dd")
     var selectedDate = Date().toString(dateFormat: "yyyy-MM-dd")
     var indexPathOpened: IndexPath? = nil
     
@@ -39,7 +38,7 @@ class SettingsViewController: RootViewController, UITableViewDataSource, UITable
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        logoutVM = Logout(networkFascilities: networkFascilities!)
+        logoutVM = Logout()
         
         arrSections.append((sectionTitle: "SETTINGS", arrEntries: [(tag: 0, entry: "Check notes from", detail: "", handler: #selector(changeSender)), (tag: 1, entry: "Check notes to", detail: "", handler: #selector(changeReceiver)),(tag: 2, entry: "Check notes date", detail: "", handler: #selector(changeDate)),(tag: 3, entry: "Add family members", detail: "", handler: #selector(addFamilyMembers)), (tag: 4, entry: "Logout", detail: "", handler: #selector(logout))]))
         
@@ -340,7 +339,6 @@ class SettingsViewController: RootViewController, UITableViewDataSource, UITable
     // MARK: - AllPurposeChooseViewControllerDelegate, AllPurposeChooseViewControllerDataSource
     
     func allPurposeChooseViewControllerDidSelect(section: Int, row: Int, title: String, context: Any?) {
-        // print("allPurposeChooseViewControllerDidSelect: \(section):\(row), \(title)")
         let choice = context as? String
         if choice != nil {
             if choice == "sender" {

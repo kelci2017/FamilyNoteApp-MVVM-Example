@@ -73,18 +73,7 @@ class NoteSearch: NSObject {
         
         super.init()
         
-        self.networkFascilities = NetworkUtil(sessionOwner: self)
-        
-        
-        //test()
+        self.networkFascilities = NetworkUtil()
         
     }
-    
-//    func test() {
-//        var arrResultDesc: [Dictionary<String, Any>] = []
-//        arrResultDesc.append(["_id": "ff80", "fromWhom": "Kelci", "toWhom": "Alisa", "noteBody": "test", "created":"today morning", "userID": "456a", "__v": 0])
-//        arrResultDesc.append(["_id": "733f", "fromWhom": "Kelci", "toWhom": "Alisa", "noteBody": "test", "created":"today noon", "userID": "456a", "__v": 0])
-//        searchResult["resultCode"] = 0
-//        searchResult["resultDesc"] = arrResultDesc
-//    }
 }

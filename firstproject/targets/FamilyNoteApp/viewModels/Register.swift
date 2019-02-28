@@ -42,9 +42,9 @@ class Register: NSObject {
     
     @objc dynamic var registerResult  : Dictionary<String, Any> = [:]
     
-    convenience init(networkFascilities: NetworkUtil) {
-        self.init()
+    override init() {
         
-        self.networkFascilities = networkFascilities
+        self.networkFascilities = NetworkUtil()
+        
     }
 }

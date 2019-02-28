@@ -42,9 +42,9 @@ class Login: NSObject {
     
     @objc dynamic var loginResult  : Dictionary<String, Any> = [:]
     
-    convenience init(networkFascilities: NetworkUtil) {
-        self.init()
+    override init() {
         
-        self.networkFascilities = networkFascilities
+        self.networkFascilities = NetworkUtil()
+        
     }
 }

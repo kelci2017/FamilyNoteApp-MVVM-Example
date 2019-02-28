@@ -39,7 +39,6 @@ class AddMemberViewController: RootViewController {
         familyMembersObservation = FamilyMemberManager.shared.observe(\FamilyMemberManager.postFamilyMembersResult, options: [.old, .new]) { [weak self] object, change in
             DispatchQueue.main.async { [weak self] in
                 if let resultCode = FamilyMemberManager.shared.postFamilyMembersResult["resultCode"] as? Int {
-                    //self?.baseView.isUserInteractionEnabled = true
                     if resultCode != 0 {
                         self?.showResultErrorAlert(resultCode: resultCode)
                         if resultCode == 16 {
@@ -79,10 +78,6 @@ class AddMemberViewController: RootViewController {
             FamilyMemberManager.shared.postFamilyMembers = true
             FamilyMemberManager.shared.arrFamilyMembers = arrFamilyMembers
         }
-        
-//        dismiss(animated: true, forceDismissForNavigationRoot: false) { (finished) in
-//            //
-//        }
         
     }
     

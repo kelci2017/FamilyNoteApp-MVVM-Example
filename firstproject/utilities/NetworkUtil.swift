@@ -24,13 +24,7 @@ class NetworkUtil: NSObject {
     
     weak var sessionOwner: AnyObject? = nil
     var sessionOwnerState: NetworkSessionOwnerState = .undefined
-    static var dictSessions: [String: AnyObject] = [:] // [sSessionId:sessionOwner]
-    
-    convenience init(sessionOwner owner: AnyObject?) {
-        self.init()
-        sessionOwner = owner
-        sessionOwnerState = .active
-    }
+    static var dictSessions: [String: AnyObject] = [:]
     
     class func newSessionId() -> String {
         let uuidString = NSUUID().uuidString
@@ -40,12 +34,11 @@ class NetworkUtil: NSObject {
     func dataTask(method: NetworkSessionMethod, sURL: String, headers dictHeaders: Dictionary<String, String>?, body dictBody: Dictionary<String, Any>?, completion: @escaping (Dictionary<String, Any>?, URLResponse?, Error?) -> ()) {
         let url = URL(string: sURL)
         if url != nil {
-            
-            let sSessionId = NetworkUtil.newSessionId()
+
             var dictHeaders: [String:String] = dictHeaders ?? [:]
             let contentType = dictHeaders["content-type"]
             if contentType == nil {
-                nextTask(sSessionId: sSessionId, method: method, url: url!, headers: dictHeaders, body: dictBody, completion: completion)
+                nextTask(method: method, url: url!, headers: dictHeaders, body: dictBody, completion: completion)
                 return
             }
             
@@ -56,36 +49,27 @@ class NetworkUtil: NSObject {
                 var request = URLRequest(url: tokenUrl!)
                 request.httpMethod = method.rawValue
                 DispatchQueue.main.async {
-                    NetworkUtil.mainThread_sessionWillStart(byOwner: self.sessionOwner, withSessionId: sSessionId)
                     _ = URLSession.shared.dataTask(with: request) { (data, urlResponse, error) in
                         DispatchQueue.main.asyncAfter(deadline: (.now() + .seconds(NetworkUtil.debug_resonse_delay)), execute: {
-                            let sessionOwner = NetworkUtil.dictSessions[sSessionId]
-                            NetworkUtil.mainThread_sessionDidEnd(withSessionId: sSessionId)
-                            if (sessionOwner != nil) && (self.sessionOwnerState == .active) {
                                 if let data = data,
                                     let jsonData = try? JSONSerialization.jsonObject(with: data, options: .mutableContainers) {
                                     let dictResponse = ["__RESPONSE__":jsonData]
                                     let response = dictResponse["__RESPONSE__"] as! Dictionary<String, Any>
                                     UserDefaults.standard.set(response["token"] as? String, forKey: Constants.UserDefaultsKey.Token_string.rawValue)
-                                    self.nextTask(sSessionId: sSessionId, method: method, url: url!, headers: dictHeaders, body: dictBody, completion: completion)
+                                    self.nextTask(method: method, url: url!, headers: dictHeaders, body: dictBody, completion: completion)
                                 } else {
                                     let dictResponse = ["__FAILURE__":"Response abnormal. Discarded."]
                                     completion(dictResponse, urlResponse, error)
                                 }
-                            }
-                            else {
-                                let dictResponse = ["__CANCELLED__":"Network session's owner is not active. Response discarded."]
-                                completion(dictResponse, urlResponse, error)
-                            }
                         })}.resume()
                 }
             } else {
-                nextTask(sSessionId: sSessionId, method: method, url: url!, headers: dictHeaders, body: dictBody, completion: completion)
+                nextTask(method: method, url: url!, headers: dictHeaders, body: dictBody, completion: completion)
             }
         }
     }
   
-    func nextTask(sSessionId: String, method: NetworkSessionMethod, url: URL, headers dictHeaders: Dictionary<String, String>?, body dictBody: Dictionary<String, Any>?, completion: @escaping (Dictionary<String, Any>?, URLResponse?, Error?) -> ()) {
+    func nextTask(method: NetworkSessionMethod, url: URL, headers dictHeaders: Dictionary<String, String>?, body dictBody: Dictionary<String, Any>?, completion: @escaping (Dictionary<String, Any>?, URLResponse?, Error?) -> ()) {
         var request = URLRequest(url: url)
         request.httpMethod = method.rawValue
         var dictHeaders: [String:String] = dictHeaders ?? [:]
@@ -100,12 +84,8 @@ class NetworkUtil: NSObject {
         }
 
         DispatchQueue.main.async {
-            NetworkUtil.mainThread_sessionWillStart(byOwner: self.sessionOwner, withSessionId: sSessionId)
             _ = URLSession.shared.dataTask(with: request) { (data, urlResponse, error) in
                 DispatchQueue.main.asyncAfter(deadline: (.now() + .seconds(NetworkUtil.debug_resonse_delay)), execute: {
-                    let sessionOwner = NetworkUtil.dictSessions[sSessionId]
-                    NetworkUtil.mainThread_sessionDidEnd(withSessionId: sSessionId)
-                    if (sessionOwner != nil) && (self.sessionOwnerState == .active) {
                         if let urlResponse = urlResponse,
                             let data = data,
                             let jsonData = try? JSONSerialization.jsonObject(with: data, options: .mutableContainers) {
@@ -115,26 +95,8 @@ class NetworkUtil: NSObject {
                             let dictResponse = ["__FAILURE__":"Response abnormal. Discarded."]
                             completion(dictResponse, urlResponse, error)
                         }
-                    }
-                    else {
-                        let dictResponse = ["__CANCELLED__":"Network session's owner is not active. Response discarded."]
-                        completion(dictResponse, urlResponse, error)
-                    }
                 })}.resume()
         }
-    }
-    /**
-     *  MUST be called within MAINTHREAD
-     *  owner: if nil, will use appDelegate
-     *  tag: use 0 or negative value for automatic increment
-     */
-    static func mainThread_sessionWillStart(byOwner owner: AnyObject?, withSessionId sSessionId: String) {
-        var sessionOwner = owner
-        if sessionOwner ==  nil {
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            sessionOwner = appDelegate
-        }
-        dictSessions[sSessionId] = sessionOwner
     }
     
     /**

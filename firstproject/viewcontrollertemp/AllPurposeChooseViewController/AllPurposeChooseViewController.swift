@@ -17,8 +17,8 @@ class AllPurposeChooseViewController: RootViewController, UITableViewDataSource,
     var dataSource: AllPurposeChooseViewControllerDataSource?
     var context: Any?
     var bSectional = false
-    var arrOptions: Array<String>? // [(sTitle, sDescription)]
-    var arrSectionalOptions: Array<(String, Array<String>)>? // [(sSectionTitle, [(sTitle, sDescription)])]
+    var arrOptions: Array<String>?
+    var arrSectionalOptions: Array<(String, Array<String>)>?
     
     enum Action {
         case undefined, present, push, dismiss, stay
@@ -125,17 +125,6 @@ class AllPurposeChooseViewController: RootViewController, UITableViewDataSource,
             }
         }
     }
-
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 

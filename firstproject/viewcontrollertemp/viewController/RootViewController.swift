@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RootViewController: UIViewController, AppL2DelegateProtocol, UITextFieldDelegate, UITextViewDelegate {
+class RootViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     
     var sTitle: String?
     var navigationTitleLabel: UILabel?
@@ -50,7 +50,6 @@ class RootViewController: UIViewController, AppL2DelegateProtocol, UITextFieldDe
     func initialize() {
         //do your stuff here
     }
-    // </custom init https://theswiftdev.com/2017/10/11/uikit-init-patterns/>
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,6 +63,7 @@ class RootViewController: UIViewController, AppL2DelegateProtocol, UITextFieldDe
         self.edgesForExtendedLayout = UIRectEdge()
         self.extendedLayoutIncludesOpaqueBars = false
 
+        networkFascilities = NetworkUtil()
         
         if self.navigationController != nil {
             if let backgroundColor = UIColor.color(withHexColorCode: CommonUtil.getNavigationBarBackgroundColorCode()) {
@@ -73,9 +73,6 @@ class RootViewController: UIViewController, AppL2DelegateProtocol, UITextFieldDe
             setNavigationTitleLabel(title: nil, textColor: nil, fontSize: 0)
         }
         
-        networkFascilities = NetworkUtil(sessionOwner: self)
-        wasActive = (networkFascilities!.sessionOwnerState == NetworkUtil.NetworkSessionOwnerState.active)
-        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow(notification:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide(notification:)), name: NSNotification.Name.UIKeyboardDidHide, object: nil)
@@ -84,11 +81,6 @@ class RootViewController: UIViewController, AppL2DelegateProtocol, UITextFieldDe
     override func willMove(toParentViewController parent: UIViewController?) {
         super.willMove(toParentViewController: parent)
         
-        // will be called before viewWillAppear and viewWillDisappear
-        
-        if parent == nil {
-            appDelegate.deregisterAppL2ViewControllerDelegate(delegate: self)
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -99,38 +91,21 @@ class RootViewController: UIViewController, AppL2DelegateProtocol, UITextFieldDe
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        //
-        networkFascilities?.sessionOwnerState = .active
-        wasActive = true
-        
-        if isBeingPresented {
-            appDelegate.registerAppL2ViewControllerDelegate(delegate: self)
-        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
-        //
-        networkFascilities?.sessionOwnerState = .inactive
-        wasActive = false
+
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        
-        if isBeingDismissed {
-            appDelegate.deregisterAppL2ViewControllerDelegate(delegate: self)
-        }
+
     }
     
     override func didMove(toParentViewController parent: UIViewController?) {
         super.didMove(toParentViewController: parent)
         
-        // will be called after viewDidAppear and viewDidDisappear
-        if parent != nil {
-            appDelegate.registerAppL2ViewControllerDelegate(delegate: self)
-        }
     }
     
     
@@ -215,33 +190,6 @@ class RootViewController: UIViewController, AppL2DelegateProtocol, UITextFieldDe
         else {
             navigationController?.popViewController(animated: true)
         }
-    }
-    
-    
-    // MARK: - AppL2Delegate
-    
-    func applicationWillResignActive(_ application: AppDelegate){
-        // print("TemplateViewController applicationWillResignActive")
-        wasActive = (networkFascilities?.sessionOwnerState == NetworkUtil.NetworkSessionOwnerState.active)
-    }
-    
-    func applicationDidEnterBackground(_ application: AppDelegate) {
-        // print("TemplateViewController applicationDidEnterBackground")
-    }
-    
-    func applicationWillEnterForeground(_ application: AppDelegate) {
-        // print("TemplateViewController applicationWillEnterForeground")
-    }
-    
-    func applicationDidBecomeActive(_ application: AppDelegate) {
-        // print("TemplateViewController applicationDidBecomeActive")
-        if wasActive! {
-            networkFascilities?.sessionOwnerState = .active
-        }
-    }
-    
-    func applicationWillTerminate(_ application: AppDelegate) {
-        // print("TemplateViewController applicationWillTerminate")
     }
     
     // MARK: - webservice call result processing

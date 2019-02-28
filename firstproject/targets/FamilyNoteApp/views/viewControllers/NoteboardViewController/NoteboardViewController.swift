@@ -20,7 +20,6 @@ class NoteboardViewController: RootViewController, UITableViewDataSource {
     @IBOutlet weak var localSearchSwitch: UISwitch!
     
     var noteSearchObservation : NSKeyValueObservation?
-    var noteGlobalSearchObservation : NSKeyValueObservation?
     
     var localSwitchValue = false
     var globalSwitchValue = false
@@ -41,6 +40,7 @@ class NoteboardViewController: RootViewController, UITableViewDataSource {
         tableView.register(UINib(nibName: "NoteboardNoteTableViewCell", bundle: nil), forCellReuseIdentifier: "NoteboardNoteTableViewCell")
         
         NoteSearch.shared.searchArray = ["All", "All", Date().toString(dateFormat: "yyyy-MM-dd")]
+        
         // MVVM KVO
         setKVO()
         
@@ -101,7 +101,6 @@ class NoteboardViewController: RootViewController, UITableViewDataSource {
                         })
                     } else if resultCode == 21 {
                         self?.clearSessionToken(clearSession : false, clearToken : true)
-                        //NoteSearch.shared.searchArray = ["All", "All", Date().toString(dateFormat: "yyyy-MM-dd")]
                         if let keyword = self?.searchField.text {
                             NoteSearch.shared.sCurrentSearch = keyword
                         }

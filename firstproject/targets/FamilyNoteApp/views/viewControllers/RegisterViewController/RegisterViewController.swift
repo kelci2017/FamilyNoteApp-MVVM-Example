@@ -23,7 +23,7 @@ class RegisterViewController: RootViewController {
     @IBOutlet weak var reEnterPasswordTextField: UITextField!
     @IBOutlet weak var baseView: UIView!
     
-    var registerVM = Register()
+    var registerVM : Register?
     
     var registerObservation: NSKeyValueObservation?
     
@@ -31,14 +31,14 @@ class RegisterViewController: RootViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        registerVM = Register(networkFascilities: networkFascilities!)
+        registerVM = Register()
         registerButton.setBorder(borderWidth: 0, borderColor: .orange, cornerRadius: 5)
         
-        registerObservation = registerVM.observe(\Register.registerResult, options: [.old, .new]) { [weak self] object, change in
+        registerObservation = registerVM?.observe(\Register.registerResult, options: [.old, .new]) { [weak self] object, change in
    
                 DispatchQueue.main.async { [weak self] in
                     self?.baseView.isUserInteractionEnabled = true
-                    let resultCode = self?.registerVM.registerResult["resultCode"] as! Int
+                    let resultCode = self?.registerVM?.registerResult["resultCode"] as! Int
                     if resultCode == 0 {
                         self?.dismiss(animated: true, completion: {
                             //
@@ -76,7 +76,7 @@ class RegisterViewController: RootViewController {
     jsonRegister?.setValue(emailTextfield.text?.trimmingCharacters(in: .whitespaces), forKey: Constants.UserLoginCrendentialsKey.userName.rawValue)
     jsonRegister?.setValue(enterPasswordTextfield.text?.trimmingCharacters(in: .whitespaces), forKey: Constants.UserLoginCrendentialsKey.password.rawValue)
     
-    registerVM.registerBody = jsonRegister
+    registerVM?.registerBody = jsonRegister
     self.baseView.isUserInteractionEnabled = false
     
     }

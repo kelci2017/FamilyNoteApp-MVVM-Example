@@ -16,7 +16,6 @@ class Extensions: NSObject {
 extension String {
     
     func isValidEmail() -> Bool {
-        // here, `try!` will always succeed because the pattern is valid
         let regex = try! NSRegularExpression(pattern: "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$", options: .caseInsensitive)
         return regex.firstMatch(in: self, options: [], range: NSRange(location: 0, length: count)) != nil
     }
@@ -29,8 +28,6 @@ extension String {
     }
 }
 
-
-// https://medium.com/swift2go/swift-how-to-convert-html-using-nsattributedstring-8c6ffeb7046f
 extension UIColor {
     
     var hexString:String? {
