@@ -29,3 +29,6 @@
 ![LoginScreenshot](https://github.com/kelci2017/FamilyNoteApp_ios/blob/NoteFamily_images/noteboard2.png)
 ![LoginScreenshot](https://github.com/kelci2017/FamilyNoteApp_ios/blob/NoteFamily_images/settings.png)
 ![LoginScreenshot](https://github.com/kelci2017/FamilyNoteApp_ios/blob/NoteFamily_images/settings1.png)
+![RegisterScreenshot](https://github.com/kelci2017/FamilyNoteApp-MVVM-Example/blob/NoteFamily_images/register.png)
+![AddFamilyMemberScreenshot](https://github.com/kelci2017/FamilyNoteApp-MVVM-Example/blob/NoteFamily_images/addFamilyMember.png)
+
