@@ -18,6 +18,8 @@
 
 **Demo**
 
+![Demo gif](https://github.com/kelci2017/FamilyNoteApp-MVVM-Example/blob/NoteFamily_images/part1.gif)
+![Demo gif](https://github.com/kelci2017/FamilyNoteApp-MVVM-Example/blob/NoteFamily_images/part2.gif)
 ![LoginScreenshot](https://github.com/kelci2017/FamilyNoteApp_ios/blob/NoteFamily_images/login.png)
 ![LoginScreenshot](https://github.com/kelci2017/FamilyNoteApp_ios/blob/NoteFamily_images/notepad.png)
 ![LoginScreenshot](https://github.com/kelci2017/FamilyNoteApp_ios/blob/NoteFamily_images/noteboard.png)
