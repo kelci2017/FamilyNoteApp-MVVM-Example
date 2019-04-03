@@ -5,6 +5,13 @@
 **Ideas**
 
 * The FamilyNoteApp was created with MVVM design
+* When user logged in, user will get userid, sessionid and JWT token from server, and all these will be saved locally. The sessionid and token will be cleared once user logout.
+* When the session timeout, the app will go back to the login page
+* If token was expired, new token will be fetched first from server, then web service calls will use the new token as header to fetch info it needed from server.
+
+**Overview**
+
+
 * When user logedin and come to the noteboard, the notesearchviewmodel will be triggered to call the server to get all the initial today's notes and shown on the noteboard. If choose local search, the search content is the one on the screen, if choose global search, notesearchmodel will be triggered to call the server with input keywords and shown on the noteboard.
 * If user click the notepad, user can submit a new note. When a note submmited, if you user come back to the noteboard, the new note will be shown beacause of observer in the noteboard.
 * When user come to the settings, filter by from, to or date, then go back to noteboard, it shows the filtered notes by seleted from ,to and date.
