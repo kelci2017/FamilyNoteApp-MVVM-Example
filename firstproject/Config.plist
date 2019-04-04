@@ -2,6 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>ServerUrl</key>
+	<array>
+		<string>http://192.168.1.177:4000</string>
+		<string>http://192.168.1.177:4000</string>
+		<string>http://192.168.2.126:4000</string>
+	</array>
 	<key>Target</key>
 	<dict>
 		<key>Index</key>

@@ -22,7 +22,7 @@ class Logout: NSObject {
                 
                 let sessionid = UserDefaults.standard.string(forKey: Constants.UserDefaultsKey.Sessionid_string.rawValue) ?? ""
                 
-                let url = "http://192.168.2.126:4000/auth/sign_out?sessionid=\(sessionid)"
+                let url = CommonUtil.getConfigServerUrl()! + "/auth/sign_out?sessionid=\(sessionid)"
                 
                 networkFascilities?.dataTask(method: .GET, sURL: url, headers: networkFascilities?.setHeaders(), body: nil, completion: { (dictResponse, urlResponse, error) in
                     

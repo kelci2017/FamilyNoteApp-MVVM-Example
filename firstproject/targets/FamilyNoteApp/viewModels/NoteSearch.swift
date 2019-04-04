@@ -28,7 +28,8 @@ class NoteSearch: NSObject {
             let date = searchArray[2]
             let sessionid = UserDefaults.standard.string(forKey: Constants.UserDefaultsKey.Sessionid_string.rawValue)
 
-            let url = "http://192.168.2.126:4000/notes/search?from=\(from)&to=\(to)&date=\(date)&sessionid=\(sessionid ?? "")"
+            let url = CommonUtil.getConfigServerUrl()! + "/notes/search?from=\(from)&to=\(to)&date=\(date)&sessionid=\(sessionid ?? "")"
+            print("url at search is: \(String(url))")
             
                 networkFascilities?.dataTask(method: .GET, sURL: url, headers: networkFascilities?.setHeaders(), body: nil, completion: { (dictResponse, urlResponse, error) in
                     if let response = dictResponse?["__RESPONSE__"] {
@@ -50,7 +51,7 @@ class NoteSearch: NSObject {
                 
                 let sessionid = UserDefaults.standard.string(forKey: Constants.UserDefaultsKey.Sessionid_string.rawValue)
                 
-                let url = "http://192.168.2.126:4000/notes/globalSearch/\(sCurrentSearch)?sessionid=\(sessionid ?? "")"
+                let url = CommonUtil.getConfigServerUrl()! + "/notes/globalSearch/\(sCurrentSearch)?sessionid=\(sessionid ?? "")"
                 
                 networkFascilities?.dataTask(method: .GET, sURL: url, headers: networkFascilities?.setHeaders(), body: nil, completion: { (dictResponse, urlResponse, error) in
                     

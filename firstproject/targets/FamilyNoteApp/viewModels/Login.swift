@@ -21,7 +21,7 @@ class Login: NSObject {
         didSet {
             if loginBody != nil {
                 print("loginBody: \(String(describing: loginBody))")
-                let url = "http://192.168.2.126:4000/auth/sign_in"
+                let url = CommonUtil.getConfigServerUrl()! + "/auth/sign_in"
                 
                 networkFascilities?.dataTask(method: .POST, sURL: url, headers: nil, body: loginBody as? Dictionary<String, String>, completion: { (dictResponse, urlResponse, error) in
                     print("login web service was called")
@@ -29,9 +29,11 @@ class Login: NSObject {
                         self.loginResult = response as! Dictionary<String, Any>
                         if let resultCode = self.loginResult["resultCode"] as? Int {
                             if resultCode == 0 {
+                                print("login success")
                                  UserDefaults.standard.set(self.loginResult["token"] as? String, forKey: Constants.UserDefaultsKey.Token_string.rawValue)
                                 UserDefaults.standard.set(self.loginResult["sessionID"] as? String, forKey: Constants.UserDefaultsKey.Sessionid_string.rawValue)
                                 UserDefaults.standard.set(self.loginResult["userID"] as? String, forKey: Constants.UserDefaultsKey.Userid_string.rawValue)
+                                print("loginin userid is: \(String(describing: self.loginResult["userID"]))")
                             }
                         }
                     }

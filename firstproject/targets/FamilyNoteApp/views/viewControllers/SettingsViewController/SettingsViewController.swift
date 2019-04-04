@@ -25,7 +25,7 @@ class SettingsViewController: RootViewController, UITableViewDataSource, UITable
     
     var senderName = "All"
     var receiverName = "All"
-    var selectedDate = Date().toString(dateFormat: "yyyy-MM-dd")
+    var selectedDate = Date().toString(dateFormat: "yyyy-MM-d")
     var indexPathOpened: IndexPath? = nil
     
     var checkNotesDate: String = "Today"
@@ -317,7 +317,7 @@ class SettingsViewController: RootViewController, UITableViewDataSource, UITable
                             let year = calendar.component(.year, from: newDate)
                             let month = calendar.component(.month, from: newDate)
 
-                            checkNotesDate = CommonUtil.generateDate(year: year, month: month, day:label.tag).toString(dateFormat: "yyyy-MM-dd")
+                            checkNotesDate = CommonUtil.generateDate(year: year, month: month, day:label.tag).toString(dateFormat: "yyyy-MM-d")
                             selectedDate = checkNotesDate
                             cell.alDateListTopPaddingViewHeight.constant = 0
                             cell.alDateHeight.constant = 0

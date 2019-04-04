@@ -202,6 +202,30 @@ class CommonUtil: NSObject {
         return sStartingView
     }
     
+    fileprivate static var configServerUrl: String? = nil
+    @discardableResult
+    class func getConfigServerUrl() -> String? {
+        if configServerUrl != nil {
+            return configServerUrl
+        }
+        
+        if dictConfigPlist == nil {
+            getConfigPlist()
+        }
+        guard dictConfigPlist != nil else {
+            return nil
+        }
+        
+        let serverUrlArray = dictConfigPlist!["ServerUrl"] as? Array<String>
+        guard serverUrlArray != nil else {
+            return nil
+        }
+        configServerUrl = serverUrlArray![0]
+        return configServerUrl
+    }
+    
+    // MARK: - NavigationBarBackgroundColorCode
+    
     fileprivate static var sNavigationBarBackgroundColorCode: NSString? = nil
     class func getNavigationBarBackgroundColorCode() -> NSString? {
         if sNavigationBarBackgroundColorCode != nil {
@@ -268,6 +292,8 @@ class CommonUtil: NSObject {
         return sNavigationBarForegroundColorCode
     }
     
+    // MARK: - Month Date
+    
     class func getCurrentMonthDays() -> Int {
         let calendar = Calendar.current
         let date = Date()
@@ -284,13 +310,15 @@ class CommonUtil: NSObject {
         
         var dateComponents = DateComponents()
         dateComponents.year = year
-        dateComponents.month = month
+        dateComponents.month = month        
         dateComponents.day = day
         
         let date = gregorianCalendar.date(from: dateComponents)!
         
         return date
     }
+    
+    // MARK: - Special Characters
     
     class func hasSpecialCharacters(string: String) -> Bool {
         

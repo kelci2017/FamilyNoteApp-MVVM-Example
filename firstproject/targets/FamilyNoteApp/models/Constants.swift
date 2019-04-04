@@ -19,6 +19,7 @@ class Constants: NSObject {
         case Sessionid_string = "Sessionid_string"
         case Token_string = "Token_string"
         case Userid_string = "Userid_string"
+        case DeviceUUID_string = "DeviceUUID_string"
     }
     
     enum UserLoginCrendentialsKey : String {

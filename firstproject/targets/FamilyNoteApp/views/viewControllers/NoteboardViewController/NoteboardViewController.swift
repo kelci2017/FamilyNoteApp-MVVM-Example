@@ -39,7 +39,7 @@ class NoteboardViewController: RootViewController, UITableViewDataSource {
         
         tableView.register(UINib(nibName: "NoteboardNoteTableViewCell", bundle: nil), forCellReuseIdentifier: "NoteboardNoteTableViewCell")
         
-        NoteSearch.shared.searchArray = ["All", "All", Date().toString(dateFormat: "yyyy-MM-dd")]
+        NoteSearch.shared.searchArray = ["All", "All", Date().toString(dateFormat: "yyyy-MM-d")]
         
         // MVVM KVO
         setKVO()

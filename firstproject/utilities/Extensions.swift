@@ -191,3 +191,16 @@ extension Date
     }
     
 }
+
+extension UIDevice
+{
+    func uuid() -> String {
+        if let uuidString = UserDefaults.standard.string(forKey: Constants.UserDefaultsKey.DeviceUUID_string.rawValue) {
+            return uuidString
+        }
+        
+        let uuidString = UUID().uuidString
+        UserDefaults.standard.set(uuidString, forKey: Constants.UserDefaultsKey.DeviceUUID_string.rawValue)
+        return uuidString
+    }
+}

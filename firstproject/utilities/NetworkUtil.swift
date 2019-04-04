@@ -44,7 +44,7 @@ class NetworkUtil: NSObject {
             
             if dictHeaders["authorization"] == nil {
                 let sessionid = UserDefaults.standard.string(forKey: Constants.UserDefaultsKey.Sessionid_string.rawValue) ?? ""
-                let getTokenUrl = "http://192.168.2.126:4000/auth/getToken?sessionid=\(sessionid)"
+                let getTokenUrl = CommonUtil.getConfigServerUrl()! + "/auth/getToken?sessionid=\(sessionid)"
                 let tokenUrl = URL(string: getTokenUrl)
                 var request = URLRequest(url: tokenUrl!)
                 request.httpMethod = method.rawValue

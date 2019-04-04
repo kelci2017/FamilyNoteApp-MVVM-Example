@@ -19,7 +19,7 @@ class Register: NSObject {
         }
         didSet {
             if registerBody != nil {
-                let url = "http://192.168.2.126:4000/auth/register"
+                let url = CommonUtil.getConfigServerUrl()! + "/auth/register"
                 
                 print("registerBody: \(String(describing: registerBody))")
                 

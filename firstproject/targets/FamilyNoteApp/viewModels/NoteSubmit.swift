@@ -24,7 +24,7 @@ class NoteSubmit: NSObject {
                 
                 print("the sessionid is at the submite note: \(String(describing: sessionid))")
                 
-                let url = "http://192.168.2.126:4000/notes/create?sessionid=\(sessionid)"
+                let url = CommonUtil.getConfigServerUrl()! + "/notes/create?sessionid=\(sessionid)&deviceid=\(UIDevice.current.uuid())"
                 
                 networkFascilities?.dataTask(method: .POST, sURL: url, headers: networkFascilities?.setHeaders(), body: submittedNote as? Dictionary<String, String>, completion: { (dictResponse, urlResponse, error) in
                     

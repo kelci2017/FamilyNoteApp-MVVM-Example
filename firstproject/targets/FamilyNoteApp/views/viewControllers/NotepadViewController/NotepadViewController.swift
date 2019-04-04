@@ -59,7 +59,7 @@ class NotepadViewController: RootViewController, UIPickerViewDelegate, UIPickerV
         }
         
         let jsonNote: NSMutableDictionary? = NSMutableDictionary()
-        let date = Date().toString(dateFormat: "yyyy-MM-dd")
+        let date = Date().toString(dateFormat: "yyyy-MM-d")
         
         jsonNote?.setValue(senderName.text, forKey: Constants.NoteKey.sender.rawValue)
         jsonNote?.setValue(receiverName.text, forKey: Constants.NoteKey.receiver.rawValue)
@@ -90,7 +90,7 @@ class NotepadViewController: RootViewController, UIPickerViewDelegate, UIPickerV
                 if resultCode == 0 {
                     CommonUtil.showDialog(title: "Submitted!", message: "Your note was submitted.", viewController: self!)
                     
-                    if (self?.senderName?.text == NoteSearch.shared.searchArray[0] || NoteSearch.shared.searchArray[0] == "All") && (self?.receiverName?.text == NoteSearch.shared.searchArray[1] || NoteSearch.shared.searchArray[1] == "All") && (Date().toString(dateFormat: "yyyy-MM-dd") == NoteSearch.shared.searchArray[2] || NoteSearch.shared.searchArray[2] == "Today") {
+                    if (self?.senderName?.text == NoteSearch.shared.searchArray[0] || NoteSearch.shared.searchArray[0] == "All") && (self?.receiverName?.text == NoteSearch.shared.searchArray[1] || NoteSearch.shared.searchArray[1] == "All") && (Date().toString(dateFormat: "yyyy-MM-d") == NoteSearch.shared.searchArray[2] || NoteSearch.shared.searchArray[2] == "Today") {
                         var senderName = "All"
                         var receiverName = "All"
                         if self?.senderName?.text == NoteSearch.shared.searchArray[0]{
@@ -99,7 +99,7 @@ class NotepadViewController: RootViewController, UIPickerViewDelegate, UIPickerV
                         if self?.receiverName?.text == NoteSearch.shared.searchArray[1] {
                             receiverName = NoteSearch.shared.searchArray[1]
                         }
-                        NoteSearch.shared.searchArray = [senderName, receiverName, Date().toString(dateFormat: "yyyy-MM-dd")]
+                        NoteSearch.shared.searchArray = [senderName, receiverName, Date().toString(dateFormat: "yyyy-MM-d")]
                     }
                     self?.senderName?.text = ""
                     self?.receiverName?.text = ""

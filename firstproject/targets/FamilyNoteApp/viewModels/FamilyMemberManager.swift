@@ -27,7 +27,7 @@ class FamilyMemberManager: NSObject {
                 let sessionid = UserDefaults.standard.string(forKey: Constants.UserDefaultsKey.Sessionid_string.rawValue)
                 let userid = UserDefaults.standard.string(forKey: Constants.UserDefaultsKey.Userid_string.rawValue)
                 
-                let url = "http://192.168.2.126:4000/auth/familyMembers?sessionid=\(sessionid ?? "")"
+                let url = CommonUtil.getConfigServerUrl()! + "/auth/familyMembers?sessionid=\(sessionid ?? "")"
                 
                 var userFamilyMembers : Dictionary<String, Any> = [:]
                 userFamilyMembers["userID"] = userid
@@ -61,7 +61,7 @@ class FamilyMemberManager: NSObject {
     func loadFamilyMembers() {
         let sessionid = UserDefaults.standard.string(forKey: Constants.UserDefaultsKey.Sessionid_string.rawValue)
         
-        let url = "http://192.168.2.126:4000/auth/familyMembers?sessionid=\(sessionid ?? "")"
+        let url = CommonUtil.getConfigServerUrl()! + "/auth/familyMembers?sessionid=\(sessionid ?? "")"
 
         networkFascilities?.dataTask(method: .GET, sURL: url, headers: networkFascilities?.setHeaders(), body: nil, completion: { (dictResponse, urlResponse, error) in
             if let response = dictResponse?["__RESPONSE__"] {
