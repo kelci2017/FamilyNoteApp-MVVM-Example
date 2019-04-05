@@ -4,7 +4,7 @@
 <dict>
 	<key>ServerUrl</key>
 	<array>
-		<string>http://192.168.1.177:4000</string>
+		<string>http://jacob.jandjzone.com:9110</string>
 		<string>http://192.168.1.177:4000</string>
 		<string>http://192.168.2.126:4000</string>
 	</array>

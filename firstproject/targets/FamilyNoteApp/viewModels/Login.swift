@@ -20,7 +20,6 @@ class Login: NSObject {
         }
         didSet {
             if loginBody != nil {
-                print("loginBody: \(String(describing: loginBody))")
                 let url = CommonUtil.getConfigServerUrl()! + "/auth/sign_in"
                 
                 networkFascilities?.dataTask(method: .POST, sURL: url, headers: nil, body: loginBody as? Dictionary<String, String>, completion: { (dictResponse, urlResponse, error) in
