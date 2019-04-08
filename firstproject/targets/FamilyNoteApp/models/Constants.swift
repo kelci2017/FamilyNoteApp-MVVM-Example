@@ -51,4 +51,10 @@ class Constants: NSObject {
         case keyInvalid = "Invalid key!"
         case wrongTokenScheme = "Wrong token scheme!"
     }
+    
+    enum ErrorCode : Int {
+        case success = 0
+        case timeout = 16
+        case tokenExpired = 21
+    }
 }

@@ -67,18 +67,18 @@ class SettingsViewController: RootViewController, UITableViewDataSource, UITable
             //check the logout result fail or success
                 DispatchQueue.main.async { [weak self] in
                     let resultCode = self?.logoutVM?.logoutResult["resultCode"] as! Int
-                    if resultCode == 0 {
+                    if resultCode == Constants.ErrorCode.success.rawValue {
                         self?.tabBarController?.dismiss(animated: true, completion: {
                             //
                         })
                     }
                     else {
-                        if resultCode == 16 {
+                        if resultCode == Constants.ErrorCode.timeout.rawValue {
                             self?.clearSessionToken(clearSession : true, clearToken : true)
                             self?.tabBarController?.dismiss(animated: true, completion: {
                                 //
                             })
-                        } else if resultCode == 21 {
+                        } else if resultCode == Constants.ErrorCode.tokenExpired.rawValue {
                             self?.clearSessionToken(clearSession : false, clearToken : true)
                             self?.logoutVM?.loggedout = true
                         }
@@ -92,14 +92,14 @@ class SettingsViewController: RootViewController, UITableViewDataSource, UITable
             DispatchQueue.main.async { [weak self] in
                 self?.baseView.isUserInteractionEnabled = true
                 let resultCode = NoteSearch.shared.searchResult["resultCode"] as! Int
-                if resultCode != 0 {
+                if resultCode != Constants.ErrorCode.success.rawValue {
                     self?.showResultErrorAlert(resultCode: resultCode)
-                    if resultCode == 16 {
+                    if resultCode == Constants.ErrorCode.timeout.rawValue {
                         self?.clearSessionToken(clearSession : true, clearToken : true)
                         self?.tabBarController?.dismiss(animated: true, completion: {
                             //
                         })
-                    } else if resultCode == 21 {
+                    } else if resultCode == Constants.ErrorCode.tokenExpired.rawValue {
                         self?.clearSessionToken(clearSession : false, clearToken : true)
                         NoteSearch.shared.searchArray = [self?.senderName, self?.receiverName, self?.selectedDate] as! [String]
                     }

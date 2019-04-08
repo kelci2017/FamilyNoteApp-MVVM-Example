@@ -92,14 +92,14 @@ class NoteboardViewController: RootViewController, UITableViewDataSource {
         DispatchQueue.main.async { [weak self] in
             if let resultCode = NoteSearch.shared.searchResult["resultCode"] as? Int {
                 self?.baseView.isUserInteractionEnabled = true
-                if resultCode != 0 {
+                if resultCode != Constants.ErrorCode.success.rawValue {
                     self?.showResultErrorAlert(resultCode: resultCode)
-                    if resultCode == 16 {
+                    if resultCode == Constants.ErrorCode.timeout.rawValue {
                         self?.clearSessionToken(clearSession : true, clearToken : true)
                         self?.tabBarController?.dismiss(animated: true, completion: {
                             //
                         })
-                    } else if resultCode == 21 {
+                    } else if resultCode == Constants.ErrorCode.tokenExpired.rawValue {
                         self?.clearSessionToken(clearSession : false, clearToken : true)
                         if let keyword = self?.searchField.text {
                             NoteSearch.shared.sCurrentSearch = keyword

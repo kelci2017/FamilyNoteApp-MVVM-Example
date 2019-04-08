@@ -39,7 +39,7 @@ class RegisterViewController: RootViewController {
                 DispatchQueue.main.async { [weak self] in
                     self?.baseView.isUserInteractionEnabled = true
                     let resultCode = self?.registerVM?.registerResult["resultCode"] as! Int
-                    if resultCode == 0 {
+                    if resultCode == Constants.ErrorCode.success.rawValue {
                         self?.dismiss(animated: true, completion: {
                             //
                         })

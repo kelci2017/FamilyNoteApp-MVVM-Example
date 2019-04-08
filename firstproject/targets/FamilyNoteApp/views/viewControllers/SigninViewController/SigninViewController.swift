@@ -47,7 +47,7 @@ class SigninViewController: RootViewController {
             //check the result is true or false
             self?.baseView.isUserInteractionEnabled = true
             if let resultCode = self?.loginVM?.loginResult["resultCode"] as? Int {
-                if resultCode == 0 {
+                if resultCode == Constants.ErrorCode.success.rawValue {
                     self?.dismiss(animated: true, completion: {
                         //
                     })

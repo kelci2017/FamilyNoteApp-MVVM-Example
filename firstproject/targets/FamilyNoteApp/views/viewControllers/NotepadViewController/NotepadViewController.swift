@@ -87,7 +87,7 @@ class NotepadViewController: RootViewController, UIPickerViewDelegate, UIPickerV
                 self?.baseView.isUserInteractionEnabled = true
                 
                 let resultCode = self?.noteSubmitVM?.submitResult["resultCode"] as! Int
-                if resultCode == 0 {
+                if resultCode == Constants.ErrorCode.success.rawValue {
                     CommonUtil.showDialog(title: "Submitted!", message: "Your note was submitted.", viewController: self!)
                     
                     if (self?.senderName?.text == NoteSearch.shared.searchArray[0] || NoteSearch.shared.searchArray[0] == "All") && (self?.receiverName?.text == NoteSearch.shared.searchArray[1] || NoteSearch.shared.searchArray[1] == "All") && (Date().toString(dateFormat: "yyyy-MM-dd") == NoteSearch.shared.searchArray[2] || NoteSearch.shared.searchArray[2] == "Today") {
@@ -107,12 +107,12 @@ class NotepadViewController: RootViewController, UIPickerViewDelegate, UIPickerV
                 }
                 else {
                     self?.showResultErrorAlert(resultCode: resultCode)
-                    if resultCode == 16 {
+                    if resultCode == Constants.ErrorCode.timeout.rawValue {
                         self?.clearSessionToken(clearSession : true, clearToken : true)
                         self?.tabBarController?.dismiss(animated: true, completion: {
                             //
                         })
-                    } else if resultCode == 21 {
+                    } else if resultCode == Constants.ErrorCode.tokenExpired.rawValue {
                         self?.clearSessionToken(clearSession : false, clearToken : true)
                         self?.noteSubmitVM?.submittedNote = self?.jsonNoteCopy
                     }

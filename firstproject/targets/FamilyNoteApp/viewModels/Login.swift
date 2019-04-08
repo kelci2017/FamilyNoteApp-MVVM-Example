@@ -27,7 +27,7 @@ class Login: NSObject {
                     if let response = dictResponse?["__RESPONSE__"] {
                         self.loginResult = response as! Dictionary<String, Any>
                         if let resultCode = self.loginResult["resultCode"] as? Int {
-                            if resultCode == 0 {
+                            if resultCode == Constants.ErrorCode.success.rawValue{
                                 print("login success")
                                  UserDefaults.standard.set(self.loginResult["token"] as? String, forKey: Constants.UserDefaultsKey.Token_string.rawValue)
                                 UserDefaults.standard.set(self.loginResult["sessionID"] as? String, forKey: Constants.UserDefaultsKey.Sessionid_string.rawValue)

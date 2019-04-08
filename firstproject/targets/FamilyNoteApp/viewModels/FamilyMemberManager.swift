@@ -67,11 +67,11 @@ class FamilyMemberManager: NSObject {
             if let response = dictResponse?["__RESPONSE__"] {
                 var responseCopy = response as! Dictionary<String, Any>
                 if let resultCode = responseCopy["resultCode"] as? Int {
-                    if resultCode != 0 {
-                        if resultCode == 16 {
+                    if resultCode != Constants.ErrorCode.success.rawValue {
+                        if resultCode == Constants.ErrorCode.timeout.rawValue {
                             UserDefaults.standard.set(nil, forKey: Constants.UserDefaultsKey.Token_string.rawValue)
                             UserDefaults.standard.set(nil, forKey: Constants.UserDefaultsKey.Sessionid_string.rawValue)
-                        } else if resultCode == 21 {
+                        } else if resultCode == Constants.ErrorCode.tokenExpired.rawValue {
                             UserDefaults.standard.set(nil, forKey: Constants.UserDefaultsKey.Token_string.rawValue)
                         }
                     } else {

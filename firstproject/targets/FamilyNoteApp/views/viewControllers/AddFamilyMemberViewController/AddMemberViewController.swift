@@ -39,14 +39,14 @@ class AddMemberViewController: RootViewController {
         familyMembersObservation = FamilyMemberManager.shared.observe(\FamilyMemberManager.postFamilyMembersResult, options: [.old, .new]) { [weak self] object, change in
             DispatchQueue.main.async { [weak self] in
                 if let resultCode = FamilyMemberManager.shared.postFamilyMembersResult["resultCode"] as? Int {
-                    if resultCode != 0 {
+                    if resultCode != Constants.ErrorCode.success.rawValue {
                         self?.showResultErrorAlert(resultCode: resultCode)
-                        if resultCode == 16 {
+                        if resultCode == Constants.ErrorCode.timeout.rawValue {
                             self?.clearSessionToken(clearSession : true, clearToken : true)
                             self?.tabBarController?.dismiss(animated: true, completion: {
                                 //
                             })
-                        } else if resultCode == 21 {
+                        } else if resultCode == Constants.ErrorCode.tokenExpired.rawValue {
                             self?.clearSessionToken(clearSession : false, clearToken : true)
                             if self?.arrFamilyMembers.count ?? 0 > 0 {
                                 FamilyMemberManager.shared.arrFamilyMembers = self?.arrFamilyMembers ?? []
