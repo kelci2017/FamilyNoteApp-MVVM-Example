@@ -42,6 +42,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        
+        // for FamilyNote only
+        if (Bundle.main.bundleIdentifier == "com.kelci.FamilyNote") && (UIDevice.current.userInterfaceIdiom == .phone) {
+            return .portrait
+        }
+        
         return UIFascilities.lockedOrientation
     }
     
