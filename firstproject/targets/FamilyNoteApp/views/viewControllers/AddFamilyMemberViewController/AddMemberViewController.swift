@@ -92,6 +92,9 @@ class AddMemberViewController: RootViewController {
         }
         
         if arrSavedFamilyMembers.contains(name) {
+            self.dismiss(animated: true, forceDismissForNavigationRoot: false) { (finished) in
+                //
+            }
             return
         }
         

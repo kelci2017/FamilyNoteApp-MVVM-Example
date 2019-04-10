@@ -42,6 +42,9 @@ class SigninViewController: RootViewController {
         }
         
         loginButton.setBorder(borderWidth: 0, borderColor: .orange, cornerRadius: 5)
+        userTextField.delegate = self
+        passwordTextField.delegate = self
+        extraMarginBetweenFirstResponderAndKeyboard = 146
         
         loginObservation = loginVM?.observe(\Login.loginResult, options: [.old, .new]) { [weak self] object, change in
             //check the result is true or false

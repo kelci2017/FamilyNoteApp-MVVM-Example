@@ -75,13 +75,13 @@
                                         <action selector="globalSearchSwitchValueChanged:" destination="-1" eventType="valueChanged" id="jXE-G2-6aQ"/>
                                     </connections>
                                 </switch>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Global search" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V24-hi-sCK">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Search" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V24-hi-sCK">
                                     <rect key="frame" x="2" y="22" width="89" height="18"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Local search" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NTT-4m-UsR">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Filter" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NTT-4m-UsR">
                                     <rect key="frame" x="868" y="22" width="87" height="18"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -104,7 +104,7 @@
                                 <constraint firstItem="NTT-4m-UsR" firstAttribute="baseline" secondItem="V24-hi-sCK" secondAttribute="baseline" id="ftL-CS-F4d"/>
                                 <constraint firstItem="ulI-rc-ogh" firstAttribute="leading" secondItem="V24-hi-sCK" secondAttribute="trailing" constant="2" id="l9o-Mv-Se1"/>
                                 <constraint firstItem="cmc-KM-icc" firstAttribute="top" secondItem="NTT-4m-UsR" secondAttribute="bottom" constant="19" id="mxU-tU-8Fh"/>
-                                <constraint firstItem="ulI-rc-ogh" firstAttribute="leading" secondItem="FTL-VU-688" secondAttribute="leading" constant="93" id="ruE-3F-2In"/>
+                                <constraint firstItem="V24-hi-sCK" firstAttribute="leading" secondItem="FTL-VU-688" secondAttribute="leading" constant="2" id="rNh-2z-Pdg"/>
                                 <constraint firstItem="NTT-4m-UsR" firstAttribute="centerY" secondItem="tsD-1M-fB6" secondAttribute="centerY" id="wge-BU-H2P"/>
                                 <constraint firstItem="cmc-KM-icc" firstAttribute="top" secondItem="tsD-1M-fB6" secondAttribute="bottom" constant="13" id="xYW-HR-94O"/>
                             </constraints>
