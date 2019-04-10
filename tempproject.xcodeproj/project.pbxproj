@@ -18,6 +18,7 @@
 		4114FBE52217137900EB8ED8 /* SettingsChooseDateTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4114FBE32217137900EB8ED8 /* SettingsChooseDateTableViewCell.xib */; };
 		414CB2302227370D00068CCB /* boardnote.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 414CB22F2227370D00068CCB /* boardnote.jpg */; };
 		414CB23222273B7500068CCB /* hellokittypin.png in Resources */ = {isa = PBXBuildFile; fileRef = 414CB23122273B7500068CCB /* hellokittypin.png */; };
+		414CB236225E65E300068CCB /* ic_familynote 1024.png in Resources */ = {isa = PBXBuildFile; fileRef = 414CB235225E65E300068CCB /* ic_familynote 1024.png */; };
 		4158335F21CC32230052C36D /* SchedulerClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4158335E21CC32230052C36D /* SchedulerClass.swift */; };
 		4158336221CD464B0052C36D /* Home2Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4158336021CD464B0052C36D /* Home2Page.swift */; };
 		4158336321CD464B0052C36D /* Home2Page.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4158336121CD464B0052C36D /* Home2Page.xib */; };
@@ -122,6 +123,7 @@
 		4114FBE32217137900EB8ED8 /* SettingsChooseDateTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsChooseDateTableViewCell.xib; sourceTree = "<group>"; };
 		414CB22F2227370D00068CCB /* boardnote.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = boardnote.jpg; sourceTree = "<group>"; };
 		414CB23122273B7500068CCB /* hellokittypin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hellokittypin.png; sourceTree = "<group>"; };
+		414CB235225E65E300068CCB /* ic_familynote 1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_familynote 1024.png"; sourceTree = "<group>"; };
 		4158335E21CC32230052C36D /* SchedulerClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulerClass.swift; sourceTree = "<group>"; };
 		4158336021CD464B0052C36D /* Home2Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home2Page.swift; sourceTree = "<group>"; };
 		4158336121CD464B0052C36D /* Home2Page.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Home2Page.xib; sourceTree = "<group>"; };
@@ -451,6 +453,7 @@
 		418E8E3B220CD69000994124 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				414CB235225E65E300068CCB /* ic_familynote 1024.png */,
 				41D7E6172225D504002E4E3A /* familyNote-2.jpg */,
 				41D7E6132225A110002E4E3A /* FamilyNoteLogin.png */,
 				417B12D22220966A00F43C8A /* return.png */,
@@ -822,6 +825,7 @@
 				E184856821C409430025C870 /* FirstPage.xib in Resources */,
 				417B12D32220966A00F43C8A /* return.png in Resources */,
 				416DDCEB2212043D00409B63 /* AddMemberViewController.xib in Resources */,
+				414CB236225E65E300068CCB /* ic_familynote 1024.png in Resources */,
 				E1546BD821C02325008590F6 /* LaunchScreen.storyboard in Resources */,
 				E184856B21C40C890025C870 /* user.png in Resources */,
 				416DDCE62212037A00409B63 /* AllPurposeChooseViewController.xib in Resources */,
