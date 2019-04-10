@@ -42,7 +42,7 @@ class SettingsViewController: RootViewController, UITableViewDataSource, UITable
         
         arrSections.append((sectionTitle: "SETTINGS", arrEntries: [(tag: 0, entry: "Check notes from", detail: "", handler: #selector(changeSender)), (tag: 1, entry: "Check notes to", detail: "", handler: #selector(changeReceiver)),(tag: 2, entry: "Check notes date", detail: "", handler: #selector(changeDate)),(tag: 3, entry: "Add family members", detail: "", handler: #selector(addFamilyMembers)), (tag: 4, entry: "Logout", detail: "", handler: #selector(logout))]))
         
-        arrSections.append((sectionTitle: "ABOUT", arrEntries: [(tag: 100, entry: "Version", detail: "1.0", handler: #selector(showVersion))]))
+        arrSections.append((sectionTitle: "ABOUT", arrEntries: [(tag: 100, entry: "Version", detail: "\(Bundle.main.releaseVersionNumber ?? "0.0.0")", handler: #selector(showVersion))]))
         
         tableView.register(UINib(nibName: "SettingsChooseDateTableViewCell", bundle: nil), forCellReuseIdentifier: "SettingsChooseDateTableViewCell")
         tableView.dataSource = self
